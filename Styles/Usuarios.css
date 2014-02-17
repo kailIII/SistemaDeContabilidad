@@ -1,0 +1,32 @@
+﻿.fieldContainer {
+    width: 100%;
+}
+
+.lblContainer {
+    margin-left: 1%;
+    width: 90%;
+    float: left;
+}
+
+.txtContainer {
+    margin-left: 1%;
+    width: 90%;
+    float: left;
+}
+
+.users_table{
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-top: 2%;
+}
+
+.txtContainer:disabled {
+    background:#dddddd;   
+}
+
+.error
+{
+    float: left;
+    width: 90%;
+}
