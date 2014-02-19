@@ -1,0 +1,46 @@
+﻿.fieldContainer {
+    width: 100%;
+    float: left;
+}
+
+.lblContainer {
+    margin-left: 1%;
+    width: 90%;
+    float: left;
+}
+
+.txtContainer {
+    margin-left: 1%;
+    width: 90%;
+    float: left;
+}
+
+.txtContainer:disabled {
+    background:#dddddd;   
+}
+
+.error
+{
+    float: left;
+    width: 90%;
+}
+
+.divider {
+    border: 1px solid #CB852F;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    float:left;
+    width: 100%;
+}
+
+#btnAcCa {
+    width: 100%;
+    float: left;
+}
+
+.grid_general{
+    width: 100%;
+    float: left;
+    text-align: center;
+    margin-top: 2%;
+}
