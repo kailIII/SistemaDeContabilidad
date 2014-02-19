@@ -142,7 +142,7 @@
 
         </div>
 
-                <div id="popUpDelete">
+                <div id="popUpDeleteUsuario">
     
                         <asp:UpdatePanel runat="server" ID="UpdateDelete">
                             <Triggers>
