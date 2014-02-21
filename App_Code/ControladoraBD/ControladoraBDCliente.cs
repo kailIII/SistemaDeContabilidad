@@ -1,0 +1,108 @@
+﻿using DataSetClienteTableAdapters;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Web;
+
+/// <summary>
+/// Descripción breve de ControladoraBDCliente
+/// </summary>
+public class ControladoraBDCliente
+{
+    private ClienteTableAdapter _adapter;
+
+	public ControladoraBDCliente()
+	{
+        _adapter = new ClienteTableAdapter();
+	}
+
+    public Boolean insertarCliente(Clientes cliente)
+    {
+        Boolean resultado = false;
+        try
+        {
+            _adapter.Insert(cliente.NombreCliente, cliente.Cedula, cliente.Direccion, cliente.Telefono, cliente.Fax, cliente.Correo);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    public Boolean modificarCliente(Clientes clienteNuevo, Clientes clienteViejo)
+    {
+        Boolean resultado = false;
+        try
+        {
+            _adapter.Update(clienteViejo.NombreCliente, clienteViejo.Direccion, clienteViejo.Telefono, clienteViejo.Fax, clienteViejo.Correo, clienteNuevo.IdCliente, clienteViejo.NombreCliente, clienteViejo.Cedula, clienteViejo.Direccion, clienteViejo.Telefono, clienteViejo.Fax, clienteViejo.Correo);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    public Boolean eliminarCliente(Clientes cliente) {
+        Boolean resultado = false;
+        try
+        {
+            _adapter.Delete(cliente.IdCliente, cliente.NombreCliente, cliente.Cedula, cliente.Direccion, cliente.Telefono, cliente.Fax, cliente.Correo);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
+        return resultado;    
+    }
+
+    public List<Clientes> consultarTodosClientes()
+    {
+        List<Clientes> resultado = new List<Clientes>();
+        DataTable dtCliente = new DataTable();
+        dtCliente = _adapter.GetData();
+        foreach (DataRow fila in dtCliente.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Clientes cliente = new Clientes(datos);
+            resultado.Add(cliente);
+        }
+
+        return resultado;
+    }
+
+    public Clientes consultarCliente(String cedula)
+    {
+        DataTable dtCliente = new DataTable();
+        dtCliente = _adapter.consultarCliente(cedula);
+        Clientes cliente = new Clientes();
+        foreach (DataRow fila in dtCliente.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            cliente = new Clientes(datos);
+        }
+        return cliente;
+    }
+
+
+}
