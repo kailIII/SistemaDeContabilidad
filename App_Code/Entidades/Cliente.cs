@@ -6,7 +6,7 @@ using System.Web;
 /// <summary>
 /// Descripción breve de Clientes
 /// </summary>
-public class Clientes
+public class Cliente
 {
     private int _idCliente;
     private String _nombreCliente;
@@ -64,11 +64,11 @@ public class Clientes
         set { _correo = value; }
     }
 
-    public Clientes() { 
+    public Cliente() { 
     
     }
 
-	public Clientes(Object [] datos)
+	public Cliente(Object [] datos)
 	{
         this._idCliente = Convert.ToInt32(datos[0].ToString());
         this._nombreCliente = datos[1].ToString();

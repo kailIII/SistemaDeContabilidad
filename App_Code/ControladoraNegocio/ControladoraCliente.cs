@@ -17,7 +17,7 @@ public class ControladoraCliente
     public String insertarCliente(Object[] datos)
     {
         String resultado = "";
-        Clientes cliente = new Clientes(datos);
+        Cliente cliente = new Cliente(datos);
         Boolean seInserto = controladoraBDCliente.insertarCliente(cliente);
         if (seInserto)
         {
@@ -33,8 +33,8 @@ public class ControladoraCliente
     public String modificarCliente(Object[] datosNuevos, Object[] datosViejos)
     {
         String resultado = "";
-        Clientes clienteNuevo = new Clientes(datosNuevos);
-        Clientes clienteViejo = new Clientes(datosViejos);
+        Cliente clienteNuevo = new Cliente(datosNuevos);
+        Cliente clienteViejo = new Cliente(datosViejos);
         Boolean seModifico = controladoraBDCliente.modificarCliente(clienteNuevo, clienteViejo);
         if (seModifico)
         {
@@ -47,10 +47,10 @@ public class ControladoraCliente
         return resultado;
     }
 
-    public String modificarCliente(Object[] datosNuevos, Clientes clienteViejo)
+    public String modificarCliente(Object[] datosNuevos, Cliente clienteViejo)
     {
         String resultado = "";
-        Clientes clienteNuevo = new Clientes(datosNuevos);
+        Cliente clienteNuevo = new Cliente(datosNuevos);
         Boolean seModifico = controladoraBDCliente.modificarCliente(clienteNuevo, clienteViejo);
         if (seModifico)
         {
@@ -66,7 +66,7 @@ public class ControladoraCliente
     public String eliminarCliente(Object[] datos)
     {
         String resultado = "";
-        Clientes cliente = new Clientes(datos);
+        Cliente cliente = new Cliente(datos);
         Boolean seElimino = controladoraBDCliente.eliminarCliente(cliente);
         if (seElimino)
         {
@@ -79,7 +79,7 @@ public class ControladoraCliente
         return resultado;
     }
 
-    public String eliminarCliente(Clientes cliente)
+    public String eliminarCliente(Cliente cliente)
     {
         String resultado = "";
         Boolean seElimino = controladoraBDCliente.eliminarCliente(cliente);
@@ -94,14 +94,18 @@ public class ControladoraCliente
         return resultado;
     }
 
-    public List<Clientes> consultarTodosClientes()
+    public List<Cliente> consultarTodosClientes()
     {
         return controladoraBDCliente.consultarTodosClientes();
     }
 
-    public Clientes consultarCliente(String cedula)
+    public Cliente consultarCliente(String cedula)
     {
         return controladoraBDCliente.consultarCliente(cedula);
+    }
+
+    public int getLastId(){
+        return controladoraBDCliente.getLastId();
     }
 
 }

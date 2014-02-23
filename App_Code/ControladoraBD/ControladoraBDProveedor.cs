@@ -104,4 +104,17 @@ public class ControladoraBDProveedor
         return proveedor;
     }
 
+    public int getLastId()
+    {
+        int resultado;
+        try
+        {
+            resultado = (int)_adapter.lastID();
+        }
+        catch (Exception e)
+        {
+            resultado = 0;
+        }
+        return resultado;
+    }
 }

@@ -18,7 +18,7 @@ public class ControladoraBDCliente
         _adapter = new ClienteTableAdapter();
 	}
 
-    public Boolean insertarCliente(Clientes cliente)
+    public Boolean insertarCliente(Cliente cliente)
     {
         Boolean resultado = false;
         try
@@ -33,7 +33,7 @@ public class ControladoraBDCliente
         return resultado;
     }
 
-    public Boolean modificarCliente(Clientes clienteNuevo, Clientes clienteViejo)
+    public Boolean modificarCliente(Cliente clienteNuevo, Cliente clienteViejo)
     {
         Boolean resultado = false;
         try
@@ -48,7 +48,7 @@ public class ControladoraBDCliente
         return resultado;
     }
 
-    public Boolean eliminarCliente(Clientes cliente) {
+    public Boolean eliminarCliente(Cliente cliente) {
         Boolean resultado = false;
         try
         {
@@ -62,9 +62,9 @@ public class ControladoraBDCliente
         return resultado;    
     }
 
-    public List<Clientes> consultarTodosClientes()
+    public List<Cliente> consultarTodosClientes()
     {
-        List<Clientes> resultado = new List<Clientes>();
+        List<Cliente> resultado = new List<Cliente>();
         DataTable dtCliente = new DataTable();
         dtCliente = _adapter.GetData();
         foreach (DataRow fila in dtCliente.Rows)
@@ -77,18 +77,18 @@ public class ControladoraBDCliente
             datos[4] = fila[4].ToString();
             datos[5] = fila[5].ToString();
             datos[6] = fila[6].ToString();
-            Clientes cliente = new Clientes(datos);
+            Cliente cliente = new Cliente(datos);
             resultado.Add(cliente);
         }
 
         return resultado;
     }
 
-    public Clientes consultarCliente(String cedula)
+    public Cliente consultarCliente(String cedula)
     {
         DataTable dtCliente = new DataTable();
         dtCliente = _adapter.consultarCliente(cedula);
-        Clientes cliente = new Clientes();
+        Cliente cliente = new Cliente();
         foreach (DataRow fila in dtCliente.Rows)
         {
             Object[] datos = new Object[7];
@@ -99,10 +99,20 @@ public class ControladoraBDCliente
             datos[4] = fila[4].ToString();
             datos[5] = fila[5].ToString();
             datos[6] = fila[6].ToString();
-            cliente = new Clientes(datos);
+            cliente = new Cliente(datos);
         }
         return cliente;
     }
 
+    public int getLastId() {
+        int resultado;
+        try { 
+            resultado = (int)_adapter.lastID();
+        }
+        catch(Exception e){
+            resultado = 0;
+        }
+        return resultado;
+    }
 
 }

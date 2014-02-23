@@ -48,7 +48,7 @@
 
                 <div id="codeProveedor" class="fieldContainer">
                     <asp:Label ID="lblCodeProveedor" runat="server" Text="Código:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtCodeCiente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
+                    <asp:TextBox ID="txtCodeProveedor" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
                 </div>
 
                 <div id="nombreProveedor" class="fieldContainer">

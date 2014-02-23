@@ -53,6 +53,7 @@ public partial class Usuarios : System.Web.UI.Page
         List<Usuario> usersDt = userController.consultarTodosUsuarios();
         if (usersDt.Count > 0)
         {
+            this.GridViewUsers.Columns[0].Visible = true;
             foreach (Usuario user in usersDt)
             {
                 Object[] datos = new Object[4];
@@ -64,6 +65,7 @@ public partial class Usuarios : System.Web.UI.Page
             }
         }
         else {
+            this.GridViewUsers.Columns[0].Visible = false;
             Object[] datos = new Object[4];
             datos[0] = "-";
             datos[1] = "-";

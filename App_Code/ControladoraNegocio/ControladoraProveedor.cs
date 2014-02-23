@@ -104,4 +104,9 @@ public class ControladoraProveedor
         return controladoraBDProveedor.consultarProveedor(cedula);
     }
 
+    public int getLastId()
+    {
+        return controladoraBDProveedor.getLastId();
+    }
+
 }
