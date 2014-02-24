@@ -100,9 +100,9 @@
                 </div>
                 <div>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
-                    ValidationExpression="([0-9]|-)+" ControlToValidate="txtPhone" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                    ValidationExpression="([0-9]|-)+" ControlToValidate="txtFax" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="error"  runat="server" ErrorMessage="* Valor del teléfono entre 8 y 15 caracteres"
-                    ValidationExpression=".{8,15}" ControlToValidate="txtPhone" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                    ValidationExpression=".{8,15}" ControlToValidate="txtFax" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                 </div>
 
                 <div id="ProveedorEmail" class="fieldContainer">

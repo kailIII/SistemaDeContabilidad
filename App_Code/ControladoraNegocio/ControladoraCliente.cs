@@ -105,7 +105,15 @@ public class ControladoraCliente
     }
 
     public int getLastId(){
-        return controladoraBDCliente.getLastId();
+        int resultado =  controladoraBDCliente.getLastId();
+        if (resultado == 1)
+        {
+            if (controladoraBDCliente.consultarTodosClientes().Count == 0)
+            {
+                resultado = 0;
+            }
+        }
+        return resultado;
     }
 
 }

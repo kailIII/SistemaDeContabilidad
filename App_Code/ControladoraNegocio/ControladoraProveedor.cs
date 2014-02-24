@@ -106,7 +106,15 @@ public class ControladoraProveedor
 
     public int getLastId()
     {
-        return controladoraBDProveedor.getLastId();
+        int resultado = controladoraBDProveedor.getLastId();
+        if (resultado == 1)
+        {
+            if (controladoraBDProveedor.consultarTodosProveedores().Count == 0)
+            {
+                resultado = 0;
+            }
+        }
+        return resultado;
     }
 
 }
