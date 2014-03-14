@@ -104,8 +104,8 @@ public class Contribuyente
         this.idContribuyente = Convert.ToInt32(datos[0].ToString());
         this.cedulaContribuyente = datos[1].ToString();
         this.nombreContribuyente = datos[2].ToString();
-        this.cedulaRepresentante = datos[3].ToString();
-        this.nombreRepresentante = datos[4].ToString();
+        this.nombreRepresentante = datos[3].ToString();
+        this.cedulaRepresentante = datos[4].ToString();
         this.provincia = datos[5].ToString();
         this.canton = datos[6].ToString();
         this.distrito = datos[7].ToString();

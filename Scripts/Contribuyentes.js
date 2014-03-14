@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     crearPopUpContribuyente("popUpContribuyente");
     crearPopUpInfoContribuyente("popUpInfoContribuyente");
+    crearPopUpDeleteContribuyente("popUpDeleteContribuyente");
     
 });
 
@@ -20,4 +21,13 @@ function crearPopUpInfoContribuyente(popUpId) {
         appendTo: "form",
         width: 500
     }).parent().css('z-index', '1010');
+}
+
+function crearPopUpDeleteContribuyente(popUpId) {
+    $("#" + popUpId).dialog({
+        autoOpen: false,
+        modal: true,
+        appendTo: "form",
+        width: 500
+    }).parent().css('z-index', '1015');
 }

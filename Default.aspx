@@ -128,4 +128,26 @@
 
         </div>
 
+                <div id="popUpDeleteContribuyente">
+    
+                        <asp:UpdatePanel runat="server" ID="UpdateDelete">
+                            <Triggers>
+                                <asp:AsyncPostBackTrigger ControlID="deleteButton" EventName="Click" />
+                            </Triggers>
+                            <ContentTemplate>
+
+                                <p>¿Está seguro que desea eliminar el contribuyente?</p>
+
+                                <div class="divider"></div>
+
+                            <div id="btnsAcCaDelete">
+                                <asp:Button ID="btnYesDel" runat="server" Text="Si" CssClass="ui-widget ui-state-default" OnClick="btnYesDel_Click" CausesValidation="false"/>
+                                <asp:Button ID="btnNoDel" runat="server" Text="No" CssClass="ui-widget ui-state-default" OnClick="btnNoDel_Click" CausesValidation="false"/>
+                            </div>
+
+                            </ContentTemplate>
+                        </asp:UpdatePanel>
+
+                </div> 
+
 </asp:Content>
