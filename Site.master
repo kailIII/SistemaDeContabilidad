@@ -30,10 +30,12 @@
                     <div class="float-right">
                         <nav>
                             <ul id="menu">
-                                <!--<li><a runat="server" href="~/Default.aspx">Acerca de</a></li>
+                                <li><a runat="server" href="~/Default.aspx">Inicio</a></li>
                                 <li><a runat="server" href="~/Usuarios.aspx">Usuarios</a></li>
                                 <li><a runat="server" href="~/Clientes.aspx">Clientes</a></li>
-                                <li><a id="A1" runat="server" href="~/Proveedores.aspx">Proveedores</a></li>-->
+                                <li><a runat="server" href="~/Proveedores.aspx">Proveedores</a></li>
+                                <li><a runat="server" href="~/Contribuyentes.aspx">Contribuyentes</a></li>
+                                <li><a runat="server" href="~/Facturas.aspx">Facturar</a></li>
                             </ul>
                         </nav>
                     </div>

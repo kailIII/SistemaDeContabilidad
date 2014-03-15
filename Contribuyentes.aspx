@@ -7,30 +7,31 @@
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
             <asp:ScriptManager ID="ScriptManager1" runat="server">	
             </asp:ScriptManager>
-            <asp:UpdatePanel ID="UpdateInfo" runat="server">
-                <Triggers>
-                    <asp:AsyncPostBackTrigger ControlID="btnAceptar" EventName="Click" />
-                </Triggers>
-                <ContentTemplate>
-                    <!-- Botones Invisibles -->
             
-                    <!-- Cuerpo con la tabla -->
-                    <div style="min-height: 500px;">
-                        <asp:Button ID="btnInsertar" runat="server" Text="Insertar" CausesValidation="false" OnClick="btnInsertar_Click" CssClass="ui-widget ui-state-default"/>
+                <asp:UpdatePanel ID="UpdateInfo" runat="server">
+                    <Triggers>
+                        <asp:AsyncPostBackTrigger ControlID="btnAceptar" EventName="Click" />
+                    </Triggers>
+                    <ContentTemplate>
+                        <!-- Botones Invisibles -->
+            
+                        <!-- Cuerpo con la tabla -->
+                        <div style="min-height: 500px;">
+                            <asp:Button ID="btnInsertar" runat="server" Text="Insertar" CausesValidation="false" OnClick="btnInsertar_Click" CssClass="ui-widget ui-state-default"/>
+                            <div class="grid_general">
+                                <asp:GridView ID="GridViewContribuyentes" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="15" OnPageIndexChanging="GridViewContribuyentes_PageIndexChanging" onrowcommand="GridViewContribuyentes_RowCommand">
+                                    <Columns>
+                                        <asp:ButtonField CommandName="selectContribuyente" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                    </Columns>
+                                </asp:GridView> 
+                            </div>
 
-                        <div class="grid_general">
-                            <asp:GridView ID="GridViewContribuyentes" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="15" OnPageIndexChanging="GridViewContribuyentes_PageIndexChanging" onrowcommand="GridViewContribuyentes_RowCommand">
-                                <Columns>
-                                    <asp:ButtonField CommandName="selectCliente" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
-                                </Columns>
-                            </asp:GridView> 
                         </div>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            
 
-                    </div>
-                </ContentTemplate>
-            </asp:UpdatePanel>
-
-    <div id="popUpCliente">
+    <div id="popUpInfoContribuyente">
     
                 <asp:UpdatePanel runat="server" ID="UpdatePopUp">
                     <Triggers>
@@ -41,14 +42,111 @@
                 <div id="cntrlBtns">
                     <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default" CausesValidation="false"/>
                     <asp:Button ID="deleteButton" runat="server" Text="Eliminar" CssClass="ui-widget ui-state-default" OnClick="deleteButton_Click" CausesValidation="false"/>
-
                 </div>
 
                 <div class="divider"></div>
 
-                <div id="codeCliente" class="fieldContainer">
-                    <asp:Label ID="lblCodeCliente" runat="server" Text="Código:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtCodeCiente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
+                <div id="codeContribuyente" class="fieldContainer">
+                    <asp:Label ID="lblcodeContribuyente" runat="server" Text="Código:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtcodeContribuyente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
+                </div>
+
+                <div id="nombreContribuyente" class="fieldContainer">
+                    <asp:Label ID="lblNombreContribuyente" runat="server" Text="Nombre contribuyente:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtNombreContribuyente" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtNombreContribuyente" CssClass="error" ID="RequiredFieldValidatorNombre" runat="server" ErrorMessage="* Nombre de contribuyente requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorNombre" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
+                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtNombreContribuyente" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="cedulaContribuyente" class="fieldContainer">
+                    <asp:Label ID="lblCedulaContribuyente" runat="server" Text="Cédula contribuyente:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtCedulaContribuyente" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtCedulaContribuyente" CssClass="error" ID="RequiredFieldValidatorCedula" runat="server" ErrorMessage="* Cédula requerida"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorCedula" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
+                    ValidationExpression="[0-9]+" ControlToValidate="txtCedulaContribuyente" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidatorCedulaTam" CssClass="error"  runat="server" ErrorMessage="* Valor de la cédula entre 9 y 20 números"
+                    ValidationExpression=".{9,20}" ControlToValidate="txtCedulaContribuyente" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="nombreRepresentante" class="fieldContainer">
+                    <asp:Label ID="lblNombreRepresentante" runat="server" Text="Nombre representante:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtNombreRepresentante" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtNombreRepresentante" CssClass="error" ID="RequiredFieldValidator1" runat="server" ErrorMessage="* Nombre de representante requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator1" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
+                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtNombreRepresentante" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="cedulaRepresentante" class="fieldContainer">
+                    <asp:Label ID="lblCedulaRepresentante" runat="server" Text="Cédula representante:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtCedulaRepresentante" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtCedulaRepresentante" CssClass="error" ID="RequiredFieldValidator2" runat="server" ErrorMessage="* Cédula requerida"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator2" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
+                    ValidationExpression="[0-9]+" ControlToValidate="txtCedulaRepresentante" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator3" CssClass="error"  runat="server" ErrorMessage="* Valor de la cédula entre 9 y 20 números"
+                    ValidationExpression=".{9,20}" ControlToValidate="txtCedulaRepresentante" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="provincia" class="fieldContainer">
+                    <asp:Label ID="lblProvincia" runat="server" Text="Provincia:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtProvincia" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtProvincia" CssClass="error" ID="RequiredFieldValidator3" runat="server" ErrorMessage="* Provincia requerida"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator4" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
+                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtProvincia" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="canton" class="fieldContainer">
+                    <asp:Label ID="lblCanton" runat="server" Text="Canton:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtCanton" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtCanton" CssClass="error" ID="RequiredFieldValidator4" runat="server" ErrorMessage="* Cantón requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator5" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
+                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtCanton" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="distrito" class="fieldContainer">
+                    <asp:Label ID="lblDistrito" runat="server" Text="Distrito:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtDistrito" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtDistrito" CssClass="error" ID="RequiredFieldValidator5" runat="server" ErrorMessage="* Distrito requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator6" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
+                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtDistrito" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="direccion" class="fieldContainer">
+                    <asp:Label ID="lblDireccion" runat="server" Text="Dirección:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtDirección" runat="server" CssClass="txtContainer" TextMode="MultiLine"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RequiredFieldValidator ControlToValidate="txtDirección" CssClass="error" ID="RequiredFieldValidator6" runat="server" ErrorMessage="* Dirección requerida"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
+                                        <asp:RegularExpressionValidator ID="RegularExpressionValidatorDireccion" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
+                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtDirección" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                </div>
+
+                <div id="tipo" class="fieldContainer">
+                    <asp:Label ID="lblTipo" runat="server" Text="Tipo de contribuyente:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtTipo" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+
+                <div id="ultimoPeriodo" class="fieldContainer">
+                    <asp:Label ID="lblUltimoPeriodo" runat="server" Text="Último período:" CssClass="lblContainer"></asp:Label>
+                    <asp:TextBox ID="txtUltimoPeriodo" runat="server" CssClass="txtContainer"></asp:TextBox>
+                </div>
+                <div>
+                    <asp:RegularExpressionValidator ID="RegularExpressionValidator8" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
+                    ValidationExpression="[0-9]+" ControlToValidate="txtUltimoPeriodo" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                 </div>
 
                 <div class="divider"></div>
@@ -63,7 +161,7 @@
 
         </div>
 
-                <div id="popUpDeleteCliente">
+                <div id="popUpDeleteContribuyente">
     
                         <asp:UpdatePanel runat="server" ID="UpdateDelete">
                             <Triggers>
@@ -71,7 +169,7 @@
                             </Triggers>
                             <ContentTemplate>
 
-                                <p>¿Está seguro que desea eliminar el cliente?</p>
+                                <p>¿Está seguro que desea eliminar el contribuyente?</p>
 
                                 <div class="divider"></div>
 
@@ -85,5 +183,5 @@
 
                 </div> 
 
-
 </asp:Content>
+
