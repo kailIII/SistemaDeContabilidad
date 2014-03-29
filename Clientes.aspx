@@ -3,7 +3,6 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/Clientes.js"></script>
-    <script src="Scripts/CustomerAutocomplete.js"></script>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
             <asp:ScriptManager ID="ScriptManager1" runat="server">	
@@ -50,12 +49,11 @@
                 <div id="codeCliente" class="fieldContainer">
                     <asp:Label ID="lblCodeCliente" runat="server" Text="Código:" CssClass="lblContainer"></asp:Label>
                     <asp:TextBox ID="txtCodeCiente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
-                     
                 </div>
 
                 <div id="nombreCliente" class="fieldContainer">
                     <asp:Label ID="lblCustomerName" runat="server" Text="Nombre:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtContainer autocomplete"></asp:TextBox>
+                    <asp:TextBox ID="txtCustomerName" runat="server" CssClass="txtContainer"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ControlToValidate="txtCustomerName" CssClass="error" ID="RequiredFieldValidatorNombre" runat="server" ErrorMessage="* Nombre requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
