@@ -9,7 +9,6 @@
     <!-- Styles -->
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Styles/Globales.css" rel="stylesheet" />
-    <link href="Styles/HorizontalMenu.css" rel="stylesheet" />
     <!-- Scripts -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
@@ -18,25 +17,8 @@
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <meta name="viewport" content="width=device-width" />
     <asp:ContentPlaceHolder runat="server" ID="HeadContent" />
-  <script>
-      $(function () {
-          $("#menu").menu({ position: { at: "left bottom" } });
-      });
-  </script>
-
 </head>
 <body>
-    <div id="headerContent" style="width:100%;">
-        <div style="background-color:#35404F;width:30.25%;height:50px;float:left;">
-
-        </div>
-        <div style="background-color:#E8BD07;width:0.5%;height:50px;float:left;">
-
-        </div>
-        <div style="background-color:#E5E5E5;width:69.25%;height:50px;float:left;">
-
-        </div>
-    </div>
     <form runat="server">
         <asp:MultiView ID="MultiViewSiteMaster" runat="server">
         <asp:View ID="VistaPrincipal" runat="server">
@@ -52,12 +34,7 @@
                                 <li><a runat="server" href="~/Clientes.aspx">Clientes</a></li>
                                 <li><a runat="server" href="~/Proveedores.aspx">Proveedores</a></li>
                                 <li><a runat="server" href="~/Contribuyentes.aspx">Contribuyentes</a></li>
-                                <li><a runat="server" href="#">Facturar</a>
-                                    <ul>
-                                      <li><a href="FacturaciónCompras.aspx">Compras</a></li>
-                                      <li><a href="FacturaciónVentas.aspx">Ventas</a></li>
-                                    </ul>
-                                </li>
+                                <li><a runat="server" href="~/Facturas.aspx">Facturar</a></li>
                             </ul>
                         </nav>
                     </div>
@@ -101,20 +78,6 @@
     </form>
     <div id="popUpMensaje">
 
-    </div>
-
-    <div id="footerContent" style="position:relative; bottom:0; width:100%">
-        <div style="width:100%;">
-            <div style="background-color:#35404F;width:50%;height:15px;float:left;">
-
-            </div>
-            <div style="background-color:#E8BD07;width:50%;height:15px;float:left;">
-
-            </div>
-        </div>
-        <div style="background-color:#E5E5E5;width:100%;height:50px;float:left;">
-
-        </div>
     </div>
 </body>
 </html>
