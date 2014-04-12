@@ -9,9 +9,11 @@ using System.Web;
 public class ControladoraFacturaVenta
 {
     private ControladoraBDFacturaVenta controladoraFV;
+    private ControladoraCliente controladoraCliente;
 	public ControladoraFacturaVenta()
 	{
         controladoraFV = new ControladoraBDFacturaVenta();
+        controladoraCliente = new ControladoraCliente();
 	}
 
     public String insertarFacturaVenta(Object[] datos)
@@ -69,6 +71,10 @@ public class ControladoraFacturaVenta
     public FacturaVenta consultarFacturaVenta(String numeroFactura, String cedulaCliente, String cedulaContribuyente)
     {
         return controladoraFV.consultarFacturaVenta(numeroFactura, cedulaCliente, cedulaContribuyente);
+    }
+
+    public String retornarNombreCliente(String cedulaCliente) {
+        return controladoraCliente.retornarNombreCliente(cedulaCliente);
     }
 
 }

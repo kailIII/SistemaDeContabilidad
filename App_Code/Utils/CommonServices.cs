@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -80,4 +81,21 @@ public class CommonServices
         return año;
     }
 
+    public String montoToString(float number)
+    {
+        String resultado = "";
+        String prueba = number.ToString();
+        CultureInfo culture = new CultureInfo("en-US");
+        resultado = String.Format(culture, "{0:N}", number);
+        return resultado;
+    }
+
+    //Beto
+
+    public String stringToDouble(String monto) {
+        String resultado = "";
+        resultado = monto.Replace(",",String.Empty);
+        resultado = resultado.Replace(".", ",");
+        return resultado;
+    }
 }

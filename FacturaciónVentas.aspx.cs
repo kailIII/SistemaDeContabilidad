@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -23,13 +24,14 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             enableButtonsIME(true, false, false); //Check it
             enableButtonsAC(false);
             fillGrid();
+            fillDrpType();
         }
     }
     protected void updateButton_Click(object sender, EventArgs e)
     {
         modo = 2;
         enableFields(true);
-        enableButtonsIME(false, false, false);
+        enableButtonsIME(false, false, true);
         enableButtonsAC(true);
     }
     protected void deleteButton_Click(object sender, EventArgs e)
@@ -42,22 +44,22 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         Object[] datos = new Object[18];
         datos[0] = this.txtInvoiceNumber.Text;
         datos[1] = 145145145;
-        datos[2] = this.txtProvCust.Text;
+        datos[2] = this.hfCustomerName.Value.ToString();
         datos[3] = this.txtDate.Text;
-        datos[4] = this.txtInvoiceType.Text;
+        datos[4] = this.drpType.SelectedItem.Value;
         datos[5] = this.txtTerm.Text;
         datos[6] = this.txtExpiration.Text;
-        datos[7] = this.txtMontoExempt.Text;
-        datos[8] = this.txtPorDescExempt.Text;
-        datos[9] = this.txtDesExempt.Text;
-        datos[10] = this.txtSubExempt.Text;
-        datos[11] = this.txtMontoTaxed.Text;
-        datos[12] = this.txtPorDescTaxed.Text;
-        datos[13] = this.txtDesTaxed.Text;
-        datos[14] = this.txtSubTaxed.Text;
-        datos[15] = this.txtIV.Text;
-        datos[16] = this.txtFlete.Text;
-        datos[17] = this.txtTotal.Text;
+        datos[7] = utils.stringToDouble(this.txtMontoExempt.Text);
+        datos[8] = utils.stringToDouble(this.txtPorDescExempt.Text);
+        datos[9] = utils.stringToDouble(this.txtDesExempt.Text);
+        datos[10] = utils.stringToDouble(this.txtSubExempt.Text);
+        datos[11] = utils.stringToDouble(this.txtMontoTaxed.Text);
+        datos[12] = utils.stringToDouble(this.txtPorDescTaxed.Text);
+        datos[13] = utils.stringToDouble(this.txtDesTaxed.Text);
+        datos[14] = utils.stringToDouble(this.txtSubTaxed.Text);
+        datos[15] = utils.stringToDouble(this.txtIV.Text);
+        datos[16] = utils.stringToDouble(this.txtFlete.Text);
+        datos[17] = utils.stringToDouble(this.txtTotal.Text);
         String resultado = "";
         Boolean action = false;
         if (modo == 1) // insertar
@@ -85,6 +87,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             enableButtonsIME(true, true, true);
             fillGrid();
         }
+        //utils.abrirPopUpPersonalizado("popUpMensaje", "Cliente seleccionado", "Cliente: " + this.txtProvCust.Text.ToString() + " con Id: " + this.hfCustomerName.Value.ToString());
     }
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
@@ -92,6 +95,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         enableFields(false);
         enableButtonsIME(true, false, false); //Check it
         enableButtonsAC(false);
+        currentFV = new FacturaVenta(); //limpio
     }
     protected void insertButton_Click(object sender, EventArgs e)
     {
@@ -106,23 +110,29 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void fillFields(FacturaVenta fv)
     {
-        this.txtProvCust.Text = fv.CedulaCliente;
+        this.txtProvCust.Text = fvController.retornarNombreCliente(fv.CedulaCliente);
+        this.hfCustomerName.Value = fv.CedulaCliente;
         this.txtInvoiceNumber.Text = fv.NumeroFactura;
-        this.txtDate.Text = fv.Fecha.ToString();
-        this.txtInvoiceType.Text = fv.TipoFactura.ToString();
+        this.txtDate.Text = fv.Fecha.ToShortDateString();
+
+        if (this.drpType.Items.FindByValue(fv.TipoFactura.ToString()) != null)
+        {
+            ListItem aux = this.drpType.Items.FindByValue(fv.TipoFactura.ToString());
+            this.drpType.SelectedValue = aux.Value;
+        }
         this.txtTerm.Text = fv.Plazo.ToString();
         this.txtExpiration.Text = fv.Vencimiento.ToShortDateString();
-        this.txtMontoExempt.Text = fv.MontoExento.ToString();
-        this.txtPorDescExempt.Text = fv.PorcentajeDescuentoExento.ToString();
-        this.txtDesExempt.Text = fv.DescuentoExento.ToString();
-        this.txtSubExempt.Text = fv.SubtotalExento.ToString();
-        this.txtMontoTaxed.Text = fv.MontoGravado.ToString();
-        this.txtPorDescTaxed.Text = fv.PorcentajeDescuentoGravado.ToString();
-        this.txtDesTaxed.Text = fv.DescuentoGravado.ToString();
-        this.txtSubTaxed.Text = fv.SubtotalGravado.ToString();
-        this.txtIV.Text = fv.ImpuestoVenta.ToString();
-        this.txtFlete.Text = fv.Flete.ToString();
-        this.txtTotal.Text = fv.TotalFactura.ToString();
+        this.txtMontoExempt.Text = utils.montoToString(fv.MontoExento);
+        this.txtPorDescExempt.Text = utils.montoToString(fv.PorcentajeDescuentoExento);
+        this.txtDesExempt.Text = utils.montoToString(fv.DescuentoExento);
+        this.txtSubExempt.Text = utils.montoToString(fv.SubtotalExento);
+        this.txtMontoTaxed.Text = utils.montoToString(fv.MontoGravado);
+        this.txtPorDescTaxed.Text = utils.montoToString(fv.PorcentajeDescuentoGravado);
+        this.txtDesTaxed.Text = utils.montoToString(fv.DescuentoGravado);
+        this.txtSubTaxed.Text = utils.montoToString(fv.SubtotalGravado);
+        this.txtIV.Text = utils.montoToString(fv.ImpuestoVenta);
+        this.txtFlete.Text = utils.montoToString(fv.Flete);
+        this.txtTotal.Text = utils.montoToString(fv.TotalFactura);
     }
 
     protected void clearFields()
@@ -130,7 +140,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         this.txtProvCust.Text = "";
         this.txtInvoiceNumber.Text = "";
         this.txtDate.Text = "";
-        this.txtInvoiceType.Text = "";
+        this.drpType.SelectedIndex = 0;
         this.txtTerm.Text = "";
         this.txtExpiration.Text = "";
         this.txtMontoExempt.Text = "";
@@ -153,7 +163,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             this.txtProvCust.Enabled = true;
             this.txtInvoiceNumber.Enabled = true;
             this.txtDate.Enabled = true;
-            this.txtInvoiceType.Enabled = true;
+            this.drpType.Enabled = true;
             this.txtTerm.Enabled = true;
             this.txtExpiration.Enabled = true;
             this.txtMontoExempt.Enabled = true;
@@ -173,7 +183,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             this.txtProvCust.Enabled = false;
             this.txtInvoiceNumber.Enabled = false;
             this.txtDate.Enabled = false;
-            this.txtInvoiceType.Enabled = false;
+            this.drpType.Enabled = false;
             this.txtTerm.Enabled = false;
             this.txtExpiration.Enabled = false;
             this.txtMontoExempt.Enabled = false;
@@ -256,6 +266,19 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         return dt;
     }
 
+    protected void fillDrpType() {
+        this.drpType.Items.Clear();
+        ListItem newItem = new ListItem();
+        newItem.Text = "Factura Contado";
+        newItem.Value = "0";
+        drpType.Items.Add(newItem);
+        newItem = new ListItem();
+        newItem.Text = "Factura Credito";
+        newItem.Value = "1";
+        drpType.Items.Add(newItem);
+
+    }
+
     protected void fillGrid()
     {
         DataTable auxiliarHeaders = createHeaders();
@@ -307,4 +330,5 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     {
         utils.cerrarPopUp("popUpDeleteFacturaVenta");
     }
+
 }

@@ -4,10 +4,7 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/Contribuyentes.js"></script>
 </asp:Content>
-<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-            <asp:ScriptManager ID="ScriptManager1" runat="server">	
-            </asp:ScriptManager>
-            
+<asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">           
                 <asp:UpdatePanel ID="UpdateInfo" runat="server">
                     <Triggers>
                         <asp:AsyncPostBackTrigger ControlID="btnAceptar" EventName="Click" />

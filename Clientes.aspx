@@ -3,10 +3,9 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/Clientes.js"></script>
+
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-            <asp:ScriptManager ID="ScriptManager1" runat="server">	
-            </asp:ScriptManager>
             <asp:UpdatePanel ID="UpdateInfo" runat="server">
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnAceptar" EventName="Click" />

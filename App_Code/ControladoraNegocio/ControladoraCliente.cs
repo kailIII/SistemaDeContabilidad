@@ -116,4 +116,9 @@ public class ControladoraCliente
         return resultado;
     }
 
+    public String retornarNombreCliente(String cedulaCliente)
+    {
+        return controladoraBDCliente.retornarNombreCliente(cedulaCliente);
+    }
+
 }

@@ -5,8 +5,6 @@
     
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-            <asp:ScriptManager ID="ScriptManager1" runat="server">	
-            </asp:ScriptManager>
             <asp:UpdatePanel runat="server" ID="UpdatePopUp">
                 <Triggers>
                     

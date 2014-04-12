@@ -115,4 +115,10 @@ public class ControladoraBDCliente
         return resultado;
     }
 
+    public String retornarNombreCliente(String cedulaCliente)
+    {
+        return this.consultarCliente(cedulaCliente).NombreCliente;
+    }
+
+
 }
