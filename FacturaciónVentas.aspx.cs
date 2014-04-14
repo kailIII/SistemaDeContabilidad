@@ -141,19 +141,19 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         this.txtInvoiceNumber.Text = "";
         this.txtDate.Text = "";
         this.drpType.SelectedIndex = 0;
-        this.txtTerm.Text = "";
+        this.txtTerm.Text = "0";
         this.txtExpiration.Text = "";
-        this.txtMontoExempt.Text = "";
-        this.txtPorDescExempt.Text = "";
-        this.txtDesExempt.Text = "";
-        this.txtSubExempt.Text = "";
-        this.txtMontoTaxed.Text = "";
-        this.txtPorDescTaxed.Text = "";
-        this.txtDesTaxed.Text = "";
-        this.txtSubTaxed.Text = "";
-        this.txtIV.Text = "";
-        this.txtFlete.Text = "";
-        this.txtTotal.Text = "";
+        this.txtMontoExempt.Text = "0.00";
+        this.txtPorDescExempt.Text = "0.00";
+        this.txtDesExempt.Text = "0.00";
+        this.txtSubExempt.Text = "0.00";
+        this.txtMontoTaxed.Text = "0.00";
+        this.txtPorDescTaxed.Text = "0.00";
+        this.txtDesTaxed.Text = "0.00";
+        this.txtSubTaxed.Text = "0.00";
+        this.txtIV.Text = "0.00";
+        this.txtFlete.Text = "0.00";
+        this.txtTotal.Text = "0.00";
     }
 
     protected void enableFields(Boolean action)
@@ -165,13 +165,13 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             this.txtDate.Enabled = true;
             this.drpType.Enabled = true;
             this.txtTerm.Enabled = true;
-            this.txtExpiration.Enabled = true;
+            this.txtExpiration.Enabled = false;
             this.txtMontoExempt.Enabled = true;
-            this.txtPorDescExempt.Enabled = true;
+            this.txtPorDescExempt.Enabled = false;
             this.txtDesExempt.Enabled = true;
             this.txtSubExempt.Enabled = true;
             this.txtMontoTaxed.Enabled = true;
-            this.txtPorDescTaxed.Enabled = true;
+            this.txtPorDescTaxed.Enabled = false;
             this.txtDesTaxed.Enabled = true;
             this.txtSubTaxed.Enabled = true;
             this.txtIV.Enabled = true;
@@ -224,7 +224,16 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void GridViewFacturaVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.GridViewFacturaVentas.PageIndex = e.NewPageIndex;
+        this.GridViewFacturaVentas.DataBind();
+        //if (modoPaging == 1)
+        //{
+            fillGrid();
+        //}
+        //else
+        //{
+            //buscar orden
+        //}
     }
     protected void GridViewFacturaVentas_RowCommand(object sender, GridViewCommandEventArgs e)
     {

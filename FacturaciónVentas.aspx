@@ -3,7 +3,9 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/FacturasVentas.js"></script>
-    <script src="Scripts/AutoCompleteCliente.js"></script>
+    <script src="Scripts/jquery.maskedinput.min.js"></script>
+    <script src="Scripts/TextFormatScript.js"></script>
+    <script src="Scripts/moment.js"></script>
     <script src="Scripts/jquery.number.js"></script>
     <script src="Scripts/jquery.number.min.js"></script>
     <script src="Scripts/NumberValidator.js"></script>
@@ -45,7 +47,7 @@
 
                         <div id="fieldDate" class="singleFieldContainer">
                             <asp:Label ID="lblDate" runat="server" Text="Fecha:" CssClass="lblContainer"></asp:Label>
-                            <asp:TextBox ID="txtDate" runat="server" CssClass="txtContainer"></asp:TextBox>
+                            <asp:TextBox ID="txtDate" runat="server" CssClass="txtContainer dateField" AutoPostBack="false" onblur="updateDate()" TextMode="SingleLine"></asp:TextBox>
                         </div>
 
                         <div id="fieldType" class="singleFieldContainer">
@@ -59,12 +61,12 @@
 
                         <div id="fieldTerm" class="singleFieldContainer">
                             <asp:Label ID="lblTerm" runat="server" Text="Plazo:" CssClass="lblContainer"></asp:Label>
-                            <asp:TextBox ID="txtTerm" runat="server" CssClass="txtContainer"></asp:TextBox>
+                            <asp:TextBox ID="txtTerm" runat="server" CssClass="txtContainer" AutoPostBack="false" onblur="updateDate()"></asp:TextBox>
                         </div>
 
                         <div id="expirationDate" class="singleFieldContainer">
                             <asp:Label ID="lblExpiration" runat="server" Text="Vencimiento:" CssClass="lblContainer"></asp:Label>
-                            <asp:TextBox ID="txtExpiration" runat="server" CssClass="txtContainer"></asp:TextBox>
+                            <asp:TextBox ID="txtExpiration" runat="server" CssClass="txtContainer dateField"></asp:TextBox>
                         </div>
 
                     </div>
@@ -150,7 +152,7 @@
                     <div style="min-height: 500px;">
 
                         <div class="grid_general">
-                            <asp:GridView ID="GridViewFacturaVentas" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="15" OnPageIndexChanging="GridViewFacturaVentas_PageIndexChanging" onrowcommand="GridViewFacturaVentas_RowCommand">
+                            <asp:GridView ID="GridViewFacturaVentas" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewFacturaVentas_PageIndexChanging" onrowcommand="GridViewFacturaVentas_RowCommand">
                                 <Columns>
                                     <asp:ButtonField CommandName="selectFV" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
                                 </Columns>

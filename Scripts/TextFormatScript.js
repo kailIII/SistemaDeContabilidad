@@ -28,6 +28,10 @@
             minLength: 1
         });
 
+        jQuery(document).ready(function ($) {
+            $(".dateField").mask("99/99/9999");
+        });
+
 
     });
 }
