@@ -101,4 +101,9 @@ public class ControladoraUsuario
     public Boolean existeUsuario(String correo, String password) {
         return controladoraBDUsuario.existeUsuario(correo, password);
     }
+
+    public List<Usuario> buscarUsuarios(String aBuscar)
+    {
+        return controladoraBDUsuario.buscarUsuarios(aBuscar);
+    }
 }

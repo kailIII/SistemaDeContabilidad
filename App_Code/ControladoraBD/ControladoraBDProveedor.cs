@@ -104,6 +104,26 @@ public class ControladoraBDProveedor
         return proveedor;
     }
 
+    public String consultarCedulaProveedor(String nombre)
+    {
+        DataTable dtProveedor = new DataTable();
+        dtProveedor = _adapter.consultarCedula(nombre);
+        Proveedor proveedor = new Proveedor();
+        foreach (DataRow fila in dtProveedor.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            proveedor = new Proveedor(datos);
+        }
+        return proveedor.Cedula;
+    }
+
     public int getLastId()
     {
         int resultado;
@@ -117,4 +137,33 @@ public class ControladoraBDProveedor
         }
         return resultado;
     }
+
+    public String retornarNombreProveedor(String cedulaProveedor)
+    {
+        return this.consultarProveedor(cedulaProveedor).NombreProveedor;
+    }
+
+    public List<Proveedor> buscarProveedores(String aBuscar)
+    {
+        List<Proveedor> resultado = new List<Proveedor>();
+        String aux = "%" + aBuscar + "%";
+        DataTable dtProveedor = new DataTable();
+        dtProveedor = _adapter.buscarProveedores(aux);
+        foreach (DataRow fila in dtProveedor.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Proveedor proveedor = new Proveedor(datos);
+            resultado.Add(proveedor);
+        }
+
+        return resultado;
+    }
+
 }

@@ -128,5 +128,39 @@ public class ControladoraBDFacturaCompra
         return resultado;
     }
 
+    public List<FacturaCompra> buscarFacturasCompras(String cedulaContribuyente, String aBuscar)
+    {
+        List<FacturaCompra> resultado = new List<FacturaCompra>();
+        String aux = "%" + aBuscar + "%";
+        DataTable dt = new DataTable();
+        dt = _adapter.buscarFacturasCompras(cedulaContribuyente, aux);
+        foreach (DataRow fila in dt.Rows)
+        {
+            Object[] datos = new Object[18];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            datos[7] = fila[7].ToString();
+            datos[8] = fila[8].ToString();
+            datos[9] = fila[9].ToString();
+            datos[10] = fila[10].ToString();
+            datos[11] = fila[11].ToString();
+            datos[12] = fila[12].ToString();
+            datos[13] = fila[13].ToString();
+            datos[14] = fila[14].ToString();
+            datos[15] = fila[15].ToString();
+            datos[16] = fila[16].ToString();
+            datos[17] = fila[17].ToString();
+            FacturaCompra facturaCompra = new FacturaCompra(datos);
+            resultado.Add(facturaCompra);
+        }
+
+        return resultado;
+    }
+
 
 }

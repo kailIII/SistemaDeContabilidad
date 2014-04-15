@@ -4,7 +4,7 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/FacturasVentas.js"></script>
     <script src="Scripts/jquery.maskedinput.min.js"></script>
-    <script src="Scripts/TextFormatScript.js"></script>
+    <script src="Scripts/TextFormatScriptVentas.js"></script>
     <script src="Scripts/moment.js"></script>
     <script src="Scripts/jquery.number.js"></script>
     <script src="Scripts/jquery.number.min.js"></script>
@@ -144,9 +144,12 @@
             <asp:UpdatePanel ID="UpdateInfo" runat="server">
                 <Triggers>
                     <asp:AsyncPostBackTrigger ControlID="btnAceptar" EventName="Click" />
+                    
                 </Triggers>
                 <ContentTemplate>
                     <!-- Botones Invisibles -->
+                    <asp:TextBox ID="txtSearch" runat="server" onkeydown = "enterBuscar(event, 'MainContent_btnSearch');"></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" Text="Buscar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnSearch_Click"/>
             
                     <!-- Cuerpo con la tabla -->
                     <div style="min-height: 500px;">

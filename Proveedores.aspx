@@ -11,13 +11,15 @@
                 </Triggers>
                 <ContentTemplate>
                     <!-- Botones Invisibles -->
+                    <asp:TextBox ID="txtSearch" runat="server" onkeydown = "enterBuscar(event, 'MainContent_btnSearch');"></asp:TextBox>
+                    <asp:Button ID="btnSearch" runat="server" Text="Buscar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnSearch_Click" CausesValidation="false"/>
             
                     <!-- Cuerpo con la tabla -->
                     <div style="min-height: 500px;">
                         <asp:Button ID="btnInsertar" runat="server" Text="Insertar" CausesValidation="false" OnClick="btnInsertar_Click" CssClass="ui-widget ui-state-default"/>
 
                         <div class="grid_general">
-                            <asp:GridView ID="GridViewProveedores" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="15" OnPageIndexChanging="GridViewProveedores_PageIndexChanging" onrowcommand="GridViewProveedores_RowCommand">
+                            <asp:GridView ID="GridViewProveedores" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewProveedores_PageIndexChanging" onrowcommand="GridViewProveedores_RowCommand">
                                 <Columns>
                                     <asp:ButtonField CommandName="selectProveedor" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
                                 </Columns>

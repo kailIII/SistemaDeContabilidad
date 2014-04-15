@@ -10,6 +10,7 @@ public partial class Proveedores : System.Web.UI.Page
 {
     private ControladoraProveedor proveedorController = new ControladoraProveedor();
     private static int modo = -1;
+    private static int modoPaging = 1;
     private static Proveedor currentProveedor;
     private CommonServices utils;
 
@@ -19,7 +20,8 @@ public partial class Proveedores : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             Page.MaintainScrollPositionOnPostBack = true;
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(proveedorController.consultarTodosProveedores());
         }
     }
 
@@ -36,7 +38,18 @@ public partial class Proveedores : System.Web.UI.Page
     }
     protected void GridViewProveedores_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.GridViewProveedores.PageIndex = e.NewPageIndex;
+        if (modoPaging == 1)
+        {
+            fillGrid(proveedorController.consultarTodosProveedores());
+        }
+        else
+        {
+            fillGrid(proveedorController.buscarProveedores(this.txtSearch.Text.ToString()));
+        }
+        this.GridViewProveedores.DataBind();
+        this.GridViewProveedores.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewProveedores.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
     protected void GridViewProveedores_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -86,7 +99,8 @@ public partial class Proveedores : System.Web.UI.Page
             resultado = proveedorController.insertarProveedor(datos);
             if (String.Equals("Se insertó correctamente el proveedor", resultado))
             {
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(proveedorController.consultarTodosProveedores());
                 utils.cerrarPopUp("popUpProveedor");
             }
         }
@@ -96,7 +110,8 @@ public partial class Proveedores : System.Web.UI.Page
             if (String.Equals("Se modificó correctamente el proveedor", resultado))
             {
                 currentProveedor = new Proveedor(); // limpio el usuario actual
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(proveedorController.consultarTodosProveedores());
                 utils.cerrarPopUp("popUpProveedor");
             }
         }
@@ -115,7 +130,8 @@ public partial class Proveedores : System.Web.UI.Page
         if (String.Equals("Se eliminó correctamente el proveedor", resultado))
         {
             currentProveedor = new Proveedor(); // limpio el usuario actual
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(proveedorController.consultarTodosProveedores());
             utils.cerrarPopUp("popUpDeleteProveedor");
             utils.cerrarPopUp("popUpProveedor");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Administrar Proveedor", resultado);
@@ -155,10 +171,9 @@ public partial class Proveedores : System.Web.UI.Page
         return dt;
     }
 
-    protected void fillGrid()
+    protected void fillGrid(List<Proveedor> proveedoresDt)
     {
         DataTable auxiliarHeaders = createHeaders();
-        List<Proveedor> proveedoresDt = proveedorController.consultarTodosProveedores();
         if (proveedoresDt.Count > 0)
         {
             this.GridViewProveedores.Columns[0].Visible = true;
@@ -252,4 +267,12 @@ public partial class Proveedores : System.Web.UI.Page
             this.btnCancelar.Enabled = false;
         }
     }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        List<Proveedor> customersList = proveedorController.buscarProveedores(this.txtSearch.Text.ToString());
+        modoPaging = 2;
+        fillGrid(customersList);
+    }
+
 }

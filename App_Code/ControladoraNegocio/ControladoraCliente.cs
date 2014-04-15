@@ -121,4 +121,14 @@ public class ControladoraCliente
         return controladoraBDCliente.retornarNombreCliente(cedulaCliente);
     }
 
+    public String consultarCedulaCliente(String nombre)
+    {
+        return controladoraBDCliente.consultarCedulaCliente(nombre);
+    }
+
+    public List<Cliente> buscarClientes(String aBuscar)
+    {
+        return controladoraBDCliente.buscarClientes(aBuscar);
+    }
+
 }

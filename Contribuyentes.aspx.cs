@@ -11,6 +11,7 @@ public partial class Contribuyentes : System.Web.UI.Page
     private CommonServices utils;
     private ControladoraContribuyentes contribuyenteController = new ControladoraContribuyentes();
     private static int modo = -1;
+    private static int modoPaging = 1;
     private static Contribuyente currentContribuyente;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -18,7 +19,8 @@ public partial class Contribuyentes : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             Page.MaintainScrollPositionOnPostBack = true;
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(contribuyenteController.consultarTodosContribuyentes());
         }
     }
     protected void btnInsertar_Click(object sender, EventArgs e)
@@ -39,7 +41,18 @@ public partial class Contribuyentes : System.Web.UI.Page
     }*/
     protected void GridViewContribuyentes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.GridViewContribuyentes.PageIndex = e.NewPageIndex;
+        if (modoPaging == 1)
+        {
+            fillGrid(contribuyenteController.consultarTodosContribuyentes());
+        }
+        else
+        {
+            fillGrid(contribuyenteController.buscarContribuyentes(this.txtSearch.Text.ToString()));
+        }
+        this.GridViewContribuyentes.DataBind();
+        this.GridViewContribuyentes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewContribuyentes.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
     protected void GridViewContribuyentes_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -83,10 +96,9 @@ public partial class Contribuyentes : System.Web.UI.Page
         return dt;
     }
 
-    protected void fillGrid()
+    protected void fillGrid(List<Contribuyente> contribuyentesDT)
     {
         DataTable auxiliarHeaders = createHeaders();
-        List<Contribuyente> contribuyentesDT = contribuyenteController.consultarTodosContribuyentes();
         if (contribuyentesDT.Count > 0)
         {
             this.GridViewContribuyentes.Columns[0].Visible = true;
@@ -229,7 +241,8 @@ public partial class Contribuyentes : System.Web.UI.Page
             resultado = contribuyenteController.insertarContribuyente(datos);
             if (String.Equals("Se insertó correctamente el contribuyente", resultado))
             {
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(contribuyenteController.consultarTodosContribuyentes());
                 utils.cerrarPopUp("popUpInfoContribuyente");
             }
         }
@@ -239,7 +252,8 @@ public partial class Contribuyentes : System.Web.UI.Page
             if (String.Equals("Se modificó correctamente el contribuyente", resultado))
             {
                 currentContribuyente = new Contribuyente(); // limpio el usuario actual
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(contribuyenteController.consultarTodosContribuyentes());
                 utils.cerrarPopUp("popUpInfoContribuyente");
             }
         }
@@ -256,7 +270,8 @@ public partial class Contribuyentes : System.Web.UI.Page
         if (String.Equals("Se eliminó correctamente el contribuyente", resultado))
         {
             currentContribuyente = new Contribuyente(); // limpio el usuario actual
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(contribuyenteController.consultarTodosContribuyentes());
             utils.cerrarPopUp("popUpDeleteContribuyente");
             utils.cerrarPopUp("popUpInfoContribuyente");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Administrar Contribuyente", resultado);
@@ -270,5 +285,12 @@ public partial class Contribuyentes : System.Web.UI.Page
     protected void btnNoDel_Click(object sender, EventArgs e)
     {
         utils.cerrarPopUp("popUpDeleteContribuyente");
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        List<Contribuyente> contribuyentesList = contribuyenteController.buscarContribuyentes(this.txtSearch.Text.ToString());
+        modoPaging = 2;
+        fillGrid(contribuyentesList);
     }
 }

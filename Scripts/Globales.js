@@ -50,3 +50,10 @@ function abrirPopUpPersonalizado(popUpId, titulo, mensaje) {
     $("#" + popUpId).text(mensaje);
     $("#" + popUpId).dialog({ title: titulo });
 }
+
+function enterBuscar(e, idBoton) {
+    if (e.keyCode == 13) {
+        $("#" + idBoton).click();
+        e.preventDefault();
+    }
+}

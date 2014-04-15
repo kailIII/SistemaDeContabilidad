@@ -84,4 +84,9 @@ public class ControladoraContribuyentes
         return resultado;
     }
 
+    public List<Contribuyente> buscarContribuyentes(String aBuscar)
+    {
+        return controladoraBDContribuyente.buscarContribuyentes(aBuscar);
+    }
+
 }

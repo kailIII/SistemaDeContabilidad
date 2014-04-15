@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -75,6 +76,16 @@ public class ControladoraFacturaVenta
 
     public String retornarNombreCliente(String cedulaCliente) {
         return controladoraCliente.retornarNombreCliente(cedulaCliente);
+    }
+
+    public String retornarCedulaCliente(String nombreCliente)
+    {
+        return controladoraCliente.consultarCedulaCliente(nombreCliente);
+    }
+
+    public List<FacturaVenta> buscarFacturasVentas(String cedulaContribuyente, String aBuscar)
+    {
+        return controladoraFV.buscarFacturasVenta(cedulaContribuyente, aBuscar);
     }
 
 }

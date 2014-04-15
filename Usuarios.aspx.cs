@@ -12,12 +12,14 @@ public partial class Usuarios : System.Web.UI.Page
     private ControladoraUsuario userController = new ControladoraUsuario();
     private static int modo = -1;
     private static Usuario currentUser;
+    private static int modoPaging = 1;
     protected void Page_Load(object sender, EventArgs e)
     {
         utils = new CommonServices(UpdatePopUp);
         if(!Page.IsPostBack){
-            Page.MaintainScrollPositionOnPostBack = true;          
-            fillGrid();
+            Page.MaintainScrollPositionOnPostBack = true;
+            modoPaging = 1;
+            fillGrid(userController.consultarTodosUsuarios());
         }
     }
 
@@ -48,9 +50,9 @@ public partial class Usuarios : System.Web.UI.Page
         return dt;  
     }
 
-    protected void fillGrid() {
+    protected void fillGrid(List<Usuario> usersDt)
+    {
         DataTable auxiliarHeaders = createHeaders();
-        List<Usuario> usersDt = userController.consultarTodosUsuarios();
         if (usersDt.Count > 0)
         {
             this.GridViewUsers.Columns[0].Visible = true;
@@ -148,24 +150,6 @@ public partial class Usuarios : System.Web.UI.Page
         }
     }
 
-    //protected void visibleButtonsME(Boolean accept, Boolean cancel) { 
-    //    this.updateButton.Visible = (accept ? true : false);
-    //    this.deleteButton.Visible = (cancel ? true : false);
-    //}
-
-    //protected void visibleButtonsAC(Boolean action)
-    //{
-    //    if (action)
-    //    {
-    //        this.btnAceptar.Visible = true;
-    //        this.btnCancelar.Visible = true;
-    //    }
-    //    else
-    //    {
-    //        this.btnAceptar.Visible = false;
-    //        this.btnCancelar.Visible = false;
-    //    }
-    //}
 
     protected void GridViewUsers_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -188,7 +172,18 @@ public partial class Usuarios : System.Web.UI.Page
 
     protected void GridViewUsers_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.GridViewUsers.PageIndex = e.NewPageIndex;
+        if (modoPaging == 1)
+        {
+            fillGrid(userController.consultarTodosUsuarios());
+        }
+        else
+        {
+            fillGrid(userController.buscarUsuarios(this.txtSearch.Text.ToString()));
+        }
+        this.GridViewUsers.DataBind();
+        this.GridViewUsers.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewUsers.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
     protected void btnInsertar_Click(object sender, EventArgs e)
@@ -225,7 +220,8 @@ public partial class Usuarios : System.Web.UI.Page
         {
             resultado = userController.insertarUsuario(datos);
             if(String.Equals("Se insertó correctamente el usuario", resultado)){
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(userController.consultarTodosUsuarios());
                 utils.cerrarPopUp("popUpUsuario");       
             }
         }
@@ -234,7 +230,8 @@ public partial class Usuarios : System.Web.UI.Page
             if (String.Equals("Se modificó correctamente el usuario", resultado))
             {
                 currentUser = new Usuario(); // limpio el usuario actual
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(userController.consultarTodosUsuarios());
                 utils.cerrarPopUp("popUpUsuario");
             }
         }
@@ -250,7 +247,8 @@ public partial class Usuarios : System.Web.UI.Page
         if (String.Equals("Se eliminó correctamente el usuario", resultado))
         {
             currentUser = new Usuario(); // limpio el usuario actual
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(userController.consultarTodosUsuarios());
             utils.cerrarPopUp("popUpDeleteUsuario");
             utils.cerrarPopUp("popUpUsuario");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Administrar Usuario", resultado);
@@ -268,5 +266,12 @@ public partial class Usuarios : System.Web.UI.Page
     {
         currentUser = new Usuario(); // limpio el usuario actual
         utils.cerrarPopUp("popUpUsuario");
+    }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        List<Usuario> usersList = userController.buscarUsuarios(this.txtSearch.Text.ToString());
+        modoPaging = 2;
+        fillGrid(usersList);
     }
 }

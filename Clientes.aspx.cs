@@ -10,6 +10,7 @@ public partial class Clientes : System.Web.UI.Page
 {
     private ControladoraCliente customerController = new ControladoraCliente();
     private static int modo = -1;
+    private static int modoPaging = 1;
     private static Cliente currentCustomer;
     private CommonServices utils;
 
@@ -19,7 +20,8 @@ public partial class Clientes : System.Web.UI.Page
         if (!Page.IsPostBack)
         {
             Page.MaintainScrollPositionOnPostBack = true;
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(customerController.consultarTodosClientes());
         }
     }
 
@@ -36,7 +38,18 @@ public partial class Clientes : System.Web.UI.Page
     }
     protected void GridViewClientes_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.GridViewClientes.PageIndex = e.NewPageIndex;
+        if (modoPaging == 1)
+        {
+            fillGrid(customerController.consultarTodosClientes());
+        }
+        else
+        {
+            fillGrid(customerController.buscarClientes(this.txtSearch.Text.ToString()));
+        }
+        this.GridViewClientes.DataBind();
+        this.GridViewClientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewClientes.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
     protected void GridViewClientes_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -87,7 +100,8 @@ public partial class Clientes : System.Web.UI.Page
             resultado = customerController.insertarCliente(datos);
             if (String.Equals("Se insertó correctamente el cliente", resultado))
             {
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(customerController.consultarTodosClientes());
                 utils.cerrarPopUp("popUpCliente");
             }
         }
@@ -97,7 +111,8 @@ public partial class Clientes : System.Web.UI.Page
             if (String.Equals("Se modificó correctamente el cliente", resultado))
             {
                 currentCustomer = new Cliente(); // limpio el usuario actual
-                fillGrid();
+                modoPaging = 1;
+                fillGrid(customerController.consultarTodosClientes());
                 utils.cerrarPopUp("popUpCliente");
             }
         }
@@ -116,7 +131,8 @@ public partial class Clientes : System.Web.UI.Page
         if (String.Equals("Se eliminó correctamente el cliente", resultado))
         {
             currentCustomer = new Cliente(); // limpio el usuario actual
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(customerController.consultarTodosClientes());
             utils.cerrarPopUp("popUpDeleteCliente");
             utils.cerrarPopUp("popUpCliente");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Administrar Cliente", resultado);
@@ -156,9 +172,8 @@ public partial class Clientes : System.Web.UI.Page
         return dt;
     }
 
-    protected void fillGrid() {
+    protected void fillGrid(List<Cliente> clientesDt) {
         DataTable auxiliarHeaders = createHeaders();
-        List<Cliente> clientesDt = customerController.consultarTodosClientes();
         if (clientesDt.Count > 0)
         {
             this.GridViewClientes.Columns[0].Visible = true;
@@ -249,4 +264,12 @@ public partial class Clientes : System.Web.UI.Page
             this.btnCancelar.Enabled = false;
         }
     }
+
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        List<Cliente> customersList = customerController.buscarClientes(this.txtSearch.Text.ToString());
+        modoPaging = 2;
+        fillGrid(customersList);
+    }
+
 }

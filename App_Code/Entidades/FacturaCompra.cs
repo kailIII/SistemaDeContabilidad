@@ -146,6 +146,7 @@ public class FacturaCompra
 	}
 
     public FacturaCompra(Object[] datos) {
+        CultureInfo culture = new CultureInfo("en-US");
         this._numeroFactura = datos[0].ToString();
         this._cedulaContribuyente = datos[1].ToString();
         this._cedulaProveedor = datos[2].ToString();
@@ -153,16 +154,23 @@ public class FacturaCompra
         this._tipoFactura = Convert.ToInt32(datos[4].ToString());
         this._plazo = Convert.ToInt32(datos[5].ToString());
         this._vencimiento = Convert.ToDateTime(datos[6].ToString());
-        this._montoExento = float.Parse(datos[7].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._porcentajeDescuentoExento = float.Parse(datos[8].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._descuentoExento = float.Parse(datos[9].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._subtotalExento = float.Parse(datos[10].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._montoGravado = float.Parse(datos[11].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._porcentajeDescuentoGravado = float.Parse(datos[12].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._descuentoGravado = float.Parse(datos[13].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._subtotalGravado = float.Parse(datos[14].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._impuestoVenta = float.Parse(datos[15].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._flete = float.Parse(datos[16].ToString(), CultureInfo.InvariantCulture.NumberFormat);
-        this._totalFactura = float.Parse(datos[17].ToString(), CultureInfo.InvariantCulture.NumberFormat);
+        this._montoExento = float.Parse(replaceDotComa(datos[7].ToString()), culture.NumberFormat);
+        this._porcentajeDescuentoExento = float.Parse(replaceDotComa(datos[8].ToString()), culture.NumberFormat);
+        this._descuentoExento = float.Parse(replaceDotComa(datos[9].ToString()), culture.NumberFormat);
+        this._subtotalExento = float.Parse(replaceDotComa(datos[10].ToString()), culture.NumberFormat);
+        this._montoGravado = float.Parse(replaceDotComa(datos[11].ToString()), culture.NumberFormat);
+        this._porcentajeDescuentoGravado = float.Parse(replaceDotComa(datos[12].ToString()), culture.NumberFormat);
+        this._descuentoGravado = float.Parse(replaceDotComa(datos[13].ToString()), culture.NumberFormat);
+        this._subtotalGravado = float.Parse(replaceDotComa(datos[14].ToString()), culture.NumberFormat);
+        this._impuestoVenta = float.Parse(replaceDotComa(datos[15].ToString()), culture.NumberFormat);
+        this._flete = float.Parse(replaceDotComa(datos[16].ToString()), culture.NumberFormat);
+        this._totalFactura = float.Parse(replaceDotComa(datos[17].ToString()), culture.NumberFormat);
+    }
+
+    public String replaceDotComa(String monto)
+    {
+        String resultado = "";
+        resultado = monto.Replace(",", ".");
+        return resultado;
     }
 }

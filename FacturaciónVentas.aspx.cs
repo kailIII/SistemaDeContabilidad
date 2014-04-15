@@ -12,6 +12,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     private CommonServices utils;
     private ControladoraFacturaVenta fvController = new ControladoraFacturaVenta();
     private static int modo = -1;
+    private static int modoPaging = 1;
     private static FacturaVenta currentFV;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -23,7 +24,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             enableFields(false);
             enableButtonsIME(true, false, false); //Check it
             enableButtonsAC(false);
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(fvController.consultarTodasFacturasVentas());
             fillDrpType();
         }
     }
@@ -85,7 +87,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             enableFields(false);
             enableButtonsAC(false);
             enableButtonsIME(true, true, true);
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(fvController.consultarTodasFacturasVentas());
         }
         //utils.abrirPopUpPersonalizado("popUpMensaje", "Cliente seleccionado", "Cliente: " + this.txtProvCust.Text.ToString() + " con Id: " + this.hfCustomerName.Value.ToString());
     }
@@ -225,15 +228,17 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     protected void GridViewFacturaVentas_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.GridViewFacturaVentas.PageIndex = e.NewPageIndex;
+        if (modoPaging == 1)
+        {
+            fillGrid(fvController.consultarTodasFacturasVentas());
+        }
+        else
+        {
+            fillGrid(fvController.buscarFacturasVentas("145145145", this.txtSearch.Text.ToString()));
+        }
         this.GridViewFacturaVentas.DataBind();
-        //if (modoPaging == 1)
-        //{
-            fillGrid();
-        //}
-        //else
-        //{
-            //buscar orden
-        //}
+        this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewFacturaVentas.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
     protected void GridViewFacturaVentas_RowCommand(object sender, GridViewCommandEventArgs e)
     {
@@ -242,7 +247,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             case "selectFV":
                 {
                     GridViewRow selectedRow = this.GridViewFacturaVentas.Rows[Convert.ToInt32(e.CommandArgument)];
-                    currentFV = fvController.consultarFacturaVenta(selectedRow.Cells[1].Text, selectedRow.Cells[2].Text, "145145145");
+                    currentFV = fvController.consultarFacturaVenta(selectedRow.Cells[1].Text, fvController.retornarCedulaCliente(selectedRow.Cells[2].Text), "145145145");
                     clearFields();
                     enableFields(false);
                     enableButtonsAC(false);
@@ -288,10 +293,10 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     }
 
-    protected void fillGrid()
+    protected void fillGrid(List<FacturaVenta> fvDt)
     {
         DataTable auxiliarHeaders = createHeaders();
-        List<FacturaVenta> fvDt = fvController.consultarTodasFacturasVentas();
+        //List<FacturaVenta> fvDt = fvController.consultarTodasFacturasVentas();
         if (fvDt.Count > 0)
         {
             this.GridViewFacturaVentas.Columns[0].Visible = true;
@@ -299,7 +304,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             {
                 Object[] datos = new Object[3];
                 datos[0] = factura.NumeroFactura;
-                datos[1] = factura.CedulaCliente;
+                datos[1] = fvController.retornarNombreCliente(factura.CedulaCliente);
                 datos[2] = factura.Fecha;
                 auxiliarHeaders.Rows.Add(datos);
             }
@@ -325,7 +330,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         {
             currentFV = new FacturaVenta(); //limpio
             clearFields();
-            fillGrid();
+            modoPaging = 1;
+            fillGrid(fvController.consultarTodasFacturasVentas());
             utils.cerrarPopUp("popUpDeleteFacturaVenta");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Facturación Ventas", resultado);
         }
@@ -340,4 +346,10 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         utils.cerrarPopUp("popUpDeleteFacturaVenta");
     }
 
+    protected void btnSearch_Click(object sender, EventArgs e)
+    {
+        List<FacturaVenta> fvList = fvController.buscarFacturasVentas("145145145", this.txtSearch.Text.ToString());
+        modoPaging = 2;
+        fillGrid(fvList);
+    }
 }

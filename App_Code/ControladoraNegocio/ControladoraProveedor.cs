@@ -117,4 +117,19 @@ public class ControladoraProveedor
         return resultado;
     }
 
+    public String retornarNombreProveedor(String cedulaProveedor)
+    {
+        return controladoraBDProveedor.retornarNombreProveedor(cedulaProveedor);
+    }
+
+    public String consultarCedulaProveedor(String nombre)
+    {
+        return controladoraBDProveedor.consultarCedulaProveedor(nombre);
+    }
+
+    public List<Proveedor> buscarProveedores(String aBuscar)
+    {
+        return controladoraBDProveedor.buscarProveedores(aBuscar);
+    }
+
 }
