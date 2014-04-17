@@ -3,6 +3,11 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/Contribuyentes.js"></script>
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $("a.level1:contains('Contribuyentes')").parent().addClass("item_active");
+	    });
+	</script>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">           
                 <asp:UpdatePanel ID="UpdateInfo" runat="server">
@@ -20,7 +25,8 @@
                             <div class="grid_general">
                                 <asp:GridView ID="GridViewContribuyentes" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewContribuyentes_PageIndexChanging" onrowcommand="GridViewContribuyentes_RowCommand">
                                     <Columns>
-                                        <asp:ButtonField CommandName="selectContribuyente" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                        <asp:ButtonField CausesValidation="false" CommandName="infoContribuyente" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                        <asp:ButtonField CommandName="selectContribuyente" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/edit.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
                                     </Columns>
                                 </asp:GridView> 
                             </div>
@@ -41,6 +47,8 @@
                 <div id="cntrlBtns">
                     <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default" CausesValidation="false"/>
                     <asp:Button ID="deleteButton" runat="server" Text="Eliminar" CssClass="ui-widget ui-state-default" OnClick="deleteButton_Click" CausesValidation="false"/>
+                    <asp:Button ID="manageCustomer" runat="server" Text="Asociar clientes" CssClass="ui-widget ui-state-default" OnClick="manageCustomer_Click" CausesValidation="false"/>
+                    <asp:Button ID="manageProveedor" runat="server" Text="Asociar proveedores" CssClass="ui-widget ui-state-default" OnClick="manageProveedor_Click" CausesValidation="false"/>
                 </div>
 
                 <div class="divider"></div>
@@ -179,8 +187,44 @@
 
                             </ContentTemplate>
                         </asp:UpdatePanel>
-
                 </div> 
+
+            <div id="ManageCustomerProveedorPopUp" title="Administrar">
+                <asp:UpdatePanel ID="UpdatePanelManager" runat="server">
+                    <Triggers>
+                        
+                    </Triggers>
+                    <ContentTemplate>
+                        <table class="tableManager">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <asp:GridView ID="grid_Seleccionar" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridSeleccionar_PageIndexChanging">
+                                            <Columns>
+                                                <asp:TemplateField >
+                                                    <ItemTemplate>
+                                                        <asp:CheckBox ID="checkSeleccionar" runat="server" />
+                                                    </ItemTemplate>
+                                                </asp:TemplateField>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </td>
+                                    <td>
+                                        <asp:Button ID="btnAsignar" runat="server" Text="Asignar" CausesValidation="false" font-size="8pt" width="100%" OnClick="btnAsignar_Click"/>
+                                    </td>
+                                    <td>
+                                        <asp:GridView ID="grid_Seleccionados" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridSeleccionados_PageIndexChanging" OnRowCommand="grid_Seleccionados_RowCommand">
+                                            <Columns>
+                                                <asp:ButtonField CausesValidation="false" CommandName="eliminarAsociacion" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                            </Columns>
+                                        </asp:GridView>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
+            </div>
 
 </asp:Content>
 

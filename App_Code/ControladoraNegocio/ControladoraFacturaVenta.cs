@@ -64,9 +64,9 @@ public class ControladoraFacturaVenta
         return resultado;
     }
 
-    public List<FacturaVenta> consultarTodasFacturasVentas()
+    public List<FacturaVenta> consultarTodasFacturasVentas(String cedulaContribuyente)
     {
-        return controladoraFV.consultarTodasFacturasVentas();
+        return controladoraFV.consultarTodasFacturasVentas(cedulaContribuyente);
     }
 
     public FacturaVenta consultarFacturaVenta(String numeroFactura, String cedulaCliente, String cedulaContribuyente)
@@ -86,6 +86,11 @@ public class ControladoraFacturaVenta
     public List<FacturaVenta> buscarFacturasVentas(String cedulaContribuyente, String aBuscar)
     {
         return controladoraFV.buscarFacturasVenta(cedulaContribuyente, aBuscar);
+    }
+
+    public int existenFacturas(String cedulaContribuyente, String cedulaCliente)
+    {
+        return controladoraFV.existenFacturas(cedulaContribuyente, cedulaCliente);
     }
 
 }

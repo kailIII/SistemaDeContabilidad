@@ -24,7 +24,7 @@
 <body>
     <div id="headerContent" style="width:100%;">
         <div style="background-color:#35404F;width:30.25%;height:50px;float:left;">
-
+            <h1 style="color: #FFFFFF;text-align:center;">Sistema de contabilidad</h1>
         </div>
         <div style="background-color:#E8BD07;width:0.5%;height:50px;float:left;">
 
@@ -58,23 +58,17 @@
             <header>
                 <div class="content-wrapper">
                     <div class="float-left">
+                        <asp:Menu ID="NavigationMenu" runat="server" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
+                            <Items>
+                                
+                            </Items>
+                        </asp:Menu>
                     </div>
                     <div class="float-right">
-                        <nav>
-                            <ul id="menu">
-                                <li><a runat="server" href="~/Default.aspx">Inicio</a></li>
-                                <li><a runat="server" href="~/Usuarios.aspx">Usuarios</a></li>
-                                <li><a runat="server" href="~/Clientes.aspx">Clientes</a></li>
-                                <li><a runat="server" href="~/Proveedores.aspx">Proveedores</a></li>
-                                <li><a runat="server" href="~/Contribuyentes.aspx">Contribuyentes</a></li>
-                                <li><a runat="server" href="#">Facturar</a>
-                                    <ul>
-                                      <li><a href="FacturaciónCompras.aspx">Compras</a></li>
-                                      <li><a href="FacturaciónVentas.aspx">Ventas</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
+                        <div class ="pnlCerrarSesion">
+                            <asp:Button id="btnCerrarSesion" Text="Cerrar Sesión" runat="server" CausesValidation="false" OnClick="btnCerrarSesion_Click" CssClass="btnLogout"/>
+                            <asp:Label id="lblCerrarSesion" Text="" runat="server" ForeColor="#C8C8C8" CssClass="lblLogout"></asp:Label>
+                        </div>
                     </div>
                 </div>
             </header>

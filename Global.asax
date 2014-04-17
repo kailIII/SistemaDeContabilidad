@@ -26,12 +26,18 @@
     void Session_Start(object sender, EventArgs e)
     {
         // Code that runs when a new session is started
+        Session["Usuario"] = "";
         Session["Nombre"] = "";
+        Session["CedulaContribuyente"] = "";
+        Session["NombreContribuyente"] = "";
     }
 
     void Session_End(object sender, EventArgs e)
     {
-
+        Session["Usuario"] = "";
+        Session["Nombre"] = "";
+        Session["CedulaContribuyente"] = "";
+        Session["NombreContribuyente"] = "";
     }    
 
 </script>

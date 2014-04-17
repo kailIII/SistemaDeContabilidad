@@ -15,6 +15,7 @@ public partial class Usuarios : System.Web.UI.Page
     private static int modoPaging = 1;
     protected void Page_Load(object sender, EventArgs e)
     {
+        Session["CedulaContribuyente"] = "";
         utils = new CommonServices(UpdatePopUp);
         if(!Page.IsPostBack){
             Page.MaintainScrollPositionOnPostBack = true;

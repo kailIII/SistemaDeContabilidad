@@ -132,4 +132,14 @@ public class ControladoraProveedor
         return controladoraBDProveedor.buscarProveedores(aBuscar);
     }
 
+    public List<Proveedor> consultarSeleccionarProveedores(String cedulaContribuyente)
+    {
+        return controladoraBDProveedor.consultarSeleccionarProveedores(cedulaContribuyente);
+    }
+
+    public List<Proveedor> consultarProveedoresSeleccionados(String cedulaContribuyente)
+    {
+        return controladoraBDProveedor.consultarProveedoresSeleccionados(cedulaContribuyente);
+    }
+
 }

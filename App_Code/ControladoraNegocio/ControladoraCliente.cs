@@ -131,4 +131,14 @@ public class ControladoraCliente
         return controladoraBDCliente.buscarClientes(aBuscar);
     }
 
+    public List<Cliente> consultarSeleccionarClientes(String cedulaContribuyente)
+    {
+        return controladoraBDCliente.consultarSeleccionarClientes(cedulaContribuyente);
+    }
+
+    public List<Cliente> consultarClientesSeleccionados(String cedulaContribuyente)
+    {
+        return controladoraBDCliente.consultarClientesSeleccionados(cedulaContribuyente);
+    }
+
 }

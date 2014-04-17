@@ -106,4 +106,9 @@ public class ControladoraUsuario
     {
         return controladoraBDUsuario.buscarUsuarios(aBuscar);
     }
+
+    public String consultarNombre(String correo, String pass)
+    {
+        return controladoraBDUsuario.consultarNombre(correo, pass);
+    }
 }

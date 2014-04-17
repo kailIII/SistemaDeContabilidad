@@ -38,7 +38,7 @@ public class ControladoraBDCliente
         Boolean resultado = false;
         try
         {
-            _adapter.Update(clienteViejo.NombreCliente, clienteViejo.Direccion, clienteViejo.Telefono, clienteViejo.Fax, clienteViejo.Correo, clienteNuevo.IdCliente, clienteViejo.NombreCliente, clienteViejo.Cedula, clienteViejo.Direccion, clienteViejo.Telefono, clienteViejo.Fax, clienteViejo.Correo);
+            _adapter.Update(clienteNuevo.NombreCliente, clienteNuevo.Direccion, clienteNuevo.Telefono, clienteNuevo.Fax, clienteNuevo.Correo, clienteViejo.IdCliente, clienteViejo.NombreCliente, clienteViejo.Cedula, clienteViejo.Direccion, clienteViejo.Telefono, clienteViejo.Fax, clienteViejo.Correo);
             resultado = true;
         }
         catch (SqlException e)
@@ -163,5 +163,48 @@ public class ControladoraBDCliente
         return resultado;
     }
 
+    public List<Cliente> consultarSeleccionarClientes(String cedulaContribuyente)
+    {
+        List<Cliente> resultado = new List<Cliente>();
+        DataTable dtCliente = new DataTable();
+        dtCliente = _adapter.consultarSeleccionarClientes(cedulaContribuyente);
+        foreach (DataRow fila in dtCliente.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Cliente cliente = new Cliente(datos);
+            resultado.Add(cliente);
+        }
+
+        return resultado;
+    }
+
+    public List<Cliente> consultarClientesSeleccionados(String cedulaContribuyente)
+    {
+        List<Cliente> resultado = new List<Cliente>();
+        DataTable dtCliente = new DataTable();
+        dtCliente = _adapter.consultarClientesSeleccionados(cedulaContribuyente);
+        foreach (DataRow fila in dtCliente.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Cliente cliente = new Cliente(datos);
+            resultado.Add(cliente);
+        }
+
+        return resultado;
+    }
 
 }

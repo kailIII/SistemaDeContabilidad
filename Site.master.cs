@@ -17,7 +17,30 @@ public partial class SiteMaster : MasterPage
             MultiViewSiteMaster.SetActiveView(VistaLogin);
         }
         else{
+            this.lblCerrarSesion.Text = "| Bienvenid@, " + Session["Usuario"].ToString();
             MultiViewSiteMaster.SetActiveView(VistaPrincipal);
+
+            if (Session["CedulaContribuyente"].ToString().Equals(""))
+            {
+                MenuItem newMenuItem = new MenuItem("Inicio", "m0", "", "~/Default.aspx");
+                NavigationMenu.Items.Add(newMenuItem);
+                newMenuItem = new MenuItem("Usuarios", "m0", "", "~/Usuarios.aspx");
+                NavigationMenu.Items.Add(newMenuItem);
+                newMenuItem = new MenuItem("Contribuyentes", "m0", "", "~/Contribuyentes.aspx");
+                NavigationMenu.Items.Add(newMenuItem);
+                newMenuItem = new MenuItem("Clientes", "m0", "", "~/Clientes.aspx");
+                NavigationMenu.Items.Add(newMenuItem);
+                newMenuItem = new MenuItem("Proveedores", "m0", "", "~/Proveedores.aspx");
+                NavigationMenu.Items.Add(newMenuItem);
+            }
+            else {
+                MenuItem newMenuItem = new MenuItem("Detalle", "m0", "", "~/DetalleContribuyente.aspx");
+                NavigationMenu.Items.Add(newMenuItem);
+                newMenuItem = new MenuItem("Contribuyentes", "m0", "", "~/Contribuyentes.aspx");
+                NavigationMenu.Items.Add(newMenuItem);      
+            }
+
+
         }
     }
     protected void btnAceptar_Click(object sender, EventArgs e)
@@ -28,10 +51,17 @@ public partial class SiteMaster : MasterPage
         if (siExiste)
         {
             Session["Nombre"] = correoUsuario;
+            Session["Usuario"] = controladoraUsuario.consultarNombre(correoUsuario, password);
             Response.Redirect("~/Default.aspx");
         }
         else {
             this.lblErrorUsuario.Visible = true;
         }
+    }
+    protected void btnCerrarSesion_Click(object sender, EventArgs e)
+    {
+        Session["Nombre"] = "";
+        Session["Usuario"] = "";
+        Response.Redirect("~/Default.aspx");
     }
 }

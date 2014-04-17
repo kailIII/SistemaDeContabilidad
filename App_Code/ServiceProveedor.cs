@@ -24,7 +24,7 @@ public class ServiceProveedor : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string[] GetList(string prefix)
+    public string[] GetList(string prefix, string cedulaContribuyente)
     {
         
         List<string> proveedores = new List<string>();
@@ -36,8 +36,9 @@ public class ServiceProveedor : System.Web.Services.WebService {
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = "select NombreProveedor, CedulaProveedor from Proveedores_Contribuyente where " +
-                "NombreProveedor like @SearchText";
+                "NombreProveedor like @SearchText AND CedulaContribuyente = @cedulaContribuyente";
                 cmd.Parameters.AddWithValue("@SearchText", prefix);
+                cmd.Parameters.AddWithValue("@cedulaContribuyente", cedulaContribuyente);
                 cmd.Connection = conn;
                 conn.Open();
                 using (SqlDataReader sdr = cmd.ExecuteReader())

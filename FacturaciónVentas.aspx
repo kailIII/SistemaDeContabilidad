@@ -17,6 +17,9 @@
                 </Triggers>
                 <ContentTemplate>
 
+                <asp:Label ID="lblNameContribuyente" runat="server"></asp:Label>
+                <asp:HiddenField ID="hfCedulaContribuyente" runat="server" />
+
                 <div id="cntrlBtns">
                     <asp:Button ID="insertButton" runat="server" Text="Insertar" OnClick="insertButton_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="false"/>
                     <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="false"/>

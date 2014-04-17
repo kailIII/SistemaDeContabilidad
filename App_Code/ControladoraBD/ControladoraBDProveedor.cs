@@ -37,7 +37,7 @@ public class ControladoraBDProveedor
         Boolean resultado = false;
         try
         {
-            _adapter.Update(proveedorViejo.NombreProveedor, proveedorViejo.Direccion, proveedorViejo.Telefono, proveedorViejo.Fax, proveedorViejo.Correo, proveedorNuevo.IdProveedor, proveedorViejo.NombreProveedor, proveedorViejo.Cedula, proveedorViejo.Direccion, proveedorViejo.Telefono, proveedorViejo.Fax, proveedorViejo.Correo);
+            _adapter.Update(proveedorNuevo.NombreProveedor, proveedorNuevo.Cedula, proveedorNuevo.Direccion, proveedorNuevo.Telefono, proveedorNuevo.Fax, proveedorNuevo.Correo, proveedorViejo.IdProveedor, proveedorViejo.NombreProveedor, proveedorViejo.Cedula, proveedorViejo.Direccion, proveedorViejo.Telefono, proveedorViejo.Fax, proveedorViejo.Correo);
             resultado = true;
         }
         catch (SqlException e)
@@ -149,6 +149,51 @@ public class ControladoraBDProveedor
         String aux = "%" + aBuscar + "%";
         DataTable dtProveedor = new DataTable();
         dtProveedor = _adapter.buscarProveedores(aux);
+        foreach (DataRow fila in dtProveedor.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Proveedor proveedor = new Proveedor(datos);
+            resultado.Add(proveedor);
+        }
+
+        return resultado;
+    }
+
+    public List<Proveedor> consultarSeleccionarProveedores(String cedulaContribuyente)
+    {
+        List<Proveedor> resultado = new List<Proveedor>();
+        DataTable dtProveedor = new DataTable();
+        dtProveedor = _adapter.consultarSeleccionarProveedores(cedulaContribuyente);
+        foreach (DataRow fila in dtProveedor.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Proveedor proveedor = new Proveedor(datos);
+            resultado.Add(proveedor);
+        }
+
+        return resultado;
+    }
+
+
+    public List<Proveedor> consultarProveedoresSeleccionados(String cedulaContribuyente)
+    {
+        List<Proveedor> resultado = new List<Proveedor>();
+        DataTable dtProveedor = new DataTable();
+        dtProveedor = _adapter.consultarProveedoresSeleccionados(cedulaContribuyente);
         foreach (DataRow fila in dtProveedor.Rows)
         {
             Object[] datos = new Object[7];

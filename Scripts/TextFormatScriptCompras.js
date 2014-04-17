@@ -2,9 +2,10 @@
     $(function () {
         $("#MainContent_txtProvCust").autocomplete({
             source: function (request, response) {
+                var parameters = '{"prefix": "' + request.term + '","cedulaContribuyente": "' + $("#MainContent_hfCedulaContribuyente").val() + '"}';
                 $.ajax({
                     url: "ServiceProveedor.asmx/GetList",
-                    data: "{ 'prefix': '" + request.term + "'}",
+                    data: parameters,
                     dataType: "json",
                     type: "POST",
                     contentType: "application/json; charset=utf-8",

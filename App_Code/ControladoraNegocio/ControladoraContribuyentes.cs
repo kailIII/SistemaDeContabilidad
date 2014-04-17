@@ -9,9 +9,17 @@ using System.Web;
 public class ControladoraContribuyentes
 {
     private ControladoraBDContribuyentes controladoraBDContribuyente;
+    private ControladoraCliente customerController;
+    private ControladoraProveedor proveedorController;
+    private ControladoraFacturaCompra fcController;
+    private ControladoraFacturaVenta fvController;
 	public ControladoraContribuyentes()
 	{
         controladoraBDContribuyente = new ControladoraBDContribuyentes();
+        customerController = new ControladoraCliente();
+        proveedorController = new ControladoraProveedor();
+        fcController = new ControladoraFacturaCompra();
+        fvController = new ControladoraFacturaVenta();
 	}
 
     public List<Contribuyente> consultarTodosContribuyentes()
@@ -87,6 +95,76 @@ public class ControladoraContribuyentes
     public List<Contribuyente> buscarContribuyentes(String aBuscar)
     {
         return controladoraBDContribuyente.buscarContribuyentes(aBuscar);
+    }
+
+    public List<Proveedor> consultarSeleccionarProveedores(String cedulaContribuyente)
+    {
+        return proveedorController.consultarSeleccionarProveedores(cedulaContribuyente);
+    }
+
+    public List<Proveedor> consultarProveedoresSeleccionados(String cedulaContribuyente)
+    {
+        return proveedorController.consultarProveedoresSeleccionados(cedulaContribuyente);
+    }
+
+    public List<Cliente> consultarSeleccionarClientes(String cedulaContribuyente)
+    {
+        return customerController.consultarSeleccionarClientes(cedulaContribuyente);
+    }
+
+    public List<Cliente> consultarClientesSeleccionados(String cedulaContribuyente)
+    {
+        return customerController.consultarClientesSeleccionados(cedulaContribuyente);
+    }
+
+    public int existenFacturasVentas(String cedulaContribuyente, String cedulaCliente) {
+        return fvController.existenFacturas(cedulaContribuyente, cedulaCliente);
+    }
+
+    public int existenFacturasCompras(String cedulaContribuyente, String cedulaProveedor)
+    {
+        return fcController.existenFacturas(cedulaContribuyente, cedulaProveedor);
+    }
+
+    //IE Proveedores_Contribuyentes
+
+    public Boolean insertarProveedorContribuyente(String cedulaContribuyente, String cedulaProveedor)
+    {
+        return controladoraBDContribuyente.insertarProveedorContribuyente(cedulaContribuyente, cedulaProveedor);
+    }
+
+    public Boolean eliminarProveedorContribuyente(String cedulaContribuyente, String cedulaProveedor)
+    {
+        Boolean resultado = false;
+        if (fcController.existenFacturas(cedulaContribuyente, cedulaProveedor) == 0)
+        {
+            resultado = controladoraBDContribuyente.eliminarProveedorContribuyente(cedulaContribuyente, cedulaProveedor);
+        }
+        else {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    //IE Clientes_Contribuyentes
+
+    public Boolean insertarClienteContribuyente(String cedulaContribuyente, String cedulaCliente)
+    {
+        return controladoraBDContribuyente.insertarClienteContribuyente(cedulaContribuyente, cedulaCliente);
+    }
+
+    public Boolean eliminarClienteContribuyente(String cedulaContribuyente, String cedulaCliente)
+    {
+        Boolean resultado = false;
+        if (fvController.existenFacturas(cedulaContribuyente, cedulaCliente) == 0)
+        {
+            resultado = controladoraBDContribuyente.eliminarClienteContribuyente(cedulaContribuyente, cedulaCliente);
+        }
+        else
+        {
+            resultado = false;
+        }
+        return resultado;
     }
 
 }

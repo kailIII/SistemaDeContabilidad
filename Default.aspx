@@ -2,7 +2,11 @@
     CodeFile="Default.aspx.cs" Inherits="_Default" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
-    
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $("a.level1:contains('Inicio')").parent().addClass("item_active");
+	    });
+	</script>    
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div style="min-height: 500px;">

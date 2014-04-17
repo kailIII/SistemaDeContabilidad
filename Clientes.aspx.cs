@@ -16,6 +16,7 @@ public partial class Clientes : System.Web.UI.Page
 
     protected void Page_Load(object sender, EventArgs e)
     {
+        Session["CedulaContribuyente"] = "";
         utils = new CommonServices(UpdatePopUp);
         if (!Page.IsPostBack)
         {

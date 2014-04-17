@@ -24,10 +24,10 @@ public class ServiceCliente : System.Web.Services.WebService {
 
     [WebMethod]
     [ScriptMethod(ResponseFormat = ResponseFormat.Json)]
-    public string[] GetList(string prefix)
+    public string[] GetList(string prefix, string cedulaContribuyente)
     {
-       
-        List<string> customers = new List<string>();
+
+        List<string> proveedores = new List<string>();
         prefix = "%" + prefix + "%";
         using (SqlConnection conn = new SqlConnection())
         {
@@ -36,20 +36,21 @@ public class ServiceCliente : System.Web.Services.WebService {
             using (SqlCommand cmd = new SqlCommand())
             {
                 cmd.CommandText = "select NombreCliente, CedulaCliente from Clientes_Contribuyente where " +
-                "NombreCliente like @SearchText";
+                "NombreCliente like @SearchText AND CedulaContribuyente = @cedulaContribuyente";
                 cmd.Parameters.AddWithValue("@SearchText", prefix);
+                cmd.Parameters.AddWithValue("@cedulaContribuyente", cedulaContribuyente);
                 cmd.Connection = conn;
                 conn.Open();
                 using (SqlDataReader sdr = cmd.ExecuteReader())
                 {
                     while (sdr.Read())
                     {
-                        customers.Add(string.Format("{0}-{1}", sdr["NombreCliente"], sdr["CedulaCliente"]));
+                        proveedores.Add(string.Format("{0}-{1}", sdr["NombreCliente"], sdr["CedulaCliente"]));
                     }
                 }
                 conn.Close();
             }
-            return customers.ToArray();
+            return proveedores.ToArray();
         }
     }
     

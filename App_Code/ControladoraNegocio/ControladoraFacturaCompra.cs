@@ -63,9 +63,9 @@ public class ControladoraFacturaCompra
         return resultado;
     }
 
-    public List<FacturaCompra> consultarTodasFacturasCompras()
+    public List<FacturaCompra> consultarTodasFacturasCompras(String cedulaContribuyente)
     {
-        return controladoraFC.consultarTodasFacturasCompras();
+        return controladoraFC.consultarTodasFacturasCompras(cedulaContribuyente);
     }
 
     public FacturaCompra consultarFacturaCompra(String numeroFactura, String cedulaProveedor, String cedulaContribuyente)
@@ -86,6 +86,10 @@ public class ControladoraFacturaCompra
     public List<FacturaCompra> buscarFacturasCompras(String cedulaContribuyente, String aBuscar)
     {
         return controladoraFC.buscarFacturasCompras(cedulaContribuyente, aBuscar);
+    }
+
+    public int existenFacturas(String cedulaContribuyente, String cedulaProveedor) {
+        return controladoraFC.existenFacturas(cedulaContribuyente, cedulaProveedor);
     }
 
 }

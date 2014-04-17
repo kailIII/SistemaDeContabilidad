@@ -3,6 +3,11 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/Clientes.js"></script>
+	<script type="text/javascript">
+	    $(document).ready(function () {
+	        $("a.level1:contains('Clientes')").parent().addClass("item_active");
+	    });
+	</script>
 
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">

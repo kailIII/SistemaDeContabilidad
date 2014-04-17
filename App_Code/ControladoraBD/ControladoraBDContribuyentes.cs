@@ -12,9 +12,13 @@ using System.Data.SqlClient;
 public class ControladoraBDContribuyentes
 {
     private ContribuyenteTableAdapter _adapter;
+    private Proveedores_ContribuyenteTableAdapter _adapterPC;
+    private Clientes_ContribuyenteTableAdapter _adapterCC;
 	public ControladoraBDContribuyentes()
 	{
         _adapter = new ContribuyenteTableAdapter();
+        _adapterPC = new Proveedores_ContribuyenteTableAdapter();
+        _adapterCC = new Clientes_ContribuyenteTableAdapter();
 	}
 
     public List<Contribuyente> consultarTodosContribuyentes()
@@ -149,6 +153,70 @@ public class ControladoraBDContribuyentes
             resultado.Add(contribuyente);
         }
 
+        return resultado;
+    }
+
+    //IE Proveedores_Contribuyentes
+
+    public Boolean insertarProveedorContribuyente(String cedulaContribuyente, String cedulaProveedor)
+    {
+        Boolean resultado = false;
+        try
+        {
+            _adapterPC.Insert(cedulaContribuyente, cedulaProveedor);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    public Boolean eliminarProveedorContribuyente(String cedulaContribuyente, String cedulaProveedor)
+    {
+        Boolean resultado = false;
+        try
+        {
+            _adapterPC.Delete(cedulaContribuyente, cedulaProveedor);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    //IE Clientes_Contribuyentes
+
+    public Boolean insertarClienteContribuyente(String cedulaContribuyente, String cedulaCliente)
+    {
+        Boolean resultado = false;
+        try
+        {
+            _adapterCC.Insert(cedulaCliente, cedulaContribuyente);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
+        return resultado;
+    }
+
+    public Boolean eliminarClienteContribuyente(String cedulaContribuyente, String cedulaCliente)
+    {
+        Boolean resultado = false;
+        try
+        {
+            _adapterCC.Delete(cedulaCliente, cedulaContribuyente);
+            resultado = true;
+        }
+        catch (SqlException e)
+        {
+            resultado = false;
+        }
         return resultado;
     }
 

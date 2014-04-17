@@ -63,11 +63,11 @@ public class ControladoraBDFacturaVenta
         return resultado;
     }
 
-    public List<FacturaVenta> consultarTodasFacturasVentas()
+    public List<FacturaVenta> consultarTodasFacturasVentas(String cedulaContribuyente)
     {
         List<FacturaVenta> resultado = new List<FacturaVenta>();
         DataTable dtFV = new DataTable();
-        dtFV = _adapter.GetData();
+        dtFV = _adapter.consultarFacturasContribuyente(cedulaContribuyente);
         foreach (DataRow fila in dtFV.Rows)
         {
             Object[] datos = new Object[18];
@@ -159,6 +159,12 @@ public class ControladoraBDFacturaVenta
             resultado.Add(facturaVenta);
         }
 
+        return resultado;
+    }
+
+    public int existenFacturas(String cedulaContribuyente, String cedulaCliente) {
+        int resultado = 0;
+        resultado = Convert.ToInt32(_adapter.existenFacturas(cedulaContribuyente, cedulaCliente));
         return resultado;
     }
 
