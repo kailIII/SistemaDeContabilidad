@@ -78,7 +78,7 @@ public partial class Usuarios : System.Web.UI.Page
         }
         this.GridViewUsers.DataSource = auxiliarHeaders;
         this.GridViewUsers.DataBind();
-        this.GridViewUsers.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewUsers.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewUsers.HeaderRow.ForeColor = System.Drawing.Color.White;              
     }
 
@@ -183,7 +183,7 @@ public partial class Usuarios : System.Web.UI.Page
             fillGrid(userController.buscarUsuarios(this.txtSearch.Text.ToString()));
         }
         this.GridViewUsers.DataBind();
-        this.GridViewUsers.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewUsers.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewUsers.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 

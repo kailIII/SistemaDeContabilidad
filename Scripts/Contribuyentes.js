@@ -10,7 +10,8 @@ function crearPopUpContribuyente(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 750
+        width: 750,
+        resizable: false
     }).parent().css('z-index', '1005');
 }
 
@@ -19,7 +20,8 @@ function crearPopUpInfoContribuyente(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 500
+        width: 575,
+        resizable: false
     }).parent().css('z-index', '1005');
 }
 
@@ -28,7 +30,8 @@ function crearPopUpDeleteContribuyente(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 500
+        width: 500,
+        resizable: false
     }).parent().css('z-index', '1005');
 }
 
@@ -37,6 +40,7 @@ function crearPopUpManagerContribuyente(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 1000
+        width: 1000,
+        resizable: false
     }).parent().css('z-index', '1005');
 }

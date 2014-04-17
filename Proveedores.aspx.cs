@@ -49,7 +49,7 @@ public partial class Proveedores : System.Web.UI.Page
             fillGrid(proveedorController.buscarProveedores(this.txtSearch.Text.ToString()));
         }
         this.GridViewProveedores.DataBind();
-        this.GridViewProveedores.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewProveedores.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewProveedores.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -198,7 +198,7 @@ public partial class Proveedores : System.Web.UI.Page
         }
         this.GridViewProveedores.DataSource = auxiliarHeaders;
         this.GridViewProveedores.DataBind();
-        this.GridViewProveedores.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewProveedores.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewProveedores.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 

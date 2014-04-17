@@ -247,7 +247,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             fillGrid(fvController.buscarFacturasVentas(this.hfCedulaContribuyente.Value, this.txtSearch.Text.ToString()));
         }
         this.GridViewFacturaVentas.DataBind();
-        this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewFacturaVentas.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
     protected void GridViewFacturaVentas_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -330,7 +330,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         }
         this.GridViewFacturaVentas.DataSource = auxiliarHeaders;
         this.GridViewFacturaVentas.DataBind();
-        this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewFacturaVentas.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
     protected void btnYesDel_Click(object sender, EventArgs e)

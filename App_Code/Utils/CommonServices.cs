@@ -7,6 +7,8 @@ using System.Web.UI;
 
 public class CommonServices
 {
+    public int headerColor = 3489871;
+
     private UpdatePanel panel;
 
 	public CommonServices(UpdatePanel panel)

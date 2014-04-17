@@ -49,7 +49,7 @@ public partial class Clientes : System.Web.UI.Page
             fillGrid(customerController.buscarClientes(this.txtSearch.Text.ToString()));
         }
         this.GridViewClientes.DataBind();
-        this.GridViewClientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewClientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewClientes.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -198,7 +198,7 @@ public partial class Clientes : System.Web.UI.Page
         }
         this.GridViewClientes.DataSource = auxiliarHeaders;
         this.GridViewClientes.DataBind();
-        this.GridViewClientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewClientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewClientes.HeaderRow.ForeColor = System.Drawing.Color.White;     
     }
 

@@ -31,7 +31,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         fillDrpType();
         clearFields();
         enableFields(true);
-        enableButtonsME(false, false);
+        enableButtonsME(false, false, false, false);
         enableButtonsAC(true);
         int lastId = contribuyenteController.getLastId() + 1;
         this.txtcodeContribuyente.Text = lastId.ToString();
@@ -54,7 +54,7 @@ public partial class Contribuyentes : System.Web.UI.Page
             fillGrid(contribuyenteController.buscarContribuyentes(this.txtSearch.Text.ToString()));
         }
         this.GridViewContribuyentes.DataBind();
-        this.GridViewContribuyentes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewContribuyentes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewContribuyentes.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
     protected void GridViewContribuyentes_RowCommand(object sender, GridViewCommandEventArgs e)
@@ -69,7 +69,7 @@ public partial class Contribuyentes : System.Web.UI.Page
                     fillFields(currentContribuyente);
                     enableFields(false);
                     enableButtonsAC(false);
-                    enableButtonsME(true, true);
+                    enableButtonsME(true, true, true, true);
                     utils.abrirPopUp("popUpInfoContribuyente", "Administrar Contribuyente");
 
                 } break;
@@ -146,7 +146,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         }
         this.GridViewContribuyentes.DataSource = auxiliarHeaders;
         this.GridViewContribuyentes.DataBind();
-        this.GridViewContribuyentes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewContribuyentes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewContribuyentes.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -217,8 +217,10 @@ public partial class Contribuyentes : System.Web.UI.Page
 
     }
 
-    protected void enableButtonsME(Boolean update, Boolean delete)
+    protected void enableButtonsME(Boolean update, Boolean delete, Boolean mc, Boolean mp)
     {
+        this.manageProveedor.Enabled = (mp ? true : false);
+        this.manageCustomer.Enabled = (mc ? true : false);
         this.updateButton.Enabled = (update ? true : false);
         this.deleteButton.Enabled = (delete ? true : false);
     }
@@ -241,7 +243,7 @@ public partial class Contribuyentes : System.Web.UI.Page
     {
         modo = 2;
         enableFields(true);
-        enableButtonsME(false, true);
+        enableButtonsME(false, true, false, false);
         enableButtonsAC(true);
     }
     protected void deleteButton_Click(object sender, EventArgs e)
@@ -387,7 +389,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         }
         this.grid_Seleccionar.DataSource = auxiliarHeaders;
         this.grid_Seleccionar.DataBind();
-        this.grid_Seleccionar.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.grid_Seleccionar.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.grid_Seleccionar.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -415,7 +417,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         }
         this.grid_Seleccionados.DataSource = auxiliarHeaders;
         this.grid_Seleccionados.DataBind();
-        this.grid_Seleccionados.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.grid_Seleccionados.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.grid_Seleccionados.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -443,7 +445,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         }
         this.grid_Seleccionar.DataSource = auxiliarHeaders;
         this.grid_Seleccionar.DataBind();
-        this.grid_Seleccionar.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.grid_Seleccionar.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.grid_Seleccionar.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -471,7 +473,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         }
         this.grid_Seleccionados.DataSource = auxiliarHeaders;
         this.grid_Seleccionados.DataBind();
-        this.grid_Seleccionados.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.grid_Seleccionados.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.grid_Seleccionados.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 

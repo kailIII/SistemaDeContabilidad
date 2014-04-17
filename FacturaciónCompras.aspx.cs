@@ -251,7 +251,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             fillGrid(fcController.buscarFacturasCompras(this.hfCedulaContribuyente.Value, this.txtSearch.Text.ToString()));
         }
         this.GridViewFacturaCompras.DataBind();
-        this.GridViewFacturaCompras.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewFacturaCompras.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewFacturaCompras.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
@@ -335,7 +335,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         }
         this.GridViewFacturaCompras.DataSource = auxiliarHeaders;
         this.GridViewFacturaCompras.DataBind();
-        this.GridViewFacturaCompras.HeaderRow.BackColor = System.Drawing.Color.FromArgb(13337903);
+        this.GridViewFacturaCompras.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
         this.GridViewFacturaCompras.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 

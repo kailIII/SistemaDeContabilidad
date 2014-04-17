@@ -13,7 +13,8 @@
             "Aceptar": function () {
                 $(this).dialog("close");
             }
-        }
+        },
+        resizable: false
     }).parent().css('z-index', '1050');
 });
 
@@ -22,7 +23,8 @@ function crearPopUp(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 500
+        width: 500,
+        resizable: false
     }).parent().css('z-index', '1005');
 }
 
@@ -31,7 +33,8 @@ function crearPopUpDelete(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 500
+        width: 500,
+        resizable: false
     }).parent().css('z-index', '1010');
 }
 

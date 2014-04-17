@@ -45,8 +45,8 @@
                     <ContentTemplate>
 
                 <div id="cntrlBtns">
-                    <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default" CausesValidation="false"/>
-                    <asp:Button ID="deleteButton" runat="server" Text="Eliminar" CssClass="ui-widget ui-state-default" OnClick="deleteButton_Click" CausesValidation="false"/>
+                    <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="false"/>
+                    <asp:Button ID="deleteButton" runat="server" Text="Eliminar" CssClass="ui-widget ui-state-default systemButton" OnClick="deleteButton_Click" CausesValidation="false"/>
 
                 </div>
 
@@ -124,8 +124,8 @@
                 <div class="divider"></div>
 
                 <div id="btnAcCa">
-                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" CssClass="ui-widget ui-state-default" CausesValidation="true"/>
-                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="ui-widget ui-state-default" OnClick="btnCancelar_Click" CausesValidation="false"/>
+                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="true"/>
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnCancelar_Click" CausesValidation="false"/>
                 </div>
                         
                     </ContentTemplate>

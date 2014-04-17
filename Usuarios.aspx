@@ -21,7 +21,7 @@
             
                     <!-- Cuerpo con la tabla -->
                     <div style="min-height: 500px;">
-                        <asp:Button ID="btnInsertar" runat="server" Text="Insertar" CausesValidation="false" OnClick="btnInsertar_Click" CssClass="ui-widget ui-state-default"/>
+                        <asp:Button ID="btnInsertar" runat="server" Text="Insertar" CausesValidation="false" OnClick="btnInsertar_Click" CssClass="ui-widget ui-state-default systemButton"/>
 
                         <div class="grid_general">
                             <asp:GridView ID="GridViewUsers" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewUsers_PageIndexChanging" onrowcommand="GridViewUsers_RowCommand">
@@ -44,8 +44,8 @@
                     <ContentTemplate>
 
                 <div id="cntrlBtns">
-                    <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default" CausesValidation="false"/>
-                    <asp:Button ID="deleteButton" runat="server" Text="Eliminar" CssClass="ui-widget ui-state-default" OnClick="deleteButton_Click" CausesValidation="false"/>
+                    <asp:Button ID="updateButton" runat="server" Text="Modificar" OnClick="updateButton_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="false"/>
+                    <asp:Button ID="deleteButton" runat="server" Text="Eliminar" CssClass="ui-widget ui-state-default systemButton" OnClick="deleteButton_Click" CausesValidation="false"/>
 
                 </div>
 
@@ -138,8 +138,8 @@
                 <div class="divider"></div>
 
                 <div id="btnAcCa">
-                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" CssClass="ui-widget ui-state-default" CausesValidation="true"/>
-                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="ui-widget ui-state-default" OnClick="btnCancelar_Click" CausesValidation="false"/>
+                    <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="true"/>
+                    <asp:Button ID="btnCancelar" runat="server" Text="Cancelar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnCancelar_Click" CausesValidation="false"/>
                 </div>
                         
                     </ContentTemplate>
@@ -160,8 +160,8 @@
                                 <div class="divider"></div>
 
                             <div id="btnsAcCaDelete">
-                                <asp:Button ID="btnYesDel" runat="server" Text="Si" CssClass="ui-widget ui-state-default" OnClick="btnYesDel_Click" CausesValidation="false"/>
-                                <asp:Button ID="btnNoDel" runat="server" Text="No" CssClass="ui-widget ui-state-default" OnClick="btnNoDel_Click" CausesValidation="false"/>
+                                <asp:Button ID="btnYesDel" runat="server" Text="Si" CssClass="ui-widget ui-state-default systemButton" OnClick="btnYesDel_Click" CausesValidation="false"/>
+                                <asp:Button ID="btnNoDel" runat="server" Text="No" CssClass="ui-widget ui-state-default systemButton" OnClick="btnNoDel_Click" CausesValidation="false"/>
                             </div>
 
                             </ContentTemplate>
