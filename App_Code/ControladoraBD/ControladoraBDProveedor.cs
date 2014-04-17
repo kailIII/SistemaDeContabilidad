@@ -129,7 +129,7 @@ public class ControladoraBDProveedor
         int resultado;
         try
         {
-            resultado = (int)_adapter.lastID();
+            resultado = Convert.ToInt32(_adapter.lastID().ToString());
         }
         catch (Exception e)
         {

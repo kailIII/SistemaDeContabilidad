@@ -23,13 +23,13 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             if (!Page.IsPostBack)
             {
                 Page.MaintainScrollPositionOnPostBack = true;
+                fillDrpType();
                 clearFields();
                 enableFields(false);
                 enableButtonsIME(true, false, false); //Check it
                 enableButtonsAC(false);
                 modoPaging = 1;
                 fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
-                fillDrpType();
             }
         }
         else

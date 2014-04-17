@@ -126,8 +126,8 @@ public class ControladoraBDCliente
 
     public int getLastId() {
         int resultado;
-        try { 
-            resultado = (int)_adapter.lastID();
+        try {
+            resultado = Convert.ToInt32(_adapter.lastID().ToString());
         }
         catch(Exception e){
             resultado = 0;

@@ -144,7 +144,7 @@
 
                 <div id="tipo" class="fieldContainer">
                     <asp:Label ID="lblTipo" runat="server" Text="Tipo de contribuyente:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtTipo" runat="server" CssClass="txtContainer"></asp:TextBox>
+                    <asp:DropDownList ID="drpType" runat="server" CssClass="txtContainer" AutoPostBack="true" ></asp:DropDownList>
                 </div>
 
                 <div id="ultimoPeriodo" class="fieldContainer">

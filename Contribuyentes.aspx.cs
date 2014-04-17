@@ -28,6 +28,7 @@ public partial class Contribuyentes : System.Web.UI.Page
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
         modo = 1;
+        fillDrpType();
         clearFields();
         enableFields(true);
         enableButtonsME(false, false);
@@ -104,6 +105,19 @@ public partial class Contribuyentes : System.Web.UI.Page
         return dt;
     }
 
+    protected void fillDrpType()
+    {
+        this.drpType.Items.Clear();
+        ListItem newItem = new ListItem();
+        newItem.Text = "Contribuyente Físico";
+        newItem.Value = "0";
+        drpType.Items.Add(newItem);
+        newItem = new ListItem();
+        newItem.Text = "Contribuyente Jurídico";
+        newItem.Value = "1";
+        drpType.Items.Add(newItem);
+    }
+
     protected void fillGrid(List<Contribuyente> contribuyentesDT)
     {
         DataTable auxiliarHeaders = createHeaders();
@@ -147,7 +161,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         this.txtCanton.Text = "";
         this.txtDistrito.Text = "";
         this.txtDirección.Text = "";
-        this.txtTipo.Text = "";
+        this.drpType.SelectedIndex = 0;
         this.txtUltimoPeriodo.Text = "";
     }
 
@@ -162,7 +176,11 @@ public partial class Contribuyentes : System.Web.UI.Page
         this.txtCanton.Text = contribuyente.Canton;
         this.txtDistrito.Text = contribuyente.Distrito;
         this.txtDirección.Text = contribuyente.Direccion;
-        this.txtTipo.Text = contribuyente.Tipo.ToString();
+        if (this.drpType.Items.FindByValue(contribuyente.Tipo.ToString()) != null)
+        {
+            ListItem aux = this.drpType.Items.FindByValue(contribuyente.Tipo.ToString());
+            this.drpType.SelectedValue = aux.Value;
+        }
         this.txtUltimoPeriodo.Text = contribuyente.UltimoPeriodo;
     }
 
@@ -179,7 +197,7 @@ public partial class Contribuyentes : System.Web.UI.Page
             this.txtCanton.Enabled = true;
             this.txtDistrito.Enabled = true;
             this.txtDirección.Enabled = true;
-            this.txtTipo.Enabled = true;
+            this.drpType.Enabled = true;
             this.txtUltimoPeriodo.Enabled = true;
         }
         else
@@ -193,7 +211,7 @@ public partial class Contribuyentes : System.Web.UI.Page
             this.txtCanton.Enabled = false;
             this.txtDistrito.Enabled = false;
             this.txtDirección.Enabled = false;
-            this.txtTipo.Enabled = false;
+            this.drpType.Enabled = false;
             this.txtUltimoPeriodo.Enabled = false;
         }
 
@@ -243,7 +261,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         datos[6] = this.txtCanton.Text;
         datos[7] = this.txtDistrito.Text;
         datos[8] = this.txtDirección.Text;
-        datos[9] = this.txtTipo.Text;
+        datos[9] = this.drpType.SelectedItem.Value;
         datos[10] = this.txtUltimoPeriodo.Text;
         String resultado = "";
         if (modo == 1) // insertar

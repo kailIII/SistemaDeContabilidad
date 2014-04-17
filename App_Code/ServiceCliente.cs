@@ -31,12 +31,10 @@ public class ServiceCliente : System.Web.Services.WebService {
         prefix = "%" + prefix + "%";
         using (SqlConnection conn = new SqlConnection())
         {
-            conn.ConnectionString = ConfigurationManager
-                    .ConnectionStrings["SistemaContabilidadConnectionString"].ConnectionString;
+            conn.ConnectionString = "Data Source=54.187.92.0;Initial Catalog=SistemaContabilidad;Persist Security Info=True;User ID=admin;Password=Conta#17";
             using (SqlCommand cmd = new SqlCommand())
             {
-                cmd.CommandText = "select NombreCliente, CedulaCliente from Clientes_Contribuyente where " +
-                "NombreCliente like @SearchText AND CedulaContribuyente = @cedulaContribuyente";
+                cmd.CommandText = "Select NombreCliente, Cedula From Cliente Where NombreCliente LIKE @SearchText AND Exists (Select * From Clientes_Contribuyente Where CedulaContribuyente = @cedulaContribuyente AND CedulaCliente = Cliente.Cedula)";
                 cmd.Parameters.AddWithValue("@SearchText", prefix);
                 cmd.Parameters.AddWithValue("@cedulaContribuyente", cedulaContribuyente);
                 cmd.Connection = conn;
@@ -45,7 +43,7 @@ public class ServiceCliente : System.Web.Services.WebService {
                 {
                     while (sdr.Read())
                     {
-                        proveedores.Add(string.Format("{0}-{1}", sdr["NombreCliente"], sdr["CedulaCliente"]));
+                        proveedores.Add(string.Format("{0}-{1}", sdr["NombreCliente"], sdr["Cedula"]));
                     }
                 }
                 conn.Close();
