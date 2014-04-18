@@ -11,23 +11,41 @@
     
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
-    <div style="min-height: 500px;">
-        <asp:Label ID="lblNameContribuyente" runat="server" Text="Nombre del contribuyente:" CssClass="lblContainer"></asp:Label>
-        <asp:TextBox ID="txtNameContribuyente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
-        <asp:Label ID="lblCedulaContribuyente" runat="server" Text="Cédula del contribuyente:" CssClass="lblContainer"></asp:Label>
-        <asp:TextBox ID="txtCedulaContribuyente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
-        <asp:Label ID="lblNameRepresentante" runat="server" Text="Nombre del Representante:" CssClass="lblContainer"></asp:Label>
-        <asp:TextBox ID="txtNameRepresentante" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
-        <asp:Label ID="lblAddress" runat="server" Text="Dirección:" CssClass="lblContainer"></asp:Label>
-        <asp:TextBox ID="txtAddress" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
-        <asp:Label ID="lblTipoContribuyente" runat="server" Text="Tipo de contribuyente:" CssClass="lblContainer"></asp:Label>
-        <asp:TextBox ID="txtTipoContribuyente" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
-        <asp:Label ID="lblLastPeriod" runat="server" Text="Último período:" CssClass="lblContainer"></asp:Label>
-        <asp:TextBox ID="txtLastPeriod" runat="server" CssClass="txtContainer" Enabled="false"></asp:TextBox>
+    <div style="min-height: 500px; padding:5% 10% 5% 10%;">
+
+        <div class="container">
+            <asp:Label ID="lblNameContribuyente" runat="server" Text="Nombre del contribuyente:" CssClass="lblDetail" Font-Bold="true"></asp:Label>
+            <asp:Label ID="txtNameContribuyente" runat="server" CssClass="txtDetail" ></asp:Label>
+        </div>
+
+        <div class="container">
+            <asp:Label ID="lblCedulaContribuyente" runat="server" Text="Cédula del contribuyente:" CssClass="lblDetail" Font-Bold="true"></asp:Label>
+            <asp:Label ID="txtCedulaContribuyente" runat="server" CssClass="txtDetail" ></asp:Label>
+        </div>
+
+        <div class="container">
+            <asp:Label ID="lblNameRepresentante" runat="server" Text="Nombre del Representante:" CssClass="lblDetail" Font-Bold="true"></asp:Label>
+            <asp:Label ID="txtNameRepresentante" runat="server" CssClass="txtDetail" ></asp:Label>
+        </div>
+
+        <div class="container">
+            <asp:Label ID="lblAddress" runat="server" Text="Dirección:" CssClass="lblDetail" Font-Bold="true"></asp:Label>
+            <asp:Label ID="txtAddress" runat="server" CssClass="txtDetail" ></asp:Label>
+        </div>
+
+        <div class="container">
+            <asp:Label ID="lblTipoContribuyente" runat="server" Text="Tipo de contribuyente:" CssClass="lblDetail" Font-Bold="true"></asp:Label>
+            <asp:Label ID="txtTipoContribuyente" runat="server" CssClass="txtDetail" ></asp:Label>
+        </div>
+
+        <div class="container">
+            <asp:Label ID="lblLastPeriod" runat="server" Text="Último período:" CssClass="lblDetail" Font-Bold="true"></asp:Label>
+            <asp:Label ID="txtLastPeriod" runat="server" CssClass="txtDetail" ></asp:Label>
+        </div>
 
         <div class="divider"></div>
 
-        <div>
+        <div style="float:left;">
             <h1>Administrar facturas de compras y ventas</h1>
 
             <asp:Button ID="facVentasClicked" runat="server" Text="Facturación Ventas" OnClick="facVentasClicked_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="false"/>
@@ -37,8 +55,10 @@
 
         <div class="divider"></div>
 
-        <div>
+        <div style="float:left;">
             <h1>Consultar diferentes reportes del contribuyente</h1>
+
+            <asp:Button ID="btnReport" runat="server" Text="Reportes" OnClick="btnReport_Click" CssClass="ui-widget ui-state-default systemButton" CausesValidation="false"/>
 
         </div>
 

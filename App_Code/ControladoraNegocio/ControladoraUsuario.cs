@@ -59,6 +59,7 @@ public class ControladoraUsuario
         return resultado;
     }
 
+/*
     public String eliminarUsuario(Object[] datos)
     {
         String resultado = "";
@@ -73,19 +74,25 @@ public class ControladoraUsuario
             resultado = "Ocurrió un error al eliminar el usuario";
         }
         return resultado;
-    }
+    }*/
 
     public String eliminarUsuario(Usuario usuario)
     {
         String resultado = "";
-        Boolean seElimino = controladoraBDUsuario.eliminarUsuario(usuario);
-        if (seElimino)
+        if (!usuario.Correo.Equals("madrigalymadrigal@gmail.com"))
         {
-            resultado = "Se eliminó correctamente el usuario";
+            Boolean seElimino = controladoraBDUsuario.eliminarUsuario(usuario);
+            if (seElimino)
+            {
+                resultado = "Se eliminó correctamente el usuario";
+            }
+            else
+            {
+                resultado = "Ocurrió un error al eliminar el usuario";
+            }
         }
-        else
-        {
-            resultado = "Ocurrió un error al eliminar el usuario";
+        else {
+            resultado = "No se puede eliminar la cuenta del administrador";
         }
         return resultado;
     }

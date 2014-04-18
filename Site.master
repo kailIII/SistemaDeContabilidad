@@ -5,7 +5,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <title><%: Page.Title %> - Mi aplicación ASP.NET</title>
+    <title><%: Page.Title %> - Sistema de Contabilidad</title>
     <!-- Styles -->
     <link href="Content/Site.css" rel="stylesheet" />
     <link href="Styles/jquery-ui-1.10.4.custom.css" rel="stylesheet" />
@@ -24,13 +24,15 @@
 <body>
     <div id="headerContent" style="width:100%;">
         <div style="background-color:#35404F;width:30.25%;height:50px;float:left;">
-            <h1 style="color: #FFFFFF;text-align:center;">Sistema de contabilidad</h1>
+            <div class="cntLogo" style="width:100%;">
+                <img src="Images/logo_completo.png" alt="Logo Madrigal y Madrigal" width="60%" height="40px"/>
+            </div>
         </div>
         <div style="background-color:#E8BD07;width:0.5%;height:50px;float:left;">
 
         </div>
         <div style="background-color:#E5E5E5;width:69.25%;height:50px;float:left;">
-            <p style="color:#000000; float:right;font-size:13px;margin-right: 10px;"><b>Realizado por: Heriberto Ureña Madrigal</b></p>
+            <p style="color:#000000; float:right;font-size:1em !important;margin-right: 10px;"><b>Realizado por: Heriberto Ureña Madrigal</b></p>
         </div>
     </div>
     <form runat="server">
@@ -82,30 +84,25 @@
             </footer>
         </asp:View>
         <asp:View ID="VistaLogin" runat="server">
+            <div class="containerLogin">
                 <div class="ventanaLogIn">
                     <div class="Datos">
-                        <div style="width: 100%; float:left; font-weight: bold; font-size: 16px; border-bottom: 1px solid #fff; margin-bottom: 10px;">Ingresar:</div>
-                        <div style="width: 92%; float: left; margin: 0 4%;">
-                            <asp:Label ID="lblUsuario" CssClass="elementoLogIn" Text="Usuario: " runat="server"></asp:Label>
-                        </div>
-                        <div style="width: 92%; float: left; margin: 0 4%;">
-                            <asp:TextBox ID="txtUsuario" CssClass="elementoLogIn" runat="server"></asp:TextBox>
+                        <div style="width: 92%; float: left; margin: 0 4%;margin-bottom: 10%;">
+                            <asp:TextBox ID="txtUsuario" CssClass="elementoLogIn" runat="server" placeholder="Usuario"></asp:TextBox>
                         </div>                 
-                        <div style="width: 92%; float: left; margin: 4% 4% 0 4%;">
-                            <asp:Label ID="lblContrasena" CssClass="elementoLogIn" Text="Contraseña: " runat="server"></asp:Label>
-                        </div>
-                        <div style="width: 92%; float: left; margin: 0 4%;">
-                            <asp:TextBox ID="txtContrasena" TextMode="Password" CssClass="elementoLogIn" runat="server"></asp:TextBox>
+                        <div style="width: 92%; float: left; margin: 0 4%;margin-bottom: 10%;">
+                            <asp:TextBox ID="txtContrasena" TextMode="Password" CssClass="elementoLogIn" runat="server" placeholder="Contraseña"></asp:TextBox>
                             <asp:Label ID="lblErrorUsuario" runat="server" Text="Usuario o contraseña incorrectos" ForeColor="#990000" Visible="False"></asp:Label>
                         </div>
                         <div style="width: 60%; float: left; margin: 5% 20% 0 20%;" >
-                            <asp:Button ID="btnAceptar" runat="server" Text="Aceptar" OnClick="btnAceptar_Click"
-                                CssClass="ui-widget ui-state-default" 
+                            <asp:Button ID="btnAceptar" runat="server" Text="Ingresar" OnClick="btnAceptar_Click"
+                                CssClass="ui-widget ui-state-default btnLoginAceptar" 
                                 />
                         </div>
                     </div>                        
                 </div>
-            </asp:View>
+            </div>
+        </asp:View>
         </asp:MultiView>
     </form>
     <div id="popUpMensaje">

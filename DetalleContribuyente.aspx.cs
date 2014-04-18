@@ -63,4 +63,9 @@ public partial class _DetalleContribuyente : System.Web.UI.Page
         Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
         Response.Redirect("~/FacturaciónCompras.aspx");
     }
+    protected void btnReport_Click(object sender, EventArgs e)
+    {
+        Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
+        Response.Redirect("~/Reportes.aspx");
+    }
 }

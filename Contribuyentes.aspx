@@ -25,8 +25,8 @@
                             <div class="grid_general">
                                 <asp:GridView ID="GridViewContribuyentes" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridViewContribuyentes_PageIndexChanging" onrowcommand="GridViewContribuyentes_RowCommand">
                                     <Columns>
-                                        <asp:ButtonField CausesValidation="false" CommandName="infoContribuyente" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
-                                        <asp:ButtonField CommandName="selectContribuyente" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/edit.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                        <asp:ButtonField CausesValidation="false" CommandName="infoContribuyente" ButtonType="Image" Visible="true" ImageUrl="Images/stack.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                        <asp:ButtonField CommandName="selectContribuyente" CausesValidation="false" ButtonType="Image" Visible="true" ImageUrl="Images/pencil.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
                                     </Columns>
                                 </asp:GridView> 
                             </div>
