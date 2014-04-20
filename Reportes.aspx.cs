@@ -9,6 +9,7 @@ public partial class _Reportes : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        Session["TipoReporte"] = "";
         if (!Session["CedulaContribuyente"].ToString().Equals(""))
         {
             if (!Page.IsPostBack)
@@ -39,8 +40,9 @@ public partial class _Reportes : System.Web.UI.Page
     }
     protected void generateReport_Click(object sender, EventArgs e)
     {
-        if(this.drpReportType.SelectedValue.ToString().Equals("1")){
-            Response.Redirect("~/ReporteAcumuladoVentas.aspx");
-        }
+        Session["FechaDesde"] = this.txtDesde.Text;
+        Session["FechaHasta"] = this.txtHasta.Text;
+        Session["TipoReporte"] = this.drpReportType.SelectedValue.ToString();
+        Response.Redirect("~/InformeReporte.aspx");
     }
 }

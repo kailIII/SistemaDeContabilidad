@@ -32,6 +32,7 @@
         Session["NombreContribuyente"] = "";
         Session["FechaDesde"] = "";
         Session["FechaHasta"] = "";
+        Session["TipoReporte"] = "";
     }
 
     void Session_End(object sender, EventArgs e)
@@ -41,7 +42,8 @@
         Session["CedulaContribuyente"] = "";
         Session["NombreContribuyente"] = "";
         Session["FechaDesde"] = "";
-        Session["FechaHasta"] = "";        
+        Session["FechaHasta"] = "";
+        Session["TipoReporte"] = "";   
     }    
 
 </script>

@@ -168,4 +168,12 @@ public class ControladoraBDFacturaVenta
         return resultado;
     }
 
+/*    public DataTable reporteAcumuladoVentas(String cedulaContribuyente, DateTime fechaDesde, DateTime fechaHasta) {
+        DataTable resultado = new DataTable();
+        resultado = _adapter.reporteAcumuladoVentas(fechaDesde, fechaHasta, cedulaContribuyente);
+        int p = resultado.Rows.Count;
+        //resultado = _adapter.prueba(fechaDesde);
+        return resultado;
+    }*/
+
 }

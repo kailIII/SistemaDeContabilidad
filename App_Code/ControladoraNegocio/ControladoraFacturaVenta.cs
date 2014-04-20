@@ -92,5 +92,11 @@ public class ControladoraFacturaVenta
     {
         return controladoraFV.existenFacturas(cedulaContribuyente, cedulaCliente);
     }
+/*
+    public DataTable reporteAcumuladoVentas(String cedulaContribuyente, DateTime fechaDesde, DateTime fechaHasta)
+    {
+        return controladoraFV.reporteAcumuladoVentas(cedulaContribuyente, fechaDesde, fechaHasta);
+    }
+ */
 
 }
