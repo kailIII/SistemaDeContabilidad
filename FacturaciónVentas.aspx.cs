@@ -315,7 +315,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
                 Object[] datos = new Object[3];
                 datos[0] = factura.NumeroFactura;
                 datos[1] = fvController.retornarNombreCliente(factura.CedulaCliente);
-                datos[2] = factura.Fecha;
+                datos[2] = factura.Fecha.ToShortDateString();
                 auxiliarHeaders.Rows.Add(datos);
             }
         }

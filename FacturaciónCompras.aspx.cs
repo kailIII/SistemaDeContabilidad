@@ -320,7 +320,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
                 Object[] datos = new Object[3];
                 datos[0] = factura.NumeroFactura;
                 datos[1] = fcController.retornarNombreProveedor(factura.CedulaProveedor);
-                datos[2] = factura.Fecha;
+                datos[2] = factura.Fecha.ToShortDateString();
                 auxiliarHeaders.Rows.Add(datos);
             }
         }

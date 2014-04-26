@@ -177,3 +177,9 @@
     float:left;
     margin-right: 1%;
 }
+
+.grid_general a {
+    text-decoration: none;
+    color: #E8BD07 !important;
+}
+

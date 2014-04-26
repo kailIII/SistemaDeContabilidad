@@ -339,12 +339,34 @@ public partial class Contribuyentes : System.Web.UI.Page
     }
     protected void GridSeleccionar_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.grid_Seleccionar.PageIndex = e.NewPageIndex;
+        if (tipoManager == 1)
+        {
+            fillGridSeleccionarClientes(contribuyenteController.consultarSeleccionarClientes(currentContribuyente.CedulaContribuyente));
+        }
+        else if (tipoManager == 2)
+        {
+            fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
+        }
+        this.grid_Seleccionar.DataBind();
+        this.grid_Seleccionar.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
+        this.grid_Seleccionar.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
     protected void GridSeleccionados_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
-
+        this.grid_Seleccionados.PageIndex = e.NewPageIndex;
+        if (tipoManager == 1)
+        {
+            fillGridClientesSeleccionados(contribuyenteController.consultarClientesSeleccionados(currentContribuyente.CedulaContribuyente));
+        }
+        else if (tipoManager == 2)
+        {
+            fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));
+        }
+        this.grid_Seleccionados.DataBind();
+        this.grid_Seleccionados.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
+        this.grid_Seleccionados.HeaderRow.ForeColor = System.Drawing.Color.White;
     }
 
     protected DataTable createHeadersManager()

@@ -145,13 +145,14 @@ public class FacturaVenta
 	public FacturaVenta(Object [] datos)
 	{
         CultureInfo culture = new CultureInfo("en-US");
+        string[] formatsDate = { "dd/MM/yyyy hh:mm:ss tt", "dd/MM/yyyy"};
         this._numeroFactura = datos[0].ToString();
         this._cedulaContribuyente = datos[1].ToString();
         this._cedulaCliente = datos[2].ToString();
-        this._fecha = Convert.ToDateTime(datos[3].ToString());
+        this._fecha = DateTime.ParseExact(replaceDate(datos[3].ToString()), formatsDate, CultureInfo.InvariantCulture, DateTimeStyles.None);
         this._tipoFactura = Convert.ToInt32(datos[4].ToString());
         this._plazo = Convert.ToInt32(datos[5].ToString());
-        this._vencimiento = Convert.ToDateTime(datos[6].ToString());
+        this._vencimiento = DateTime.ParseExact(replaceDate(datos[6].ToString()), formatsDate, CultureInfo.InvariantCulture, DateTimeStyles.None);
         this._montoExento = float.Parse(replaceDotComa(datos[7].ToString()), culture.NumberFormat);
         this._porcentajeDescuentoExento = float.Parse(replaceDotComa(datos[8].ToString()), culture.NumberFormat);
         this._descuentoExento = float.Parse(replaceDotComa(datos[9].ToString()), culture.NumberFormat);
@@ -169,6 +170,22 @@ public class FacturaVenta
     {
         String resultado = "";
         resultado = monto.Replace(",", ".");
+        return resultado;
+    }
+
+    public String replaceDate(String fecha)
+    {
+        String resultado = "";
+        if(fecha.Contains("a.m.")){
+            resultado = fecha.Replace("a.m.", "AM");
+        }
+        else if (fecha.Contains("p.m."))
+        {
+            resultado = fecha.Replace("p.m.", "PM");
+        }
+        else {
+            resultado = fecha;
+        }
         return resultado;
     }
 }

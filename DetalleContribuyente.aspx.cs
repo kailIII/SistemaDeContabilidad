@@ -49,8 +49,19 @@ public partial class _DetalleContribuyente : System.Web.UI.Page
         this.txtCedulaContribuyente.Text = contribuyente.CedulaContribuyente;
         this.txtNameRepresentante.Text = contribuyente.NombreRepresentante;
         this.txtAddress.Text = formatAddress(contribuyente.Provincia, contribuyente.Canton, contribuyente.Distrito, contribuyente.Direccion);
-        this.txtTipoContribuyente.Text = contribuyente.Tipo.ToString();
+        this.txtTipoContribuyente.Text = returnType(contribuyente.Tipo);
         this.txtLastPeriod.Text = contribuyente.UltimoPeriodo;
+    }
+
+    private String returnType(int type) {
+        String resultado = "";
+        if(type==0){
+            resultado = "Contribuyente Físico";
+        }
+        else if(type==1){
+            resultado = "Contribuyente Jurídico";
+        }
+        return resultado;
     }
 
     protected void facVentasClicked_Click(object sender, EventArgs e)

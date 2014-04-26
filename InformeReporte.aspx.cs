@@ -12,6 +12,7 @@ using System.Web.UI.HtmlControls;
 using Microsoft.Reporting.WebForms;
 using System.Data.Odbc;
 using DataSetReportesTableAdapters;
+using System.Globalization;
 
 public partial class InformeReporte : System.Web.UI.Page
 {
@@ -35,10 +36,9 @@ public partial class InformeReporte : System.Web.UI.Page
         parms[0] = new ReportParameter("NombreContribuyente", Session["NombreContribuyente"].ToString());
         parms[1] = new ReportParameter("FechaDesde", Session["FechaDesde"].ToString());
         parms[2] = new ReportParameter("FechaHasta", Session["FechaHasta"].ToString());
-        
 
-        DateTime fechaDesde = Convert.ToDateTime(Session["FechaDesde"].ToString());
-        DateTime fechaHasta = Convert.ToDateTime(Session["FechaHasta"].ToString());
+        DateTime fechaDesde = DateTime.ParseExact(Session["FechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        DateTime fechaHasta = DateTime.ParseExact(Session["FechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
 
         DataTable result = new DataTable();
 
