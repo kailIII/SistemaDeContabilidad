@@ -22,13 +22,15 @@ public partial class Contribuyentes : System.Web.UI.Page
         {
             Page.MaintainScrollPositionOnPostBack = true;
             modoPaging = 1;
+            fillDrpType();
             fillGrid(contribuyenteController.consultarTodosContribuyentes());
+            clearFields();
+            hiddenFields();
         }
     }
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
         modo = 1;
-        fillDrpType();
         clearFields();
         enableFields(true);
         enableButtonsME(false, false, false, false);
@@ -64,7 +66,7 @@ public partial class Contribuyentes : System.Web.UI.Page
             case "selectContribuyente":
                 {
                     GridViewRow selectedRow = this.GridViewContribuyentes.Rows[Convert.ToInt32(e.CommandArgument)];
-                    currentContribuyente = contribuyenteController.consultarContribuyente(selectedRow.Cells[3].Text);
+                    currentContribuyente = contribuyenteController.consultarContribuyente(utils.procesarStringDeUI(selectedRow.Cells[3].Text));
                     clearFields();
                     fillFields(currentContribuyente);
                     enableFields(false);
@@ -76,7 +78,7 @@ public partial class Contribuyentes : System.Web.UI.Page
             case "infoContribuyente":
                 {
                     GridViewRow selectedRow = this.GridViewContribuyentes.Rows[Convert.ToInt32(e.CommandArgument)];
-                    Session["CedulaContribuyente"] = selectedRow.Cells[3].Text;
+                    Session["CedulaContribuyente"] = utils.procesarStringDeUI(selectedRow.Cells[3].Text);
                     Response.Redirect("~/DetalleContribuyente.aspx");
                 } break;
         }
@@ -180,6 +182,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         {
             ListItem aux = this.drpType.Items.FindByValue(contribuyente.Tipo.ToString());
             this.drpType.SelectedValue = aux.Value;
+            hiddenFields();
         }
         this.txtUltimoPeriodo.Text = contribuyente.UltimoPeriodo;
     }
@@ -254,17 +257,17 @@ public partial class Contribuyentes : System.Web.UI.Page
     {
 
         Object[] datos = new Object[11];
-        datos[0] = this.txtcodeContribuyente.Text;
-        datos[1] = this.txtCedulaContribuyente.Text;
-        datos[2] = this.txtNombreContribuyente.Text;
-        datos[3] = this.txtNombreRepresentante.Text;
-        datos[4] = this.txtCedulaRepresentante.Text;
-        datos[5] = this.txtProvincia.Text;
-        datos[6] = this.txtCanton.Text;
-        datos[7] = this.txtDistrito.Text;
-        datos[8] = this.txtDirección.Text;
+        datos[0] = utils.procesarStringDeUI(this.txtcodeContribuyente.Text);
+        datos[1] = utils.procesarStringDeUI(this.txtCedulaContribuyente.Text);
+        datos[2] = utils.procesarStringDeUI(this.txtNombreContribuyente.Text);
+        datos[3] = utils.procesarStringDeUI(this.txtNombreRepresentante.Text);
+        datos[4] = utils.procesarStringDeUI(this.txtCedulaRepresentante.Text);
+        datos[5] = utils.procesarStringDeUI(this.txtProvincia.Text);
+        datos[6] = utils.procesarStringDeUI(this.txtCanton.Text);
+        datos[7] = utils.procesarStringDeUI(this.txtDistrito.Text);
+        datos[8] = utils.procesarStringDeUI(this.txtDirección.Text);
         datos[9] = this.drpType.SelectedItem.Value;
-        datos[10] = this.txtUltimoPeriodo.Text;
+        datos[10] = utils.procesarStringDeUI(this.txtUltimoPeriodo.Text);
         String resultado = "";
         if (modo == 1) // insertar
         {
@@ -509,7 +512,7 @@ public partial class Contribuyentes : System.Web.UI.Page
                     Boolean siElimino = false;
                     if (tipoManager == 1)
                     {
-                        siElimino = contribuyenteController.eliminarClienteContribuyente(currentContribuyente.CedulaContribuyente, selectedRow.Cells[2].Text);
+                        siElimino = contribuyenteController.eliminarClienteContribuyente(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(selectedRow.Cells[2].Text));
                         if(siElimino){
                             fillGridSeleccionarClientes(contribuyenteController.consultarSeleccionarClientes(currentContribuyente.CedulaContribuyente));
                             fillGridClientesSeleccionados(contribuyenteController.consultarClientesSeleccionados(currentContribuyente.CedulaContribuyente));
@@ -517,7 +520,7 @@ public partial class Contribuyentes : System.Web.UI.Page
                         
                     }
                     else if(tipoManager==2) {
-                        siElimino = contribuyenteController.eliminarProveedorContribuyente(currentContribuyente.CedulaContribuyente, selectedRow.Cells[2].Text);
+                        siElimino = contribuyenteController.eliminarProveedorContribuyente(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(selectedRow.Cells[2].Text));
                         if (siElimino)
                         {
                             fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
@@ -541,11 +544,11 @@ public partial class Contribuyentes : System.Web.UI.Page
             {
                 if (tipoManager == 1)
                 {
-                    siInserto = contribuyenteController.insertarClienteContribuyente(currentContribuyente.CedulaContribuyente, rowItem.Cells[2].Text);
+                    siInserto = contribuyenteController.insertarClienteContribuyente(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(rowItem.Cells[2].Text));
                 }
                 else if (tipoManager == 2)
                 {
-                    siInserto = contribuyenteController.insertarProveedorContribuyente(currentContribuyente.CedulaContribuyente, rowItem.Cells[2].Text);
+                    siInserto = contribuyenteController.insertarProveedorContribuyente(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(rowItem.Cells[2].Text));
                 }
             }
         }
@@ -557,5 +560,40 @@ public partial class Contribuyentes : System.Web.UI.Page
             fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
             fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));        
         }
+    }
+    protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
+    {
+        if (this.drpType.SelectedIndex == 0)
+        {
+            this.lblNombreRepresentante.Visible = false;
+            this.txtCedulaRepresentante.Visible = false;
+            this.txtCedulaRepresentante.Text = "";
+            this.lblCedulaRepresentante.Visible = false;
+            this.txtNombreRepresentante.Visible = false;
+            this.txtNombreRepresentante.Text = "";
+        }
+        else {
+            this.lblNombreRepresentante.Visible = true;
+            this.txtCedulaRepresentante.Visible = true;
+            this.lblCedulaRepresentante.Visible = true;
+            this.txtNombreRepresentante.Visible = true;
+        }
+    }
+
+    private void hiddenFields() {
+        if (this.drpType.SelectedIndex == 0)
+        {
+            this.lblNombreRepresentante.Visible = false;
+            this.txtCedulaRepresentante.Visible = false;
+            this.lblCedulaRepresentante.Visible = false;
+            this.txtNombreRepresentante.Visible = false;
+        }
+        else
+        {
+            this.lblNombreRepresentante.Visible = true;
+            this.txtCedulaRepresentante.Visible = true;
+            this.lblCedulaRepresentante.Visible = true;
+            this.txtNombreRepresentante.Visible = true;
+        }    
     }
 }

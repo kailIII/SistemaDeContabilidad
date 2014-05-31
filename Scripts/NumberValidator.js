@@ -1,5 +1,10 @@
-﻿function jsDecimals(e) {
-
+﻿function jsDecimals(e, txtBox) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+    }
+    if(e.keyCode == 9){
+        blurFunction(txtBox);
+    }
     var evt = (e) ? e : window.event;
     var key = (evt.keyCode) ? evt.keyCode : evt.which;
     if (key != null) {
@@ -40,9 +45,17 @@ function jsIsUserFriendlyChar(val, step) {
 
 function blurFunction(txtBox) {
     $(txtBox).val($.number($(txtBox).val(), 2));
-    calcExempt($(txtBox).attr("id"));
-    calcTaxed($(txtBox).attr("id"));
-    calcTotal();
+    if ($(txtBox).attr("id") == "MainContent_txtTotal") {
+        totalExento = (replaceNumber($("#MainContent_txtTotal").val()) - replaceNumber($("#MainContent_txtSubTaxed").val()));
+        $("#MainContent_txtSubExempt").val($.number(totalExento, 2));
+        montoExentoDesc = (replaceNumber($("#MainContent_txtSubExempt").val()) + replaceNumber($("#MainContent_txtDesExempt").val()));
+        $("#MainContent_txtMontoExempt").val($.number(montoExentoDesc, 2));
+    }
+    else {
+        calcExempt($(txtBox).attr("id"));
+        calcTaxed($(txtBox).attr("id"));
+        calcTotal();
+    }
 }
 
 function calcTotal() {
@@ -83,14 +96,34 @@ function calcTaxed(taxedId) {
     }
 }
 
+function calcIVI() {
+    $("#MainContent_txtMontoTaxed").val($.number(((replaceNumber($("#MainContent_txtTotal").val()) - replaceNumber($("#MainContent_txtSubExempt").val())) / 1.13), 2));
+    gravado = (replaceNumber($("#MainContent_txtMontoTaxed").val()) - replaceNumber($("#MainContent_txtDesTaxed").val()));
+    impuesto = gravado * 0.13;
+    gravado = gravado + impuesto;
+    $("#MainContent_txtIV").val($.number(impuesto, 2));
+    $("#MainContent_txtSubTaxed").val($.number(gravado, 2));
+    $("#MainContent_txtTotal").val($.number(replaceNumber($("#MainContent_txtTotal").val()), 2));
+}
+
 function replaceNumber(stringNumber) {
     resultado = stringNumber.replace(',', '');
     return Number(resultado);
 }
 
+function completeSingleDay(day) {
+    temp = day.trim();
+    if(temp.length==1){
+        $("#MainContent_txtDate").val('0' + temp);
+    }
+}
+
 function updateDate() {
+    completeSingleDay($("#MainContent_txtDate").val());
+    date = $("#MainContent_txtDate").val() + $("#MainContent_txtMonthYear").val();
+    $('#MainContent_hfDate').val(date);
     days = Number($("#MainContent_txtTerm").val());
-    addDays($("#MainContent_txtDate").val(), days);
+    addDays(date, days);
 }
 
 function addDays(date, days) {

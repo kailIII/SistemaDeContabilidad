@@ -57,8 +57,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         Object[] datos = new Object[18];
         datos[0] = this.txtInvoiceNumber.Text;
         datos[1] = this.hfCedulaContribuyente.Value;
-        datos[2] = this.hfCustomerName.Value.ToString();
-        datos[3] = this.txtDate.Text;
+        datos[2] = utils.procesarStringDeUI(this.hfCustomerName.Value.ToString());
+        datos[3] = this.hfDate.Value;
         datos[4] = this.drpType.SelectedItem.Value;
         datos[5] = this.txtTerm.Text;
         datos[6] = this.txtExpiration.Text;
@@ -114,6 +114,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         enableButtonsAC(false);
         currentFC = new FacturaCompra(); //limpio
     }
+
     protected void insertButton_Click(object sender, EventArgs e)
     {
         modo = 1;
@@ -194,6 +195,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             this.txtIV.Enabled = true;
             this.txtFlete.Enabled = true;
             this.txtTotal.Enabled = true;
+            this.btnCalcIVI.Enabled = true;
         }
         else
         {
@@ -214,6 +216,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             this.txtIV.Enabled = false;
             this.txtFlete.Enabled = false;
             this.txtTotal.Enabled = false;
+            this.btnCalcIVI.Enabled = false;
         }
 
     }
@@ -262,7 +265,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             case "selectFV":
                 {
                     GridViewRow selectedRow = this.GridViewFacturaCompras.Rows[Convert.ToInt32(e.CommandArgument)];
-                    currentFC = fcController.consultarFacturaCompra(selectedRow.Cells[1].Text, fcController.retornarCedulaProveedor(selectedRow.Cells[2].Text), this.hfCedulaContribuyente.Value);
+                    currentFC = fcController.consultarFacturaCompra(utils.procesarStringDeUI(selectedRow.Cells[1].Text), fcController.retornarCedulaProveedor(utils.procesarStringDeUI(selectedRow.Cells[2].Text)), this.hfCedulaContribuyente.Value);
                     clearFields();
                     enableFields(false);
                     enableButtonsAC(false);
@@ -370,4 +373,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
     }
 
 
+    protected void btnCalcIVI_Click(object sender, EventArgs e)
+    {
+        utils.correrJavascript("calcIVI();");
+    }
 }

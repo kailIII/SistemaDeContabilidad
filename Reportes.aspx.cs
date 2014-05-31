@@ -12,6 +12,7 @@ public partial class _Reportes : System.Web.UI.Page
         Session["TipoReporte"] = "";
         if (!Session["CedulaContribuyente"].ToString().Equals(""))
         {
+            this.lblNameContribuyente.Text = "Nombre del contribuyente: " + Session["NombreContribuyente"].ToString();
             if (!Page.IsPostBack)
             {
                 Page.MaintainScrollPositionOnPostBack = true;

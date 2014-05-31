@@ -60,7 +60,7 @@ public partial class Proveedores : System.Web.UI.Page
             case "selectProveedor":
                 {
                     GridViewRow selectedRow = this.GridViewProveedores.Rows[Convert.ToInt32(e.CommandArgument)];
-                    currentProveedor = proveedorController.consultarProveedor(selectedRow.Cells[2].Text);
+                    currentProveedor = proveedorController.consultarProveedor(utils.procesarStringDeUI(selectedRow.Cells[2].Text));
                     clearFields();
                     fillFields(currentProveedor);
                     enableFields(false);
@@ -87,13 +87,13 @@ public partial class Proveedores : System.Web.UI.Page
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
         Object[] datos = new Object[7];
-        datos[0] = this.txtCodeProveedor.Text;
-        datos[1] = this.txtProveedorName.Text;
+        datos[0] = utils.procesarStringDeUI(this.txtCodeProveedor.Text);
+        datos[1] = utils.procesarStringDeUI(this.txtProveedorName.Text);
         datos[2] = this.txtCedula.Text;
-        datos[3] = this.txtAddress.Text;
+        datos[3] = utils.procesarStringDeUI(this.txtAddress.Text);
         datos[4] = this.txtPhone.Text;
         datos[5] = this.txtFax.Text;
-        datos[6] = this.txtEmail.Text;
+        datos[6] = utils.procesarStringDeUI(this.txtEmail.Text);
         String resultado = "";
         if (modo == 1) // insertar
         {

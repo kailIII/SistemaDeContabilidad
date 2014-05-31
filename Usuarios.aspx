@@ -53,7 +53,7 @@
 
                 <div id="userName" class="fieldContainer">
                     <asp:Label ID="lblUserName" runat="server" Text="Nombre:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtUserName" runat="server" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtUserName" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ControlToValidate="txtUserName" CssClass="error" ID="RequiredFieldValidatorNombre" runat="server" ErrorMessage="* Nombre requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
@@ -63,7 +63,7 @@
 
                 <div id="userLastName" class="fieldContainer">
                     <asp:Label ID="lblLastName" runat="server" Text="Apellidos:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtLastName" runat="server" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtLastName" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ControlToValidate="txtLastName" CssClass="error" ID="RequiredFieldValidatorApellido" runat="server" ErrorMessage="* Apellido requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
@@ -73,7 +73,7 @@
 
                 <div id="userID" class="fieldContainer">
                     <asp:Label ID="lblCedula" runat="server" Text="Cédula:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtCedula" runat="server" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtCedula" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ControlToValidate="txtCedula" CssClass="error" ID="RequiredFieldValidatorCedula" runat="server" ErrorMessage="* Cédula requerida"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
@@ -85,7 +85,7 @@
 
                 <div id="userEmail" class="fieldContainer">
                     <asp:Label ID="lblEmail" runat="server" Text="Correo:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtEmail" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ControlToValidate="txtEmail" CssClass="error" ID="RequiredFieldValidatorEmail" runat="server" ErrorMessage="* Correo requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
@@ -95,7 +95,7 @@
 
                 <div id="userPass" class="fieldContainer">
                     <asp:Label ID="lblPass" runat="server" Text="Contraseña:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtPass" runat="server" TextMode="Password" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtPass" runat="server" TextMode="Password" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorCnt" runat="server" CssClass ="error" ErrorMessage="* Contraseña de usuario requerida" ControlToValidate="txtPass" Display="Dynamic" ForeColor="#FF3300" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
@@ -105,7 +105,7 @@
 
                 <div id="userConfPass" class="fieldContainer">
                     <asp:Label ID="lblConfPass" runat="server" Text="Confirmar contraseña:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtConfPass" runat="server" TextMode="Password" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtConfPass" runat="server" TextMode="Password" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RequiredFieldValidator ID="RequiredFieldValidatorConfCont" runat="server" CssClass ="error" ErrorMessage="* Confirmación de contraseña de usuario requerida" ControlToValidate="txtPass" Display="Dynamic" ForeColor="#FF3300" font-size="Small" Font-Bold="true"></asp:RequiredFieldValidator>
@@ -117,7 +117,7 @@
 
                 <div id="userPhone" class="fieldContainer">
                     <asp:Label ID="lblPhone" runat="server" Text="Teléfono:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtPhone" runat="server" CssClass="txtContainer"></asp:TextBox>
+                    <asp:TextBox ID="txtPhone" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidatorPhone" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos. Ingrese únicamente caracteres numéricos"
@@ -128,11 +128,11 @@
 
                 <div id="userAddress" class="fieldContainer">
                     <asp:Label ID="lblAddress" runat="server" Text="Dirección:" CssClass="lblContainer"></asp:Label>
-                    <asp:TextBox ID="txtAddress" runat="server" CssClass="txtContainer" TextMode="MultiLine"></asp:TextBox>
+                    <asp:TextBox ID="txtAddress" runat="server" CssClass="txtContainer" TextMode="MultiLine" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                 </div>
                 <div>
                     <asp:RegularExpressionValidator ID="RegularExpressionValidatorDireccion" CssClass="error"  runat="server" ErrorMessage="* Se han escrito caracteres inválidos."
-                        ValidationExpression="^[a-zA-ZñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtAddress" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
+                        ValidationExpression="^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚüÜ\ |., ]{1,50}$" ControlToValidate="txtAddress" ForeColor="#FF3300" Display="Dynamic" font-size="Small"></asp:RegularExpressionValidator>
                 </div>
 
                 <div class="divider"></div>

@@ -34,7 +34,7 @@ public partial class InformeReporte : System.Web.UI.Page
 
         this.ReportViewer1.LocalReport.ReportPath = Server.MapPath("SistemaDeContabilidadReportes.rdlc");
 
-        ReportParameter[] parms = new ReportParameter[8];
+        ReportParameter[] parms = new ReportParameter[12];
         parms[0] = new ReportParameter("NombreContribuyente", Session["NombreContribuyente"].ToString());
         parms[1] = new ReportParameter("FechaDesde", Session["FechaDesde"].ToString());
         parms[2] = new ReportParameter("FechaHasta", Session["FechaHasta"].ToString());
@@ -59,10 +59,14 @@ public partial class InformeReporte : System.Web.UI.Page
         }
 
         foreach(DataRow r in resultadosGenerales.Rows){
-            parms[4] = new ReportParameter("ExentoGeneral", r[0].ToString());
-            parms[5] = new ReportParameter("GravadoGeneral", r[1].ToString());
-            parms[6] = new ReportParameter("ImpuestoGeneral", r[2].ToString());
-            parms[7] = new ReportParameter("TotalGeneral", r[3].ToString());
+            parms[4] = new ReportParameter("SubExento", r[0].ToString());
+            parms[5] = new ReportParameter("DescExento", r[1].ToString());
+            parms[6] = new ReportParameter("ExentoGeneral", r[2].ToString());
+            parms[7] = new ReportParameter("SubGravado", r[3].ToString());
+            parms[8] = new ReportParameter("DescGravado", r[4].ToString());
+            parms[9] = new ReportParameter("ImpuestoGeneral", r[5].ToString());
+            parms[10] = new ReportParameter("GravadoGeneral", r[6].ToString());
+            parms[11] = new ReportParameter("TotalGeneral", r[7].ToString());
         }
 
         this.ReportViewer1.LocalReport.SetParameters(parms);

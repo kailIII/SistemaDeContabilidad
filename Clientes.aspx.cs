@@ -60,7 +60,7 @@ public partial class Clientes : System.Web.UI.Page
             case "selectCliente":
                 {
                     GridViewRow selectedRow = this.GridViewClientes.Rows[Convert.ToInt32(e.CommandArgument)];
-                    currentCustomer = customerController.consultarCliente(selectedRow.Cells[2].Text);
+                    currentCustomer = customerController.consultarCliente(utils.procesarStringDeUI(selectedRow.Cells[2].Text));
                     clearFields();
                     fillFields(currentCustomer);
                     enableFields(false);
@@ -88,13 +88,13 @@ public partial class Clientes : System.Web.UI.Page
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
         Object[] datos = new Object[7];
-        datos[0] = this.txtCodeCiente.Text;
-        datos[1] = this.txtCustomerName.Text;
+        datos[0] = utils.procesarStringDeUI(this.txtCodeCiente.Text);
+        datos[1] = utils.procesarStringDeUI(this.txtCustomerName.Text);
         datos[2] = this.txtCedula.Text;
-        datos[3] = this.txtAddress.Text;
+        datos[3] = utils.procesarStringDeUI(this.txtAddress.Text);
         datos[4] = this.txtPhone.Text;
         datos[5] = this.txtFax.Text;
-        datos[6] = this.txtEmail.Text;
+        datos[6] = utils.procesarStringDeUI(this.txtEmail.Text);
         String resultado = "";
         if (modo == 1) // insertar
         {

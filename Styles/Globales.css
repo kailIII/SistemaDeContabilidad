@@ -15,6 +15,20 @@
     float: left;
 }
 
+.dayContainer {
+    margin-left: 1%;
+    width: 10%;
+    text-align:right;
+    float: left;
+}
+
+.monthYearContainer {
+    margin-left: 1%;
+    width: 77%;
+    float: left;
+    background:#dddddd; 
+}
+
 .txtContainer:disabled {
     background:#dddddd;   
 }

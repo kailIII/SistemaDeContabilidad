@@ -159,7 +159,7 @@ public partial class Usuarios : System.Web.UI.Page
             case "selectUser":
                 {
                     GridViewRow selectedRow = this.GridViewUsers.Rows[Convert.ToInt32(e.CommandArgument)];
-                    currentUser = userController.consultarUsuario(selectedRow.Cells[2].Text);
+                    currentUser = userController.consultarUsuario(utils.procesarStringDeUI(selectedRow.Cells[2].Text));
                     clearFields();
                     fillFields(currentUser);
                     enableFields(false);
@@ -209,13 +209,13 @@ public partial class Usuarios : System.Web.UI.Page
     protected void btnAceptar_Click(object sender, EventArgs e)
     {
         Object[] datos = new Object[7];
-        datos[0] = this.txtUserName.Text;
-        datos[1] = this.txtLastName.Text;
+        datos[0] = utils.procesarStringDeUI(this.txtUserName.Text);
+        datos[1] = utils.procesarStringDeUI(this.txtLastName.Text);
         datos[2] = this.txtCedula.Text;
-        datos[3] = this.txtEmail.Text;
+        datos[3] = utils.procesarStringDeUI(this.txtEmail.Text);
         datos[4] = this.txtPhone.Text;
-        datos[5] = this.txtPass.Text;
-        datos[6] = this.txtAddress.Text;
+        datos[5] = utils.procesarStringDeUI(this.txtPass.Text);
+        datos[6] = utils.procesarStringDeUI(this.txtAddress.Text);
         String resultado = "";
         if (modo == 1) // insertar
         {

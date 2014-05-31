@@ -60,3 +60,9 @@ function enterBuscar(e, idBoton) {
         e.preventDefault();
     }
 }
+
+function enterPreventDefault(e) {
+    if (e.keyCode == 13) {
+        e.preventDefault();
+    }
+}
