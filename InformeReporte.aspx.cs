@@ -21,12 +21,19 @@ public partial class InformeReporte : System.Web.UI.Page
     reporteAcumuladoComprasTableAdapter adapterReportesAcumuladoCompras = new reporteAcumuladoComprasTableAdapter();
     totalesAcumuladoComprasTableAdapter adapterTotalesComprasAcumuladas = new totalesAcumuladoComprasTableAdapter();
     totalesAcumuladoVentasTableAdapter adapterTotalesVentasAcumuladas = new totalesAcumuladoVentasTableAdapter();
-    reporteAcumuladoComprasSinImpuestoTableAdapter adapterTotalesComprasAcumuladasSinImpuesto = new reporteAcumuladoComprasSinImpuestoTableAdapter();
+    reporteAcumuladoComprasSinImpuestoTableAdapter adapterReportesAcumuladoComprasAcumuladasSinImpuesto = new reporteAcumuladoComprasSinImpuestoTableAdapter();
+    reporteAcumuladoVentasSinImpuestoTableAdapter adapterReportesAcumuladoVentasAcumuladasSinImpuesto = new reporteAcumuladoVentasSinImpuestoTableAdapter();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if(!IsPostBack){
-            //fillReportAcumulateNoIV(Convert.ToInt32(Session["TipoReporte"].ToString()));
+            if (Convert.ToInt32(Session["TipoReporte"].ToString()) == 0 || Convert.ToInt32(Session["TipoReporte"].ToString()) == 1)
+            {
+                fillReport(Convert.ToInt32(Session["TipoReporte"].ToString()));
+            }
+            else {
+                fillReportAcumulateNoIV(Convert.ToInt32(Session["TipoReporte"].ToString()));
+            }
         }
     }
 
@@ -79,7 +86,7 @@ public partial class InformeReporte : System.Web.UI.Page
         this.ReportViewer1.DataBind();
         this.ReportViewer1.LocalReport.Refresh();    
     }
-    /*
+    
     private void fillReportAcumulateNoIV(int type) {
         this.ReportViewer1.Reset();
 
@@ -97,15 +104,17 @@ public partial class InformeReporte : System.Web.UI.Page
 
         //depends on the report type   
 
-        if (type == 0)
+        if (type == 2)
         {
-            result = adapterTotalesComprasAcumuladasSinImpuesto.GetData(fechaDesde, fechaHasta, 2500000, Session["CedulaContribuyente"].ToString());
+            result = adapterReportesAcumuladoComprasAcumuladasSinImpuesto.GetData(fechaDesde, fechaHasta, Convert.ToInt32(Session["MontoCorte"].ToString()), Session["CedulaContribuyente"].ToString());
             parms[3] = new ReportParameter("TipoReporte", "Reporte Acumulado de Compras sin impuesto");
-            parms[4] = new ReportParameter("MontoCorte", "2,500,000.00");
+            parms[4] = new ReportParameter("MontoCorte", Session["MontoCorte"].ToString());
         }
-        else if (type == 1)
+        else if (type == 3)
         {
-            
+            result = adapterReportesAcumuladoVentasAcumuladasSinImpuesto.GetData(fechaDesde, fechaHasta, Convert.ToInt32(Session["MontoCorte"].ToString()), Session["CedulaContribuyente"].ToString());
+            parms[3] = new ReportParameter("TipoReporte", "Reporte Acumulado de Ventas sin impuesto");
+            parms[4] = new ReportParameter("MontoCorte", Session["MontoCorte"].ToString());            
         }
 
         this.ReportViewer1.LocalReport.SetParameters(parms);
@@ -117,6 +126,6 @@ public partial class InformeReporte : System.Web.UI.Page
         this.ReportViewer1.DataBind();
         this.ReportViewer1.LocalReport.Refresh();  
 
-    }*/
+    }
 
 }

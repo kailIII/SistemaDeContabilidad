@@ -520,7 +520,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>[SubtotalGravado]</Value>
+                              <Value>=Fields!SubtotalGravado.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>
@@ -553,7 +553,7 @@
                         <Paragraph>
                           <TextRuns>
                             <TextRun>
-                              <Value>[TotalFactura]</Value>
+                              <Value>=Fields!TotalFactura.Value</Value>
                               <Style />
                             </TextRun>
                           </TextRuns>

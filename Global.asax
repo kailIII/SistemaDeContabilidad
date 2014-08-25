@@ -34,6 +34,7 @@
         Session["FechaDesde"] = "";
         Session["FechaHasta"] = "";
         Session["TipoReporte"] = "";
+        Session["MontoCorte"] = "";
     }
 
     void Session_End(object sender, EventArgs e)
@@ -45,7 +46,8 @@
         Session["FechaProceso"] = "";
         Session["FechaDesde"] = "";
         Session["FechaHasta"] = "";
-        Session["TipoReporte"] = "";   
+        Session["TipoReporte"] = "";
+        Session["MontoCorte"] = "";
     }    
 
 </script>
