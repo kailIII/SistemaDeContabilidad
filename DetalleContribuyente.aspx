@@ -2,12 +2,17 @@
     CodeFile="DetalleContribuyente.aspx.cs" Inherits="_DetalleContribuyente" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+    <script src="Scripts/DetalleContribuyente.js"></script>
     <script type="text/javascript">
 	    $(document).ready(function () {
 	        $("a.level1:contains('Detalle')").parent().addClass("item_active");
 	    });
     </script> 
-
+    <style>
+        .ui-datepicker-calendar {
+        display: none;
+        }
+    </style>
     
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -63,4 +68,58 @@
         </div>
 
     </div>
+
+    <div id="popUpSelectDateVentas">
+    
+            <asp:UpdatePanel runat="server" ID="UpdateSelectDate">
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="facVentasClicked" EventName="Click" />
+                </Triggers>
+                <ContentTemplate>
+
+                <p>Seleccione el mes y el año que desea trabajar.</p>
+
+                <div class="divider"></div>
+
+                <label for="startDate">Fecha:</label>
+                <asp:TextBox runat="server" name="startDate" id="TextFechaVentas" class="date-picker" ReadOnly="true" onfocus="this.blur();"></asp:TextBox>
+                <asp:HiddenField ID="hfDateVentas" runat="server" />
+
+                <div id="btnsAcCaDelete">
+                    <asp:Button ID="btnYesDel" runat="server" Text="Aceptar" CssClass="ui-widget ui-state-default" OnClick="btnYesDel_Click" CausesValidation="true"/>
+                    <asp:Button ID="btnNoDel" runat="server" Text="Cancelar" CssClass="ui-widget ui-state-default" OnClick="btnNoDel_Click" CausesValidation="false"/>
+                </div>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+    </div> 
+
+    <div id="popUpSelectDateCompras">
+    
+            <asp:UpdatePanel runat="server" ID="UpdatePanel1">
+                <Triggers>
+                    <asp:AsyncPostBackTrigger ControlID="facComprasClicked" EventName="Click" />
+                </Triggers>
+                <ContentTemplate>
+
+                <p>Seleccione el mes y el año que desea trabajar.</p>
+
+                <div class="divider"></div>
+
+                <label for="startDate" id="lblDate">Fecha:</label>
+                <asp:TextBox runat="server" name="startDate" id="TextFechaCompras" class="date-picker" ReadOnly="true" onfocus="this.blur();"></asp:TextBox>
+                <asp:HiddenField ID="hfDateCompras" runat="server" />
+                
+
+                <div id="Div2">
+                    <asp:Button ID="Button1" runat="server" Text="Aceptar" CssClass="ui-widget ui-state-default" OnClick="btnYesDel_Click1" CausesValidation="true"/>
+                    <asp:Button ID="Button2" runat="server" Text="Cancelar" CssClass="ui-widget ui-state-default" OnClick="btnNoDel_Click1" CausesValidation="false"/>
+                </div>
+
+                </ContentTemplate>
+            </asp:UpdatePanel>
+
+    </div> 
+    
 </asp:Content>

@@ -20,6 +20,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         {
             this.lblNameContribuyente.Text = "Nombre del contribuyente: " + Session["NombreContribuyente"].ToString();
             this.hfCedulaContribuyente.Value = Session["CedulaContribuyente"].ToString();
+            this.txtMonth.Text = splitDate(Session["FechaProceso"].ToString(),0);
+            this.txtYear.Text = splitDate(Session["FechaProceso"].ToString(),1);
             utils = new CommonServices(UpdatePopUp);
             if (!Page.IsPostBack)
             {
@@ -43,6 +45,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     {
         modo = 2;
         enableFields(true);
+        this.txtMonth.Enabled = true;
+        this.txtYear.Enabled = true;
         enableButtonsIME(false, false, true);
         enableButtonsAC(true);
     }
@@ -126,7 +130,9 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         this.txtProvCust.Text = fvController.retornarNombreCliente(fv.CedulaCliente);
         this.hfCustomerName.Value = fv.CedulaCliente;
         this.txtInvoiceNumber.Text = fv.NumeroFactura;
-        this.txtDate.Text = fv.Fecha.ToShortDateString();
+        this.txtDate.Text = getDayDate(fv.Fecha.ToShortDateString());
+        this.txtMonth.Text = getMonthDate(fv.Fecha.ToShortDateString());
+        this.txtYear.Text = getYearDate(fv.Fecha.ToShortDateString());
 
         if (this.drpType.Items.FindByValue(fv.TipoFactura.ToString()) != null)
         {
@@ -148,11 +154,37 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         this.txtTotal.Text = utils.montoToString(fv.TotalFactura);
     }
 
+    private String getDayDate(String date)
+    {
+        string[] currentDate = date.Split('/');
+        String resultado = "";
+        resultado = currentDate[0];
+        return resultado;
+    }
+
+    private String getMonthDate(String date)
+    {
+        string[] currentDate = date.Split('/');
+        String resultado = "";
+        resultado = currentDate[1];
+        return resultado;
+    }
+
+    private String getYearDate(String date)
+    {
+        string[] currentDate = date.Split('/');
+        String resultado = "";
+        resultado = currentDate[2];
+        return resultado;
+    }
+
     protected void clearFields()
     {
         this.txtProvCust.Text = "";
         this.txtInvoiceNumber.Text = "";
         this.txtDate.Text = "";
+        this.txtMonth.Text = splitDate(Session["FechaProceso"].ToString(), 0);
+        this.txtYear.Text = splitDate(Session["FechaProceso"].ToString(), 1);
         this.drpType.SelectedIndex = 0;
         this.txtTerm.Text = "0";
         this.txtExpiration.Text = "";
@@ -197,6 +229,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             this.txtProvCust.Enabled = false;
             this.txtInvoiceNumber.Enabled = false;
             this.txtDate.Enabled = false;
+            this.txtMonth.Enabled = false;
+            this.txtYear.Enabled = false;
             this.drpType.Enabled = false;
             this.txtTerm.Enabled = false;
             this.txtExpiration.Enabled = false;
@@ -368,4 +402,12 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     {
         utils.correrJavascript("calcIVI();");
     }
+
+    private String splitDate(String date, int position) {
+        string[] currentDate = date.Split('/');
+        String resultado = "";
+        resultado = currentDate[position];
+        return resultado;    
+    }
+
 }

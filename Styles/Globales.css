@@ -22,11 +22,16 @@
     float: left;
 }
 
-.monthYearContainer {
+.yearContainer {
     margin-left: 1%;
-    width: 77%;
+    width: 10%;
     float: left;
-    background:#dddddd; 
+}
+
+.monthContainer {
+    margin-left: 1%;
+    width: 10%;
+    float: left;
 }
 
 .txtContainer:disabled {

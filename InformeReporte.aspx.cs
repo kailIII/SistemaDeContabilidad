@@ -21,11 +21,12 @@ public partial class InformeReporte : System.Web.UI.Page
     reporteAcumuladoComprasTableAdapter adapterReportesAcumuladoCompras = new reporteAcumuladoComprasTableAdapter();
     totalesAcumuladoComprasTableAdapter adapterTotalesComprasAcumuladas = new totalesAcumuladoComprasTableAdapter();
     totalesAcumuladoVentasTableAdapter adapterTotalesVentasAcumuladas = new totalesAcumuladoVentasTableAdapter();
+    reporteAcumuladoComprasSinImpuestoTableAdapter adapterTotalesComprasAcumuladasSinImpuesto = new reporteAcumuladoComprasSinImpuestoTableAdapter();
 
     protected void Page_Load(object sender, EventArgs e)
     {
         if(!IsPostBack){
-            fillReport(Convert.ToInt32(Session["TipoReporte"].ToString()));
+            //fillReportAcumulateNoIV(Convert.ToInt32(Session["TipoReporte"].ToString()));
         }
     }
 
@@ -78,5 +79,44 @@ public partial class InformeReporte : System.Web.UI.Page
         this.ReportViewer1.DataBind();
         this.ReportViewer1.LocalReport.Refresh();    
     }
+    /*
+    private void fillReportAcumulateNoIV(int type) {
+        this.ReportViewer1.Reset();
+
+        this.ReportViewer1.LocalReport.ReportPath = Server.MapPath("SistemaContabilidadReporteAcumuladoSinImpuesto.rdlc");
+
+        ReportParameter[] parms = new ReportParameter[5];
+        parms[0] = new ReportParameter("NombreContribuyente", Session["NombreContribuyente"].ToString());
+        parms[1] = new ReportParameter("FechaDesde", Session["FechaDesde"].ToString());
+        parms[2] = new ReportParameter("FechaHasta", Session["FechaHasta"].ToString());
+
+        DateTime fechaDesde = DateTime.ParseExact(Session["FechaDesde"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        DateTime fechaHasta = DateTime.ParseExact(Session["FechaHasta"].ToString(), "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+        DataTable result = new DataTable();
+
+        //depends on the report type   
+
+        if (type == 0)
+        {
+            result = adapterTotalesComprasAcumuladasSinImpuesto.GetData(fechaDesde, fechaHasta, 2500000, Session["CedulaContribuyente"].ToString());
+            parms[3] = new ReportParameter("TipoReporte", "Reporte Acumulado de Compras sin impuesto");
+            parms[4] = new ReportParameter("MontoCorte", "2,500,000.00");
+        }
+        else if (type == 1)
+        {
+            
+        }
+
+        this.ReportViewer1.LocalReport.SetParameters(parms);
+
+
+        ReportDataSource rds = new ReportDataSource("DataSet1", result);
+        this.ReportViewer1.LocalReport.DataSources.Clear();
+        this.ReportViewer1.LocalReport.DataSources.Add(rds);
+        this.ReportViewer1.DataBind();
+        this.ReportViewer1.LocalReport.Refresh();  
+
+    }*/
 
 }

@@ -30,6 +30,7 @@
         Session["Nombre"] = "";
         Session["CedulaContribuyente"] = "";
         Session["NombreContribuyente"] = "";
+        Session["FechaProceso"] = "";
         Session["FechaDesde"] = "";
         Session["FechaHasta"] = "";
         Session["TipoReporte"] = "";
@@ -41,6 +42,7 @@
         Session["Nombre"] = "";
         Session["CedulaContribuyente"] = "";
         Session["NombreContribuyente"] = "";
+        Session["FechaProceso"] = "";
         Session["FechaDesde"] = "";
         Session["FechaHasta"] = "";
         Session["TipoReporte"] = "";   

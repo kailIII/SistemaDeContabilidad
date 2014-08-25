@@ -8,10 +8,12 @@ using System.Web.UI.WebControls;
 public partial class _DetalleContribuyente : System.Web.UI.Page
 {
     private ControladoraContribuyentes contribuController = new ControladoraContribuyentes();
+    private CommonServices utils;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         Session["NombreContribuyente"] = "";
+        utils = new CommonServices(UpdateSelectDate);
         if (!Session["CedulaContribuyente"].ToString().Equals(""))
         {
             if (!Page.IsPostBack)
@@ -66,17 +68,53 @@ public partial class _DetalleContribuyente : System.Web.UI.Page
 
     protected void facVentasClicked_Click(object sender, EventArgs e)
     {
-        Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
-        Response.Redirect("~/FacturaciónVentas.aspx");
+        utils.abrirPopUp("popUpSelectDateVentas", "Facturación Ventas");
     }
     protected void facComprasClicked_Click(object sender, EventArgs e)
     {
-        Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
-        Response.Redirect("~/FacturaciónCompras.aspx");
+        utils.abrirPopUp("popUpSelectDateCompras", "Facturación Compras");
     }
     protected void btnReport_Click(object sender, EventArgs e)
     {
         Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
         Response.Redirect("~/Reportes.aspx");
+        
+    }
+    protected void btnYesDel_Click(object sender, EventArgs e)
+    {
+        if (!this.hfDateVentas.Value.ToString().Equals(""))
+        {
+            utils.cerrarPopUp("popUpSelectDateVentas");
+            Session["FechaProceso"] = this.hfDateVentas.Value.ToString();
+            Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
+            Response.Redirect("~/FacturaciónVentas.aspx");
+        }
+        else {
+            utils.abrirPopUpPersonalizado("popUpMensaje", "Atención", "Es necesario ingresar una fecha para la inclusión de facturas");
+        }
+    }
+    protected void btnNoDel_Click(object sender, EventArgs e)
+    {
+        this.hfDateVentas.Value = "";
+        utils.cerrarPopUp("popUpSelectDateVentas");
+    }
+    protected void btnYesDel_Click1(object sender, EventArgs e)
+    {
+        if (!this.hfDateCompras.Value.ToString().Equals(""))
+        {
+            utils.cerrarPopUp("popUpSelectDateCompras");
+            Session["FechaProceso"] = this.hfDateCompras.Value.ToString();
+            Session["NombreContribuyente"] = this.txtNameContribuyente.Text.ToString();
+            Response.Redirect("~/FacturaciónCompras.aspx");
+        }
+        else
+        {
+            utils.abrirPopUpPersonalizado("popUpMensaje", "Atención", "Es necesario ingresar una fecha para la inclusión de facturas");
+        }
+    }
+    protected void btnNoDel_Click1(object sender, EventArgs e)
+    {
+        this.hfDateCompras.Value = "";
+        utils.cerrarPopUp("popUpSelectDateCompras");
     }
 }

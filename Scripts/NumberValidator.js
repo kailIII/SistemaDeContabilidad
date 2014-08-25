@@ -120,7 +120,7 @@ function completeSingleDay(day) {
 
 function updateDate() {
     completeSingleDay($("#MainContent_txtDate").val());
-    date = $("#MainContent_txtDate").val() + $("#MainContent_txtMonthYear").val();
+    date = $("#MainContent_txtDate").val() + '/' + $("#MainContent_txtMonth").val() + '/' + $("#MainContent_txtYear").val();
     $('#MainContent_hfDate').val(date);
     days = Number($("#MainContent_txtTerm").val());
     addDays(date, days);

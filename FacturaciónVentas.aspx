@@ -54,7 +54,8 @@
                         <div id="fieldDate" class="singleFieldContainer">
                             <asp:Label ID="lblDate" runat="server" Text="Fecha:" CssClass="lblContainer"></asp:Label>
                             <asp:TextBox ID="txtDate" runat="server" CssClass="txtContainer dayContainer" MaxLength="2" AutoPostBack="false" onblur="updateDate()" onkeydown = "enterPreventDefault(event);" TextMode="SingleLine"></asp:TextBox>
-                            <asp:TextBox ID="txtMonthYear" runat="server" CssClass="lblContainer monthYearContainer" Text="/04/2014" TextMode="SingleLine" Enabled="false"></asp:TextBox>
+                            <asp:TextBox ID="txtMonth" runat="server" CssClass="txtContainer monthContainer" Text="04" MaxLength="2" AutoPostBack="false" onblur="updateDate()" onkeydown = "enterPreventDefault(event);" TextMode="SingleLine" Enabled="false"></asp:TextBox>                            
+                            <asp:TextBox ID="txtYear" runat="server" CssClass="txtContainer yearContainer" Text="2014" MaxLength="4" AutoPostBack="false" onblur="updateDate()" onkeydown = "enterPreventDefault(event);" TextMode="SingleLine" Enabled="false"></asp:TextBox>
                             <asp:HiddenField ID="hfDate" runat="server" />
                         </div>
 
