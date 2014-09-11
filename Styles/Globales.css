@@ -202,3 +202,15 @@
     color: #E8BD07 !important;
 }
 
+.grid_manager {
+    width: 90%;
+    float: left;
+    text-align: center;
+    margin-top: 2%;    
+}
+
+.grid_manager a {
+    text-decoration: none;
+    color: #E8BD07 !important;
+}
+

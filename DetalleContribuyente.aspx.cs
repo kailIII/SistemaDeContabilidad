@@ -47,12 +47,12 @@ public partial class _DetalleContribuyente : System.Web.UI.Page
 
     private void fillFields(String cedulaContribuyente) {
         Contribuyente contribuyente = contribuController.consultarContribuyente(cedulaContribuyente);
-        this.txtNameContribuyente.Text = contribuyente.NombreContribuyente;
-        this.txtCedulaContribuyente.Text = contribuyente.CedulaContribuyente;
-        this.txtNameRepresentante.Text = contribuyente.NombreRepresentante;
-        this.txtAddress.Text = formatAddress(contribuyente.Provincia, contribuyente.Canton, contribuyente.Distrito, contribuyente.Direccion);
+        this.txtNameContribuyente.Text = utils.procesarStringDeUI(contribuyente.NombreContribuyente);
+        this.txtCedulaContribuyente.Text = utils.procesarStringDeUI(contribuyente.CedulaContribuyente);
+        this.txtNameRepresentante.Text = utils.procesarStringDeUI(contribuyente.NombreRepresentante);
+        this.txtAddress.Text = utils.procesarStringDeUI((formatAddress(contribuyente.Provincia, contribuyente.Canton, contribuyente.Distrito, contribuyente.Direccion)));
         this.txtTipoContribuyente.Text = returnType(contribuyente.Tipo);
-        this.txtLastPeriod.Text = contribuyente.UltimoPeriodo;
+        this.txtLastPeriod.Text = utils.procesarStringDeUI(contribuyente.UltimoPeriodo);
     }
 
     private String returnType(int type) {

@@ -58,13 +58,13 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     {
         //quitar esto
         Object[] datos = new Object[18];
-        datos[0] = this.txtInvoiceNumber.Text;
-        datos[1] = this.hfCedulaContribuyente.Value;
+        datos[0] = utils.procesarStringDeUI(this.txtInvoiceNumber.Text);
+        datos[1] = utils.procesarStringDeUI(this.hfCedulaContribuyente.Value);
         datos[2] = utils.procesarStringDeUI(this.hfCustomerName.Value.ToString());
-        datos[3] = this.hfDate.Value;
-        datos[4] = this.drpType.SelectedItem.Value;
-        datos[5] = this.txtTerm.Text;
-        datos[6] = this.txtExpiration.Text;
+        datos[3] = utils.procesarStringDeUI(this.hfDate.Value);
+        datos[4] = utils.procesarStringDeUI(this.drpType.SelectedItem.Value);
+        datos[5] = utils.procesarStringDeUI(this.txtTerm.Text);
+        datos[6] = utils.procesarStringDeUI(this.txtExpiration.Text);
         datos[7] = utils.stringToDouble(this.txtMontoExempt.Text);
         datos[8] = utils.stringToDouble(this.txtPorDescExempt.Text);
         datos[9] = utils.stringToDouble(this.txtDesExempt.Text);
@@ -127,16 +127,16 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void fillFields(FacturaVenta fv)
     {
-        this.txtProvCust.Text = fvController.retornarNombreCliente(fv.CedulaCliente);
-        this.hfCustomerName.Value = fv.CedulaCliente;
-        this.txtInvoiceNumber.Text = fv.NumeroFactura;
-        this.txtDate.Text = getDayDate(fv.Fecha.ToShortDateString());
-        this.txtMonth.Text = getMonthDate(fv.Fecha.ToShortDateString());
-        this.txtYear.Text = getYearDate(fv.Fecha.ToShortDateString());
+        this.txtProvCust.Text = utils.procesarStringDeUI(fvController.retornarNombreCliente(fv.CedulaCliente));
+        this.hfCustomerName.Value = utils.procesarStringDeUI(fv.CedulaCliente);
+        this.txtInvoiceNumber.Text = utils.procesarStringDeUI(fv.NumeroFactura);
+        this.txtDate.Text = utils.procesarStringDeUI(getDayDate(fv.Fecha.ToShortDateString()));
+        this.txtMonth.Text = utils.procesarStringDeUI(getMonthDate(fv.Fecha.ToShortDateString()));
+        this.txtYear.Text = utils.procesarStringDeUI(getYearDate(fv.Fecha.ToShortDateString()));
 
         if (this.drpType.Items.FindByValue(fv.TipoFactura.ToString()) != null)
         {
-            ListItem aux = this.drpType.Items.FindByValue(fv.TipoFactura.ToString());
+            ListItem aux = this.drpType.Items.FindByValue(utils.procesarStringDeUI(fv.TipoFactura.ToString()));
             this.drpType.SelectedValue = aux.Value;
         }
         this.txtTerm.Text = fv.Plazo.ToString();
@@ -276,11 +276,11 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         this.GridViewFacturaVentas.PageIndex = e.NewPageIndex;
         if (modoPaging == 1)
         {
-            fillGrid(fvController.consultarTodasFacturasVentas(this.hfCedulaContribuyente.Value.ToString()));
+            fillGrid(fvController.consultarTodasFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value.ToString())));
         }
         else
         {
-            fillGrid(fvController.buscarFacturasVentas(this.hfCedulaContribuyente.Value, this.txtSearch.Text.ToString()));
+            fillGrid(fvController.buscarFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value), utils.procesarStringDeUI(this.txtSearch.Text.ToString())));
         }
         this.GridViewFacturaVentas.DataBind();
         this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
@@ -349,9 +349,9 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             foreach (FacturaVenta factura in fvDt)
             {
                 Object[] datos = new Object[3];
-                datos[0] = factura.NumeroFactura;
-                datos[1] = fvController.retornarNombreCliente(factura.CedulaCliente);
-                datos[2] = factura.Fecha.ToShortDateString();
+                datos[0] = utils.procesarStringDeUI(factura.NumeroFactura);
+                datos[1] = utils.procesarStringDeUI(fvController.retornarNombreCliente(factura.CedulaCliente));
+                datos[2] = utils.procesarStringDeUI(factura.Fecha.ToShortDateString());
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -377,7 +377,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             currentFV = new FacturaVenta(); //limpio
             clearFields();
             modoPaging = 1;
-            fillGrid(fvController.consultarTodasFacturasVentas(this.hfCedulaContribuyente.Value.ToString()));
+            fillGrid(fvController.consultarTodasFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value.ToString())));
             utils.cerrarPopUp("popUpDeleteFacturaVenta");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Facturación Ventas", resultado);
         }
@@ -394,7 +394,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        List<FacturaVenta> fvList = fvController.buscarFacturasVentas(this.hfCedulaContribuyente.Value, this.txtSearch.Text.ToString());
+        List<FacturaVenta> fvList = fvController.buscarFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value), utils.procesarStringDeUI(this.txtSearch.Text.ToString()));
         modoPaging = 2;
         fillGrid(fvList);
     }

@@ -59,13 +59,13 @@ public partial class FacturaciónCompras : System.Web.UI.Page
     {
         //quitar esto
         Object[] datos = new Object[18];
-        datos[0] = this.txtInvoiceNumber.Text;
-        datos[1] = this.hfCedulaContribuyente.Value;
+        datos[0] = utils.procesarStringDeUI(this.txtInvoiceNumber.Text);
+        datos[1] = utils.procesarStringDeUI(this.hfCedulaContribuyente.Value);
         datos[2] = utils.procesarStringDeUI(this.hfCustomerName.Value.ToString());
-        datos[3] = this.hfDate.Value;
-        datos[4] = this.drpType.SelectedItem.Value;
-        datos[5] = this.txtTerm.Text;
-        datos[6] = this.txtExpiration.Text;
+        datos[3] = utils.procesarStringDeUI(this.hfDate.Value);
+        datos[4] = utils.procesarStringDeUI(this.drpType.SelectedItem.Value);
+        datos[5] = utils.procesarStringDeUI(this.txtTerm.Text);
+        datos[6] = utils.procesarStringDeUI(this.txtExpiration.Text);
         datos[7] = utils.stringToDouble(this.txtMontoExempt.Text);
         datos[8] = utils.stringToDouble(this.txtPorDescExempt.Text);
         datos[9] = utils.stringToDouble(this.txtDesExempt.Text);
@@ -132,16 +132,16 @@ public partial class FacturaciónCompras : System.Web.UI.Page
 
     protected void fillFields(FacturaCompra fc)
     {
-        this.txtProvCust.Text = fcController.retornarNombreProveedor(fc.CedulaProveedor);
-        this.hfCustomerName.Value = fc.CedulaProveedor;
-        this.txtInvoiceNumber.Text = fc.NumeroFactura;
-        this.txtDate.Text = getDayDate(fc.Fecha.ToShortDateString());
-        this.txtMonth.Text = getMonthDate(fc.Fecha.ToShortDateString());
-        this.txtYear.Text = getYearDate(fc.Fecha.ToShortDateString());
+        this.txtProvCust.Text = utils.procesarStringDeUI(fcController.retornarNombreProveedor(fc.CedulaProveedor));
+        this.hfCustomerName.Value = utils.procesarStringDeUI(fc.CedulaProveedor);
+        this.txtInvoiceNumber.Text = utils.procesarStringDeUI(fc.NumeroFactura);
+        this.txtDate.Text = utils.procesarStringDeUI(getDayDate(fc.Fecha.ToShortDateString()));
+        this.txtMonth.Text = utils.procesarStringDeUI(getMonthDate(fc.Fecha.ToShortDateString()));
+        this.txtYear.Text = utils.procesarStringDeUI(getYearDate(fc.Fecha.ToShortDateString()));
 
         if (this.drpType.Items.FindByValue(fc.TipoFactura.ToString()) != null)
         {
-            ListItem aux = this.drpType.Items.FindByValue(fc.TipoFactura.ToString());
+            ListItem aux = this.drpType.Items.FindByValue(utils.procesarStringDeUI(fc.TipoFactura.ToString()));
             this.drpType.SelectedValue = aux.Value;
         }
         this.txtTerm.Text = fc.Plazo.ToString();
@@ -354,9 +354,9 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             foreach (FacturaCompra factura in fcDt)
             {
                 Object[] datos = new Object[3];
-                datos[0] = factura.NumeroFactura;
-                datos[1] = fcController.retornarNombreProveedor(factura.CedulaProveedor);
-                datos[2] = factura.Fecha.ToShortDateString();
+                datos[0] = utils.procesarStringDeUI(factura.NumeroFactura);
+                datos[1] = utils.procesarStringDeUI(fcController.retornarNombreProveedor(factura.CedulaProveedor));
+                datos[2] = utils.procesarStringDeUI(factura.Fecha.ToShortDateString());
                 auxiliarHeaders.Rows.Add(datos);
             }
         }

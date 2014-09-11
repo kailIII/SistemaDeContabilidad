@@ -162,7 +162,7 @@
                 <ContentTemplate>
                     <!-- Botones Invisibles -->
                     <asp:TextBox ID="txtSearch" runat="server" onkeydown = "enterBuscar(event, 'MainContent_btnSearch');"></asp:TextBox>
-                    <asp:Button ID="btnSearch" runat="server" Text="Buscar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnSearch_Click"/>
+                    <asp:Button ID="btnSearch" runat="server" Text="Buscar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnSearch_Click" CausesValidation="false"/>
             
                     <!-- Cuerpo con la tabla -->
                     <div style="min-height: 500px;">

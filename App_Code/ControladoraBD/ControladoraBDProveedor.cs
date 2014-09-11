@@ -211,4 +211,50 @@ public class ControladoraBDProveedor
         return resultado;
     }
 
+    public List<Proveedor> buscarProveedoresDisponibles(String cedulaContribuyente, String aBuscar)
+    {
+        List<Proveedor> resultado = new List<Proveedor>();
+        DataTable dtProveedor = new DataTable();
+        String aux = "%" + aBuscar + "%";
+        dtProveedor = _adapter.buscarProveedoresDisponibles(aux, cedulaContribuyente);
+        foreach (DataRow fila in dtProveedor.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Proveedor proveedor = new Proveedor(datos);
+            resultado.Add(proveedor);
+        }
+
+        return resultado;
+    }
+
+    public List<Proveedor> buscarProveedoresNoDisponibles(String cedulaContribuyente, String aBuscar)
+    {
+        List<Proveedor> resultado = new List<Proveedor>();
+        DataTable dtProveedor = new DataTable();
+        String aux = "%" + aBuscar + "%";
+        dtProveedor = _adapter.buscarProveedoresNoDisponibles(aux, cedulaContribuyente);
+        foreach (DataRow fila in dtProveedor.Rows)
+        {
+            Object[] datos = new Object[7];
+            datos[0] = fila[0].ToString();
+            datos[1] = fila[1].ToString();
+            datos[2] = fila[2].ToString();
+            datos[3] = fila[3].ToString();
+            datos[4] = fila[4].ToString();
+            datos[5] = fila[5].ToString();
+            datos[6] = fila[6].ToString();
+            Proveedor proveedor = new Proveedor(datos);
+            resultado.Add(proveedor);
+        }
+
+        return resultado;
+    }
+
 }

@@ -40,7 +40,7 @@ function crearPopUpManagerContribuyente(popUpId) {
         autoOpen: false,
         modal: true,
         appendTo: "form",
-        width: 1000,
+        width: 1200,
         resizable: false
     }).parent().css('z-index', '1005');
 }

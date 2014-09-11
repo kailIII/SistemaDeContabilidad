@@ -89,10 +89,10 @@ public partial class Proveedores : System.Web.UI.Page
         Object[] datos = new Object[7];
         datos[0] = utils.procesarStringDeUI(this.txtCodeProveedor.Text);
         datos[1] = utils.procesarStringDeUI(this.txtProveedorName.Text);
-        datos[2] = this.txtCedula.Text;
+        datos[2] = utils.procesarStringDeUI(this.txtCedula.Text);
         datos[3] = utils.procesarStringDeUI(this.txtAddress.Text);
-        datos[4] = this.txtPhone.Text;
-        datos[5] = this.txtFax.Text;
+        datos[4] = utils.procesarStringDeUI(this.txtPhone.Text);
+        datos[5] = utils.procesarStringDeUI(this.txtFax.Text);
         datos[6] = utils.procesarStringDeUI(this.txtEmail.Text);
         String resultado = "";
         if (modo == 1) // insertar
@@ -181,9 +181,9 @@ public partial class Proveedores : System.Web.UI.Page
             foreach (Proveedor proveedor in proveedoresDt)
             {
                 Object[] datos = new Object[3];
-                datos[0] = proveedor.NombreProveedor;
-                datos[1] = proveedor.Cedula;
-                datos[2] = proveedor.Telefono;
+                datos[0] = utils.procesarStringDeUI(proveedor.NombreProveedor);
+                datos[1] = utils.procesarStringDeUI(proveedor.Cedula);
+                datos[2] = utils.procesarStringDeUI(proveedor.Telefono);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -204,13 +204,13 @@ public partial class Proveedores : System.Web.UI.Page
 
     protected void fillFields(Proveedor proveedor)
     {
-        this.txtProveedorName.Text = proveedor.NombreProveedor;
-        this.txtCedula.Text = proveedor.Cedula;
-        this.txtCodeProveedor.Text = proveedor.IdProveedor.ToString();
-        this.txtEmail.Text = proveedor.Correo;
-        this.txtAddress.Text = proveedor.Direccion;
-        this.txtFax.Text = proveedor.Fax;
-        this.txtPhone.Text = proveedor.Telefono;
+        this.txtProveedorName.Text = utils.procesarStringDeUI(proveedor.NombreProveedor);
+        this.txtCedula.Text = utils.procesarStringDeUI(proveedor.Cedula);
+        this.txtCodeProveedor.Text = utils.procesarStringDeUI(proveedor.IdProveedor.ToString());
+        this.txtEmail.Text = utils.procesarStringDeUI(proveedor.Correo);
+        this.txtAddress.Text = utils.procesarStringDeUI(proveedor.Direccion);
+        this.txtFax.Text = utils.procesarStringDeUI(proveedor.Fax);
+        this.txtPhone.Text = utils.procesarStringDeUI(proveedor.Telefono);
     }
 
     protected void clearFields()

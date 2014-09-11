@@ -46,7 +46,7 @@ public partial class Clientes : System.Web.UI.Page
         }
         else
         {
-            fillGrid(customerController.buscarClientes(this.txtSearch.Text.ToString()));
+            fillGrid(customerController.buscarClientes(utils.procesarStringDeUI(this.txtSearch.Text.ToString())));
         }
         this.GridViewClientes.DataBind();
         this.GridViewClientes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
@@ -90,10 +90,10 @@ public partial class Clientes : System.Web.UI.Page
         Object[] datos = new Object[7];
         datos[0] = utils.procesarStringDeUI(this.txtCodeCiente.Text);
         datos[1] = utils.procesarStringDeUI(this.txtCustomerName.Text);
-        datos[2] = this.txtCedula.Text;
+        datos[2] = utils.procesarStringDeUI(this.txtCedula.Text);
         datos[3] = utils.procesarStringDeUI(this.txtAddress.Text);
-        datos[4] = this.txtPhone.Text;
-        datos[5] = this.txtFax.Text;
+        datos[4] = utils.procesarStringDeUI(this.txtPhone.Text);
+        datos[5] = utils.procesarStringDeUI(this.txtFax.Text);
         datos[6] = utils.procesarStringDeUI(this.txtEmail.Text);
         String resultado = "";
         if (modo == 1) // insertar
@@ -181,9 +181,9 @@ public partial class Clientes : System.Web.UI.Page
             foreach (Cliente customer in clientesDt)
             {
                 Object[] datos = new Object[3];
-                datos[0] = customer.NombreCliente;
-                datos[1] = customer.Cedula;
-                datos[2] = customer.Telefono;
+                datos[0] = utils.procesarStringDeUI(customer.NombreCliente);
+                datos[1] = utils.procesarStringDeUI(customer.Cedula);
+                datos[2] = utils.procesarStringDeUI(customer.Telefono);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -203,13 +203,13 @@ public partial class Clientes : System.Web.UI.Page
     }
 
     protected void fillFields(Cliente cliente) {
-        this.txtCustomerName.Text = cliente.NombreCliente;
-        this.txtCedula.Text = cliente.Cedula;
-        this.txtCodeCiente.Text = cliente.IdCliente.ToString();
-        this.txtEmail.Text = cliente.Correo;
-        this.txtAddress.Text = cliente.Direccion;
-        this.txtFax.Text = cliente.Fax;
-        this.txtPhone.Text = cliente.Telefono;
+        this.txtCustomerName.Text = utils.procesarStringDeUI(cliente.NombreCliente);
+        this.txtCedula.Text = utils.procesarStringDeUI(cliente.Cedula);
+        this.txtCodeCiente.Text = utils.procesarStringDeUI(cliente.IdCliente.ToString());
+        this.txtEmail.Text = utils.procesarStringDeUI(cliente.Correo);
+        this.txtAddress.Text = utils.procesarStringDeUI(cliente.Direccion);
+        this.txtFax.Text = utils.procesarStringDeUI(cliente.Fax);
+        this.txtPhone.Text = utils.procesarStringDeUI(cliente.Telefono);
     }
 
     protected void clearFields() {

@@ -195,33 +195,39 @@
                         
                     </Triggers>
                     <ContentTemplate>
-                        <table class="tableManager">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <asp:GridView ID="grid_Seleccionar" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridSeleccionar_PageIndexChanging">
-                                            <Columns>
-                                                <asp:TemplateField >
-                                                    <ItemTemplate>
-                                                        <asp:CheckBox ID="checkSeleccionar" runat="server" />
-                                                    </ItemTemplate>
-                                                </asp:TemplateField>
-                                            </Columns>
-                                        </asp:GridView>
-                                    </td>
-                                    <td>
-                                        <asp:Button ID="btnAsignar" runat="server" Text="Asignar" CausesValidation="false" font-size="8pt" width="100%" OnClick="btnAsignar_Click"/>
-                                    </td>
-                                    <td>
-                                        <asp:GridView ID="grid_Seleccionados" CssClass="grid_general" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridSeleccionados_PageIndexChanging" OnRowCommand="grid_Seleccionados_RowCommand">
-                                            <Columns>
-                                                <asp:ButtonField CausesValidation="false" CommandName="eliminarAsociacion" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
-                                            </Columns>
-                                        </asp:GridView>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <div id="mainContainerManager" style="width:100%; min-height:500px;">
+                            <div id="containerAvailables" style="width:45%; height:100%; float:left;">
+                                <asp:TextBox ID="txtSearchAvailables" runat="server" onkeydown = "enterBuscar(event, 'MainContent_btnSearch');"></asp:TextBox>
+                                <asp:Button ID="btnSearchAvailables" runat="server" Text="Buscar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnSearchAvailables_Click" CausesValidation="false"/>
+                                <div class="grid_manager">
+                                    <asp:GridView ID="grid_Seleccionar" CssClass="grid_manager" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridSeleccionar_PageIndexChanging">
+                                        <Columns>
+                                            <asp:TemplateField >
+                                                <ItemTemplate>
+                                                    <asp:CheckBox ID="checkSeleccionar" runat="server"  ControlStyle-Width="20px" ControlStyle-Height="20px"/>
+                                                </ItemTemplate>
+                                            </asp:TemplateField>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </div>
+
+                            <div id="btnAsignContainer" style="width:6%; float:left; margin-left:2%; margin-right:2%;">
+                                <asp:Button ID="btnAsignar" runat="server" Text="Asignar" CausesValidation="false" font-size="8pt" width="100%" OnClick="btnAsignar_Click"/>
+                            </div>
+
+                            <div id="containerUnavailables" style="width:45%; height:100%; float:left;">
+                                <asp:TextBox ID="txtSearchUnavailables" runat="server" onkeydown = "enterBuscar(event, 'MainContent_btnSearch');"></asp:TextBox>
+                                <asp:Button ID="btnSearchUnavailables" runat="server" Text="Buscar" CssClass="ui-widget ui-state-default systemButton" OnClick="btnSearchUnavailables_Click" CausesValidation="false"/>
+                                <div class="grid_manager">
+                                    <asp:GridView ID="grid_Seleccionados" CssClass="grid_manager" runat="server" AllowPaging="true" PageSize="10" OnPageIndexChanging="GridSeleccionados_PageIndexChanging" OnRowCommand="grid_Seleccionados_RowCommand">
+                                        <Columns>
+                                            <asp:ButtonField CausesValidation="false" CommandName="eliminarAsociacion" ButtonType="Image" Visible="true" ImageUrl="Images/arrow-right.png" ControlStyle-Height="20px" ControlStyle-Width="20px"/>
+                                        </Columns>
+                                    </asp:GridView>
+                                </div>
+                            </div>
+                        </div>
                     </ContentTemplate>
                 </asp:UpdatePanel>
             </div>

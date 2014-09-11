@@ -13,6 +13,7 @@ public partial class Contribuyentes : System.Web.UI.Page
     private static int modo = -1;
     private static int tipoManager = -1;
     private static int modoPaging = 1;
+    private static int modoPagingManager = 1;
     private static Contribuyente currentContribuyente;
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -22,6 +23,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         {
             Page.MaintainScrollPositionOnPostBack = true;
             modoPaging = 1;
+            modoPagingManager = 1;
             fillDrpType();
             fillGrid(contribuyenteController.consultarTodosContribuyentes());
             clearFields();
@@ -53,7 +55,7 @@ public partial class Contribuyentes : System.Web.UI.Page
         }
         else
         {
-            fillGrid(contribuyenteController.buscarContribuyentes(this.txtSearch.Text.ToString()));
+            fillGrid(contribuyenteController.buscarContribuyentes(utils.procesarStringDeUI(this.txtSearch.Text.ToString())));
         }
         this.GridViewContribuyentes.DataBind();
         this.GridViewContribuyentes.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
@@ -130,9 +132,9 @@ public partial class Contribuyentes : System.Web.UI.Page
             foreach (Contribuyente contribuyente in contribuyentesDT)
             {
                 Object[] datos = new Object[3];
-                datos[0] = contribuyente.NombreContribuyente;
-                datos[1] = contribuyente.CedulaContribuyente;
-                datos[2] = contribuyente.NombreRepresentante;
+                datos[0] = utils.procesarStringDeUI(contribuyente.NombreContribuyente);
+                datos[1] = utils.procesarStringDeUI(contribuyente.CedulaContribuyente);
+                datos[2] = utils.procesarStringDeUI(contribuyente.NombreRepresentante);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -169,22 +171,22 @@ public partial class Contribuyentes : System.Web.UI.Page
 
     protected void fillFields(Contribuyente contribuyente)
     {
-        this.txtcodeContribuyente.Text = contribuyente.IdContribuyente.ToString();
-        this.txtNombreContribuyente.Text = contribuyente.NombreContribuyente;
-        this.txtCedulaContribuyente.Text = contribuyente.CedulaContribuyente;
-        this.txtNombreRepresentante.Text = contribuyente.NombreRepresentante;
-        this.txtCedulaRepresentante.Text = contribuyente.CedulaRepresentante;
-        this.txtProvincia.Text = contribuyente.Provincia;
-        this.txtCanton.Text = contribuyente.Canton;
-        this.txtDistrito.Text = contribuyente.Distrito;
-        this.txtDirección.Text = contribuyente.Direccion;
+        this.txtcodeContribuyente.Text = utils.procesarStringDeUI(contribuyente.IdContribuyente.ToString());
+        this.txtNombreContribuyente.Text = utils.procesarStringDeUI(contribuyente.NombreContribuyente);
+        this.txtCedulaContribuyente.Text = utils.procesarStringDeUI(contribuyente.CedulaContribuyente);
+        this.txtNombreRepresentante.Text = utils.procesarStringDeUI(contribuyente.NombreRepresentante);
+        this.txtCedulaRepresentante.Text = utils.procesarStringDeUI(contribuyente.CedulaRepresentante);
+        this.txtProvincia.Text = utils.procesarStringDeUI(contribuyente.Provincia);
+        this.txtCanton.Text = utils.procesarStringDeUI(contribuyente.Canton);
+        this.txtDistrito.Text = utils.procesarStringDeUI(contribuyente.Distrito);
+        this.txtDirección.Text = utils.procesarStringDeUI(contribuyente.Direccion);
         if (this.drpType.Items.FindByValue(contribuyente.Tipo.ToString()) != null)
         {
             ListItem aux = this.drpType.Items.FindByValue(contribuyente.Tipo.ToString());
             this.drpType.SelectedValue = aux.Value;
             hiddenFields();
         }
-        this.txtUltimoPeriodo.Text = contribuyente.UltimoPeriodo;
+        this.txtUltimoPeriodo.Text = utils.procesarStringDeUI(contribuyente.UltimoPeriodo);
     }
 
     protected void enableFields(Boolean action)
@@ -343,13 +345,29 @@ public partial class Contribuyentes : System.Web.UI.Page
     protected void GridSeleccionar_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.grid_Seleccionar.PageIndex = e.NewPageIndex;
-        if (tipoManager == 1)
+        if (modoPagingManager == 1)
         {
-            fillGridSeleccionarClientes(contribuyenteController.consultarSeleccionarClientes(currentContribuyente.CedulaContribuyente));
+            if (tipoManager == 1)
+            {
+                fillGridSeleccionarClientes(contribuyenteController.consultarSeleccionarClientes(currentContribuyente.CedulaContribuyente));
+            }
+            else if (tipoManager == 2)
+            {
+                fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
+            }
         }
-        else if (tipoManager == 2)
+        else if (modoPagingManager == 2)
         {
-            fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
+            if (tipoManager == 1)
+            {//cliente
+                List<Cliente> clienteList = contribuyenteController.buscarClientesDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchAvailables.Text));
+                fillGridSeleccionarClientes(clienteList);
+            }
+            else if (tipoManager == 2)
+            { //proveedor
+                List<Proveedor> proveedoresList = contribuyenteController.buscarProveedoresDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchAvailables.Text));
+                fillGridSeleccionarProveedores(proveedoresList);
+            }
         }
         this.grid_Seleccionar.DataBind();
         this.grid_Seleccionar.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
@@ -359,13 +377,29 @@ public partial class Contribuyentes : System.Web.UI.Page
     protected void GridSeleccionados_PageIndexChanging(object sender, GridViewPageEventArgs e)
     {
         this.grid_Seleccionados.PageIndex = e.NewPageIndex;
-        if (tipoManager == 1)
+        if (modoPagingManager == 1)
         {
-            fillGridClientesSeleccionados(contribuyenteController.consultarClientesSeleccionados(currentContribuyente.CedulaContribuyente));
+            if (tipoManager == 1)
+            {
+                fillGridClientesSeleccionados(contribuyenteController.consultarClientesSeleccionados(currentContribuyente.CedulaContribuyente));
+            }
+            else if (tipoManager == 2)
+            {
+                fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));
+            }
         }
-        else if (tipoManager == 2)
+        else if (modoPagingManager == 2)
         {
-            fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));
+            if (tipoManager == 1)
+            {//cliente
+                List<Cliente> clienteList = contribuyenteController.buscarClientesNoDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchAvailables.Text));
+                fillGridClientesSeleccionados(clienteList);
+            }
+            else if (tipoManager == 2)
+            { //proveedor
+                List<Proveedor> proveedoresList = contribuyenteController.buscarProveedoresNoDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchAvailables.Text));
+                fillGridProveedoresSeleccionados(proveedoresList);
+            }
         }
         this.grid_Seleccionados.DataBind();
         this.grid_Seleccionados.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
@@ -399,8 +433,8 @@ public partial class Contribuyentes : System.Web.UI.Page
             foreach (Cliente cliente in clientesDT)
             {
                 Object[] datos = new Object[2];
-                datos[0] = cliente.NombreCliente;
-                datos[1] = cliente.Cedula;
+                datos[0] = utils.procesarStringDeUI(cliente.NombreCliente);
+                datos[1] = utils.procesarStringDeUI(cliente.Cedula);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -427,8 +461,8 @@ public partial class Contribuyentes : System.Web.UI.Page
             foreach (Cliente cliente in clientesDT)
             {
                 Object[] datos = new Object[2];
-                datos[0] = cliente.NombreCliente;
-                datos[1] = cliente.Cedula;
+                datos[0] = utils.procesarStringDeUI(cliente.NombreCliente);
+                datos[1] = utils.procesarStringDeUI(cliente.Cedula);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -455,8 +489,8 @@ public partial class Contribuyentes : System.Web.UI.Page
             foreach (Proveedor proveedor in proveedoresDT)
             {
                 Object[] datos = new Object[2];
-                datos[0] = proveedor.NombreProveedor;
-                datos[1] = proveedor.Cedula;
+                datos[0] = utils.procesarStringDeUI(proveedor.NombreProveedor);
+                datos[1] = utils.procesarStringDeUI(proveedor.Cedula);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -483,8 +517,8 @@ public partial class Contribuyentes : System.Web.UI.Page
             foreach (Proveedor proveedor in proveedoresDT)
             {
                 Object[] datos = new Object[2];
-                datos[0] = proveedor.NombreProveedor;
-                datos[1] = proveedor.Cedula;
+                datos[0] = utils.procesarStringDeUI(proveedor.NombreProveedor);
+                datos[1] = utils.procesarStringDeUI(proveedor.Cedula);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -516,6 +550,7 @@ public partial class Contribuyentes : System.Web.UI.Page
                         if(siElimino){
                             fillGridSeleccionarClientes(contribuyenteController.consultarSeleccionarClientes(currentContribuyente.CedulaContribuyente));
                             fillGridClientesSeleccionados(contribuyenteController.consultarClientesSeleccionados(currentContribuyente.CedulaContribuyente));
+                            modoPagingManager = 1;
                         }
                         
                     }
@@ -525,6 +560,7 @@ public partial class Contribuyentes : System.Web.UI.Page
                         {
                             fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
                             fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));
+                            modoPagingManager = 1;
                         }
                     }
                     if(!siElimino){
@@ -555,10 +591,12 @@ public partial class Contribuyentes : System.Web.UI.Page
         if(tipoManager==1){
             fillGridSeleccionarClientes(contribuyenteController.consultarSeleccionarClientes(currentContribuyente.CedulaContribuyente));
             fillGridClientesSeleccionados(contribuyenteController.consultarClientesSeleccionados(currentContribuyente.CedulaContribuyente));
+            modoPagingManager = 1;
         }
         else if(tipoManager == 2){
             fillGridSeleccionarProveedores(contribuyenteController.consultarSeleccionarProveedores(currentContribuyente.CedulaContribuyente));
-            fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));        
+            fillGridProveedoresSeleccionados(contribuyenteController.consultarProveedoresSeleccionados(currentContribuyente.CedulaContribuyente));
+            modoPagingManager = 1;
         }
     }
     protected void drpType_SelectedIndexChanged(object sender, EventArgs e)
@@ -595,5 +633,32 @@ public partial class Contribuyentes : System.Web.UI.Page
             this.lblCedulaRepresentante.Visible = true;
             this.txtNombreRepresentante.Visible = true;
         }    
+    }
+    protected void btnSearchAvailables_Click(object sender, EventArgs e)
+    {
+        if(tipoManager==1){//cliente
+            List<Cliente> clienteList = contribuyenteController.buscarClientesDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchAvailables.Text));
+            fillGridSeleccionarClientes(clienteList);
+        }
+        else if(tipoManager==2){ //proveedor
+            List<Proveedor> proveedoresList = contribuyenteController.buscarProveedoresDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchAvailables.Text));
+            fillGridSeleccionarProveedores(proveedoresList);
+        }
+        modoPagingManager = 2;
+        
+    }
+    protected void btnSearchUnavailables_Click(object sender, EventArgs e)
+    {
+        if (tipoManager == 1)
+        {//cliente
+            List<Cliente> clienteList = contribuyenteController.buscarClientesNoDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchUnavailables.Text));
+            fillGridClientesSeleccionados(clienteList);
+        }
+        else if (tipoManager == 2)
+        { //proveedor
+            List<Proveedor> proveedoresList = contribuyenteController.buscarProveedoresNoDisponibles(currentContribuyente.CedulaContribuyente, utils.procesarStringDeUI(this.txtSearchUnavailables.Text));
+            fillGridProveedoresSeleccionados(proveedoresList);
+        }
+        modoPagingManager = 2;
     }
 }

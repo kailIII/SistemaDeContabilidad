@@ -60,10 +60,10 @@ public partial class Usuarios : System.Web.UI.Page
             foreach (Usuario user in usersDt)
             {
                 Object[] datos = new Object[4];
-                datos[0] = user.Nombre + " " + user.Apellidos;
-                datos[1] = user.Cedula;
-                datos[2] = user.Correo;
-                datos[3] = user.Telefono;
+                datos[0] = utils.procesarStringDeUI(user.Nombre + " " + user.Apellidos);
+                datos[1] = utils.procesarStringDeUI(user.Cedula);
+                datos[2] = utils.procesarStringDeUI(user.Correo);
+                datos[3] = utils.procesarStringDeUI(user.Telefono);
                 auxiliarHeaders.Rows.Add(datos);
             }
         }
@@ -83,14 +83,14 @@ public partial class Usuarios : System.Web.UI.Page
     }
 
     protected void fillFields(Usuario user) {
-        this.txtUserName.Text = user.Nombre;
-        this.txtLastName.Text = user.Apellidos;
-        this.txtCedula.Text = user.Cedula;
-        this.txtEmail.Text = user.Correo;
-        this.txtPass.Text = user.Contrasena;
-        this.txtConfPass.Text = user.Contrasena;
-        this.txtPhone.Text = user.Telefono;
-        this.txtAddress.Text = user.Direccion;    
+        this.txtUserName.Text = utils.procesarStringDeUI(user.Nombre);
+        this.txtLastName.Text = utils.procesarStringDeUI(user.Apellidos);
+        this.txtCedula.Text = utils.procesarStringDeUI(user.Cedula);
+        this.txtEmail.Text = utils.procesarStringDeUI(user.Correo);
+        this.txtPass.Text = utils.procesarStringDeUI(user.Contrasena);
+        this.txtConfPass.Text = utils.procesarStringDeUI(user.Contrasena);
+        this.txtPhone.Text = utils.procesarStringDeUI(user.Telefono);
+        this.txtAddress.Text = utils.procesarStringDeUI(user.Direccion);    
     }
 
     protected void clearFields()
@@ -211,9 +211,9 @@ public partial class Usuarios : System.Web.UI.Page
         Object[] datos = new Object[7];
         datos[0] = utils.procesarStringDeUI(this.txtUserName.Text);
         datos[1] = utils.procesarStringDeUI(this.txtLastName.Text);
-        datos[2] = this.txtCedula.Text;
+        datos[2] = utils.procesarStringDeUI(this.txtCedula.Text);
         datos[3] = utils.procesarStringDeUI(this.txtEmail.Text);
-        datos[4] = this.txtPhone.Text;
+        datos[4] = utils.procesarStringDeUI(this.txtPhone.Text);
         datos[5] = utils.procesarStringDeUI(this.txtPass.Text);
         datos[6] = utils.procesarStringDeUI(this.txtAddress.Text);
         String resultado = "";

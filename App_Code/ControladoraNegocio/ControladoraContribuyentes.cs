@@ -107,6 +107,16 @@ public class ControladoraContribuyentes
         return proveedorController.consultarProveedoresSeleccionados(cedulaContribuyente);
     }
 
+    public List<Proveedor> buscarProveedoresDisponibles(String cedulaContribuyente, String aBuscar)
+    {
+        return proveedorController.buscarProveedoresDisponibles(aBuscar, cedulaContribuyente);
+    }
+
+    public List<Proveedor> buscarProveedoresNoDisponibles(String cedulaContribuyente, String aBuscar)
+    {
+        return proveedorController.buscarProveedoresNoDisponibles(aBuscar, cedulaContribuyente);
+    }
+
     public List<Cliente> consultarSeleccionarClientes(String cedulaContribuyente)
     {
         return customerController.consultarSeleccionarClientes(cedulaContribuyente);
@@ -116,6 +126,18 @@ public class ControladoraContribuyentes
     {
         return customerController.consultarClientesSeleccionados(cedulaContribuyente);
     }
+
+    public List<Cliente> buscarClientesDisponibles(String cedulaContribuyente, String aBuscar)
+    {
+        return customerController.buscarClientesDisponibles(cedulaContribuyente, aBuscar);
+    }
+
+    public List<Cliente> buscarClientesNoDisponibles(String cedulaContribuyente, String aBuscar)
+    {
+        return customerController.buscarClientesNoDisponibles(cedulaContribuyente, aBuscar);
+    }
+
+
 
     public int existenFacturasVentas(String cedulaContribuyente, String cedulaCliente) {
         return fvController.existenFacturas(cedulaContribuyente, cedulaCliente);
