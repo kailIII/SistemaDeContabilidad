@@ -107,7 +107,7 @@ function calcIVI() {
 }
 
 function replaceNumber(stringNumber) {
-    resultado = stringNumber.replace(',', '');
+    resultado = stringNumber.replace(/\,/g, '');
     return Number(resultado);
 }
 
