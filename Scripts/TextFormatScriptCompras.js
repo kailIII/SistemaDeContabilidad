@@ -1,6 +1,6 @@
 ﻿function pageLoad(sender, args) {
     $(function () {
-        $("#MainContent_txtProvCust").autocomplete({
+        $("#MainContent_txtProv").autocomplete({
             source: function (request, response) {
                 var parameters = '{"prefix": "' + request.term + '","cedulaContribuyente": "' + $("#MainContent_hfCedulaContribuyente").val() + '"}';
                 $.ajax({
@@ -24,7 +24,7 @@
                 });
             },
             select: function (e, i) {
-                $("#MainContent_hfCustomerName").val(i.item.val);
+                $("#MainContent_hfProveedorName").val(i.item.val);
             },
             minLength: 1
         });

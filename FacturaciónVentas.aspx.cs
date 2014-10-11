@@ -20,8 +20,6 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         {
             this.lblNameContribuyente.Text = "Nombre del contribuyente: " + Session["NombreContribuyente"].ToString();
             this.hfCedulaContribuyente.Value = Session["CedulaContribuyente"].ToString();
-            this.txtMonth.Text = splitDate(Session["FechaProceso"].ToString(),0);
-            this.txtYear.Text = splitDate(Session["FechaProceso"].ToString(),1);
             utils = new CommonServices(UpdatePopUp);
             if (!Page.IsPostBack)
             {
@@ -44,6 +42,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     protected void updateButton_Click(object sender, EventArgs e)
     {
         modo = 2;
+        this.hfDate.Value = String.Format("{0}/{1}/{2}", this.txtDate.Text, this.txtMonth.Text, this.txtYear.Text);
         enableFields(true);
         this.txtMonth.Enabled = true;
         this.txtYear.Enabled = true;
@@ -116,8 +115,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     }
     protected void insertButton_Click(object sender, EventArgs e)
     {
-        modo = 1;
         clearFields();
+        modo = 1;
         enableFields(true);
         enableButtonsIME(false, false, false);
         enableButtonsAC(true);
@@ -127,7 +126,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void fillFields(FacturaVenta fv)
     {
-        this.txtProvCust.Text = utils.procesarStringDeUI(fvController.retornarNombreCliente(fv.CedulaCliente));
+        this.txtCust.Text = utils.procesarStringDeUI(fvController.retornarNombreCliente(fv.CedulaCliente));
         this.hfCustomerName.Value = utils.procesarStringDeUI(fv.CedulaCliente);
         this.txtInvoiceNumber.Text = utils.procesarStringDeUI(fv.NumeroFactura);
         this.txtDate.Text = utils.procesarStringDeUI(getDayDate(fv.Fecha.ToShortDateString()));
@@ -180,7 +179,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void clearFields()
     {
-        this.txtProvCust.Text = "";
+        modo = -1;
+        this.txtCust.Text = "";
         this.txtInvoiceNumber.Text = "";
         this.txtDate.Text = "";
         this.txtMonth.Text = splitDate(Session["FechaProceso"].ToString(), 0);
@@ -205,7 +205,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
     {
         if (action)
         {
-            this.txtProvCust.Enabled = true;
+            this.txtCust.Enabled = true;
             this.txtInvoiceNumber.Enabled = true;
             this.txtDate.Enabled = true;
             this.drpType.Enabled = true;
@@ -226,7 +226,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         }
         else
         {
-            this.txtProvCust.Enabled = false;
+            this.txtCust.Enabled = false;
             this.txtInvoiceNumber.Enabled = false;
             this.txtDate.Enabled = false;
             this.txtMonth.Enabled = false;

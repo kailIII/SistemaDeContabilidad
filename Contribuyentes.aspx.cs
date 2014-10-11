@@ -32,8 +32,8 @@ public partial class Contribuyentes : System.Web.UI.Page
     }
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
-        modo = 1;
         clearFields();
+        modo = 1;
         enableFields(true);
         enableButtonsME(false, false, false, false);
         enableButtonsAC(true);
@@ -156,6 +156,7 @@ public partial class Contribuyentes : System.Web.UI.Page
 
     protected void clearFields()
     {
+        modo = -1;
         this.txtcodeContribuyente.Text = "";
         this.txtNombreContribuyente.Text = "";
         this.txtCedulaContribuyente.Text = "";

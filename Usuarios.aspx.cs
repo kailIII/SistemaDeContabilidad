@@ -95,6 +95,7 @@ public partial class Usuarios : System.Web.UI.Page
 
     protected void clearFields()
     {
+        modo = -1;
         this.txtUserName.Text = "";
         this.txtLastName.Text = "";
         this.txtCedula.Text = "";
@@ -189,8 +190,8 @@ public partial class Usuarios : System.Web.UI.Page
 
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
-        modo = 1;
         clearFields();
+        modo = 1;
         enableFields(true);
         enableButtonsME(false, false);
         enableButtonsAC(true);

@@ -12,8 +12,10 @@ public partial class _Reportes : System.Web.UI.Page
 {
     reporteDetalladoVentasTableAdapter adapterReporteDetalladoVentas = new reporteDetalladoVentasTableAdapter();
     reporteDetalladoComprasTableAdapter adapterReporteDetalladoCompras = new reporteDetalladoComprasTableAdapter();
+    //private CommonServices utils;
     protected void Page_Load(object sender, EventArgs e)
     {
+        //utils = new CommonServices(UpdateSelectCliente);
         Session["TipoReporte"] = "";
         if (!Session["CedulaContribuyente"].ToString().Equals(""))
         {
@@ -58,6 +60,14 @@ public partial class _Reportes : System.Web.UI.Page
         newItem.Text = "Informe Detallado de Compras";
         newItem.Value = "5";
         drpReportType.Items.Add(newItem);
+        /*newItem = new ListItem();
+        newItem.Text = "Informe Detallado de Ventas para un cliente";
+        newItem.Value = "6";
+        drpReportType.Items.Add(newItem);
+        newItem = new ListItem();
+        newItem.Text = "Informe Detallado de Compras para un proveedor";
+        newItem.Value = "7";
+        drpReportType.Items.Add(newItem);*/
         this.lblMonto.Visible = false;
         this.txtMonto.Visible = false;
         this.txtMonto.Text = "0";
@@ -70,6 +80,12 @@ public partial class _Reportes : System.Web.UI.Page
         {
             fillDetailReport(this.drpReportType.SelectedValue);
         }
+        /*else if(selected==6){
+            utils.abrirPopUp("popUpSelectCliente", "Seleccionar cliente");
+        }
+        else if(selected==7){
+            utils.abrirPopUp("popUpSelectProveedor", "Seleccionar proveedor");
+        }*/
         else {
             Session["FechaDesde"] = this.txtDesde.Text;
             Session["FechaHasta"] = this.txtHasta.Text;
@@ -98,14 +114,27 @@ public partial class _Reportes : System.Web.UI.Page
         DateTime fechaHasta = DateTime.ParseExact(this.txtHasta.Text, "dd/MM/yyyy", CultureInfo.InvariantCulture);
         DataTable dt = new DataTable();
         CustomReports custom = new CustomReports();
+        String pdfName = "";
         if(this.drpReportType.SelectedValue.Equals("4")){
             dt = adapterReporteDetalladoVentas.GetData(fechaDesde, fechaHasta, Session["CedulaContribuyente"].ToString());
-            custom.CreatePDF(Session["NombreContribuyente"].ToString(), this.txtDesde.Text, this.txtHasta.Text, "Informe detallado ventas", dt,4);
+            pdfName = custom.CreatePDF(Session["NombreContribuyente"].ToString(), this.txtDesde.Text, this.txtHasta.Text, "Informe detallado ventas", dt, 4);
         }
         else if (this.drpReportType.SelectedValue.Equals("5"))
         {
             dt = adapterReporteDetalladoCompras.GetData(fechaDesde, fechaHasta, Session["CedulaContribuyente"].ToString());
-            custom.CreatePDF(Session["NombreContribuyente"].ToString(), this.txtDesde.Text, this.txtHasta.Text, "Informe detallado compras", dt,5);
-        }      
+            pdfName = custom.CreatePDF(Session["NombreContribuyente"].ToString(), this.txtDesde.Text, this.txtHasta.Text, "Informe detallado compras", dt, 5);
+        }
+        Response.Clear();
+        Response.ContentType = "application/pdf";
+        Response.AppendHeader("Content-Disposition", "attachment; filename=Reporte.pdf");
+        Response.TransmitFile(System.Web.Hosting.HostingEnvironment.MapPath("~/PDFs/"+pdfName));
     }
+    /*protected void btnAceptarCliente_Click(object sender, EventArgs e)
+    {
+        utils.cerrarPopUp("popUpSelectCliente");
+    }
+    protected void btnAceptarProveedor_Click(object sender, EventArgs e)
+    {
+        utils.cerrarPopUp("popUpSelectProveedor");
+    }*/
 }

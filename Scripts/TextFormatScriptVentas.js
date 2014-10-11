@@ -1,6 +1,6 @@
 ﻿function pageLoad(sender, args) {
     $(function () {
-        $("#MainContent_txtProvCust").autocomplete({
+        $("#MainContent_txtCust").autocomplete({
             source: function (request, response) {
                 var parameters = '{"prefix": "' + request.term + '","cedulaContribuyente": "' + $("#MainContent_hfCedulaContribuyente").val() + '"}';
                 $.ajax({

@@ -28,8 +28,8 @@ public partial class Clientes : System.Web.UI.Page
 
     protected void btnInsertar_Click(object sender, EventArgs e)
     {
-        modo = 1;
         clearFields();
+        modo = 1;
         enableFields(true);
         enableButtonsME(false, false);
         enableButtonsAC(true);
@@ -213,6 +213,7 @@ public partial class Clientes : System.Web.UI.Page
     }
 
     protected void clearFields() {
+        modo = -1;
         this.txtCustomerName.Text = "";
         this.txtCedula.Text = "";
         this.txtCodeCiente.Text = "";

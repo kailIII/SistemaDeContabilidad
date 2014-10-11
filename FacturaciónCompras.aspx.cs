@@ -19,8 +19,6 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         {
             this.lblNameContribuyente.Text = "Nombre del contribuyente: " + Session["NombreContribuyente"].ToString();
             this.hfCedulaContribuyente.Value = Session["CedulaContribuyente"].ToString();
-            this.txtMonth.Text = splitDate(Session["FechaProceso"].ToString(), 0);
-            this.txtYear.Text = splitDate(Session["FechaProceso"].ToString(), 1);
             utils = new CommonServices(UpdatePopUp);
             if (!Page.IsPostBack)
             {
@@ -44,6 +42,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
     protected void updateButton_Click(object sender, EventArgs e)
     {
         modo = 2;
+        this.hfDate.Value = String.Format("{0}/{1}/{2}",this.txtDate.Text,this.txtMonth.Text,this.txtYear.Text);
         enableFields(true);
         this.txtMonth.Enabled = true;
         this.txtYear.Enabled = true;
@@ -61,7 +60,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         Object[] datos = new Object[18];
         datos[0] = utils.procesarStringDeUI(this.txtInvoiceNumber.Text);
         datos[1] = utils.procesarStringDeUI(this.hfCedulaContribuyente.Value);
-        datos[2] = utils.procesarStringDeUI(this.hfCustomerName.Value.ToString());
+        datos[2] = utils.procesarStringDeUI(this.hfProveedorName.Value.ToString());
         datos[3] = utils.procesarStringDeUI(this.hfDate.Value);
         datos[4] = utils.procesarStringDeUI(this.drpType.SelectedItem.Value);
         datos[5] = utils.procesarStringDeUI(this.txtTerm.Text);
@@ -121,8 +120,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
 
     protected void insertButton_Click(object sender, EventArgs e)
     {
-        modo = 1;
         clearFields();
+        modo = 1;
         enableFields(true);
         enableButtonsIME(false, false, false);
         enableButtonsAC(true);
@@ -132,8 +131,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
 
     protected void fillFields(FacturaCompra fc)
     {
-        this.txtProvCust.Text = utils.procesarStringDeUI(fcController.retornarNombreProveedor(fc.CedulaProveedor));
-        this.hfCustomerName.Value = utils.procesarStringDeUI(fc.CedulaProveedor);
+        this.txtProv.Text = utils.procesarStringDeUI(fcController.retornarNombreProveedor(fc.CedulaProveedor));
+        this.hfProveedorName.Value = utils.procesarStringDeUI(fc.CedulaProveedor);
         this.txtInvoiceNumber.Text = utils.procesarStringDeUI(fc.NumeroFactura);
         this.txtDate.Text = utils.procesarStringDeUI(getDayDate(fc.Fecha.ToShortDateString()));
         this.txtMonth.Text = utils.procesarStringDeUI(getMonthDate(fc.Fecha.ToShortDateString()));
@@ -184,7 +183,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
 
     protected void clearFields()
     {
-        this.txtProvCust.Text = "";
+        modo = -1;
+        this.txtProv.Text = "";
         this.txtInvoiceNumber.Text = "";
         this.txtDate.Text = "";
         this.drpType.SelectedIndex = 0;
@@ -209,7 +209,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
     {
         if (action)
         {
-            this.txtProvCust.Enabled = true;
+            this.txtProv.Enabled = true;
             this.txtInvoiceNumber.Enabled = true;
             this.txtDate.Enabled = true;
             this.drpType.Enabled = true;
@@ -230,7 +230,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         }
         else
         {
-            this.txtProvCust.Enabled = false;
+            this.txtProv.Enabled = false;
             this.txtInvoiceNumber.Enabled = false;
             this.txtDate.Enabled = false;
             this.txtMonth.Enabled = false;

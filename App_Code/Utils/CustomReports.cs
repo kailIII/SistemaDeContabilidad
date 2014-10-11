@@ -12,11 +12,13 @@ using System.Web;
 using System.Web.UI;
 public class CustomReports
 {
-    public void CreatePDF(String NombreContribuyente, String FechaInicio, String FechaFinal, String TipoInforme, DataTable dataTable, int tipoReporte)
+    public String CreatePDF(String NombreContribuyente, String FechaInicio, String FechaFinal, String TipoInforme, DataTable dataTable, int tipoReporte)
     {
+        DateTime dt = DateTime.Now;
         Document doc = new Document(iTextSharp.text.PageSize.A4.Rotate());
+        String namePDF = "Reporte" + String.Format("{0}{1}{2}", dt.Minute,dt.Second,dt.Millisecond) + ".pdf";
         System.IO.FileStream file =
-            new System.IO.FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~/PDFs/Reporte") + ".pdf",
+            new System.IO.FileStream(System.Web.Hosting.HostingEnvironment.MapPath("~/PDFs/") + namePDF,
             System.IO.FileMode.OpenOrCreate);
         PdfWriter writer = PdfWriter.GetInstance(doc, file);
         // calling PDFFooter class to Include in document
@@ -60,14 +62,14 @@ public class CustomReports
 
         PdfPTable currentCliente = new PdfPTable(10);
 
-        double[] arrayTotales = new double[8];
+        float[] arrayTotales = new float[8];
 
         foreach (var key in grouped)
         {
-            double [] arraySubtotales = new double[8];
+            float [] arraySubtotales = new float[8];
 
             PdfPCell cellAuxiliar = new PdfPCell(new Phrase(String.Format("{0} - {1}", key.Value.nombreCliente.ToString(), key.Value.cedulaCliente.ToString()),
-                    new Font(Font.FontFamily.HELVETICA, 12F, Font.BOLD)));
+                    new Font(Font.FontFamily.HELVETICA, 10F, Font.BOLD)));
             cellAuxiliar.Colspan = 10;
             cellAuxiliar.Border = Rectangle.NO_BORDER;
             currentCliente.AddCell(cellAuxiliar);
@@ -80,7 +82,6 @@ public class CustomReports
                                     new PdfPCell(GetCellBold("Descuento")),
                                     new PdfPCell(GetCellBold("I.V")),
                                     new PdfPCell(GetCellBold("Subtotal")),
-                                    //new PdfPCell(GetCellBold("Flete")),
                                     new PdfPCell(GetCellBold("Total"))                
                 };
             PdfPRow rowTitles = new PdfPRow(titles);
@@ -89,26 +90,35 @@ public class CustomReports
             foreach (var columnValue in key.ColumnValues)
             {
                 CultureInfo culture = new CultureInfo("en-US");
-                //String a = columnValue["MontoExento"].ToString();
-                arraySubtotales[0] += Convert.ToDouble(columnValue["MontoExento"].ToString(), culture);
-                arraySubtotales[1] += Convert.ToDouble(columnValue["DescuentoExento"].ToString(), culture);
-                arraySubtotales[2] += Convert.ToDouble(columnValue["SubtotalExento"].ToString(), culture);
-                arraySubtotales[3] += Convert.ToDouble(columnValue["MontoGravado"].ToString(), culture);
-                arraySubtotales[4] += Convert.ToDouble(columnValue["DescuentoGravado"].ToString(), culture);
-                arraySubtotales[5] += Convert.ToDouble(columnValue["ImpuestoVenta"].ToString(), culture);
-                arraySubtotales[6] += Convert.ToDouble(columnValue["SubtotalGravado"].ToString(), culture);
-                arraySubtotales[7] += Convert.ToDouble(columnValue["TotalFactura"].ToString(), culture);
+
+                float montoExento = float.Parse(replaceDotComa(columnValue["MontoExento"].ToString()), culture.NumberFormat);
+                float descuentoExento = float.Parse(replaceDotComa(columnValue["DescuentoExento"].ToString()), culture.NumberFormat);
+                float subtotalExento = float.Parse(replaceDotComa(columnValue["SubtotalExento"].ToString()), culture.NumberFormat);
+                float montoGravado = float.Parse(replaceDotComa(columnValue["MontoGravado"].ToString()), culture.NumberFormat);
+                float descuentoGravado = float.Parse(replaceDotComa(columnValue["DescuentoGravado"].ToString()), culture.NumberFormat);
+                float impuestoVenta = float.Parse(replaceDotComa(columnValue["ImpuestoVenta"].ToString()), culture.NumberFormat);
+                float subtotalGravado = float.Parse(replaceDotComa(columnValue["SubtotalGravado"].ToString()), culture.NumberFormat);
+                float totalFactura = float.Parse(replaceDotComa(columnValue["TotalFactura"].ToString()), culture.NumberFormat);
+
+                arraySubtotales[0] += montoExento;
+                arraySubtotales[1] += descuentoExento;
+                arraySubtotales[2] += subtotalExento;
+                arraySubtotales[3] += montoGravado;
+                arraySubtotales[4] += descuentoGravado;
+                arraySubtotales[5] += impuestoVenta;
+                arraySubtotales[6] += subtotalGravado;
+                arraySubtotales[7] += totalFactura;
                 PdfPCell[] cells = new PdfPCell[] { new PdfPCell(GetCell(columnValue["NumeroFactura"].ToString())),
                                     new PdfPCell(GetCell(columnValue["Fecha"].ToString().Substring(0, 10))),
-                                    new PdfPCell(GetCell(columnValue["MontoExento"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["DescuentoExento"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["SubtotalExento"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["MontoGravado"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["DescuentoGravado"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["ImpuestoVenta"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["SubtotalGravado"].ToString())),
+                                    new PdfPCell(GetCell(montoExento.ToString("0,0.00", new CultureInfo("en-US")))),
+                                    new PdfPCell(GetCell(descuentoExento.ToString("0,0.00", new CultureInfo("en-US")))),
+                                    new PdfPCell(GetCell(subtotalExento.ToString("0,0.00", new CultureInfo("en-US")))),
+                                    new PdfPCell(GetCell(montoGravado.ToString("0,0.00", new CultureInfo("en-US")))),
+                                    new PdfPCell(GetCell(descuentoGravado.ToString("0,0.00", new CultureInfo("en-US")))),
+                                    new PdfPCell(GetCell(impuestoVenta.ToString("0,0.00", new CultureInfo("en-US")))),
+                                    new PdfPCell(GetCell(subtotalGravado.ToString("0,0.00", new CultureInfo("en-US")))),
                                     //new PdfPCell(GetCell(columnValue["Flete"].ToString())),
-                                    new PdfPCell(GetCell(columnValue["TotalFactura"].ToString()))
+                                    new PdfPCell(GetCell(totalFactura.ToString("0,0.00", new CultureInfo("en-US"))))
                 
                 };
                 PdfPRow row = new PdfPRow(cells);
@@ -170,26 +180,33 @@ public class CustomReports
         doc.Add(tab);
         doc.Close();
         file.Close();
+
+        return namePDF;
         
-        //Response.Clear();
-        //Response.ContentType = "application/pdf";
-        //Response.AppendHeader("Content-Disposition", "attachment; filename=buylist.pdf");
-        //Response.TransmitFile(System.Web.Hosting.HostingEnvironment.MapPath("~/PDFs/Reporte.pdf"));
     }
 
     public PdfPCell GetCell(String text) {
         PdfPCell cellAuxiliar = new PdfPCell(new Phrase(text,
-                new Font(Font.FontFamily.HELVETICA, 12F)));
+                new Font(Font.FontFamily.HELVETICA, 11F)));
         cellAuxiliar.Border = Rectangle.NO_BORDER;
+        cellAuxiliar.HorizontalAlignment = Element.ALIGN_RIGHT;
         return cellAuxiliar;
     }
 
     public PdfPCell GetCellBold(String text)
     {
         PdfPCell cellAuxiliar = new PdfPCell(new Phrase(text,
-                new Font(Font.FontFamily.HELVETICA, 12F,Font.BOLD)));
+                new Font(Font.FontFamily.HELVETICA, 11F,Font.BOLD)));
         cellAuxiliar.Border = Rectangle.NO_BORDER;
+        cellAuxiliar.HorizontalAlignment = Element.ALIGN_RIGHT;
         return cellAuxiliar;
+    }
+
+    public String replaceDotComa(String monto)
+    {
+        String resultado = "";
+        resultado = monto.Replace(",", ".");
+        return resultado;
     }
 
 }

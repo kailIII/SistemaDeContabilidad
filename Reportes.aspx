@@ -3,15 +3,9 @@
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
     <script src="Scripts/jquery.maskedinput.min.js"></script>
-    <script type="text/javascript">
-        function pageLoad(sender, args) {
-            $(function () {
-                jQuery(document).ready(function ($) {
-                    $(".dateField").mask("99/99/9999");
-                });
-            });
-        }
-    </script>
+    <script src="Scripts/Reportes.js"></script>
+    <script src="Scripts/TextFormatScriptCompras.js"></script>
+    <script src="Scripts/TextFormatScriptVentas.js"></script>
    
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -52,4 +46,5 @@
         <asp:Button ID="generateReport" runat="server" Text="Generar reporte" CssClass="ui-widget ui-state-default systemButton" OnClick="generateReport_Click" CausesValidation="true"/>
 
     </div>
+
 </asp:Content>

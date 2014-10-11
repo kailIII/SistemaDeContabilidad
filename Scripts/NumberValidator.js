@@ -3,7 +3,7 @@
         e.preventDefault();
     }
     if(e.keyCode == 9){
-        blurFunction(txtBox);
+        //blurFunction(txtBox);
     }
     var evt = (e) ? e : window.event;
     var key = (evt.keyCode) ? evt.keyCode : evt.which;
@@ -46,7 +46,7 @@ function jsIsUserFriendlyChar(val, step) {
 function blurFunction(txtBox) {
     $(txtBox).val($.number($(txtBox).val(), 2));
     if ($(txtBox).attr("id") == "MainContent_txtTotal") {
-        totalExento = (replaceNumber($("#MainContent_txtTotal").val()) - replaceNumber($("#MainContent_txtSubTaxed").val()));
+        totalExento = (replaceNumber($("#MainContent_txtTotal").val()) - replaceNumber($("#MainContent_txtSubTaxed").val()) - replaceNumber($("#MainContent_txtFlete").val()));
         $("#MainContent_txtSubExempt").val($.number(totalExento, 2));
         montoExentoDesc = (replaceNumber($("#MainContent_txtSubExempt").val()) + replaceNumber($("#MainContent_txtDesExempt").val()));
         $("#MainContent_txtMontoExempt").val($.number(montoExentoDesc, 2));
@@ -59,7 +59,7 @@ function blurFunction(txtBox) {
 }
 
 function calcTotal() {
-    total = (replaceNumber($("#MainContent_txtSubExempt").val()) + replaceNumber($("#MainContent_txtSubTaxed").val()));
+    total = (replaceNumber($("#MainContent_txtSubExempt").val()) + replaceNumber($("#MainContent_txtSubTaxed").val()) + replaceNumber($("#MainContent_txtFlete").val()));
     $("#MainContent_txtTotal").val($.number(total, 2));
 }
 

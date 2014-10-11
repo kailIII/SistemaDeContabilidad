@@ -38,7 +38,7 @@
 
                         <div id="fieldProvCust" class="singleFieldContainer">
                             <asp:Label ID="lblProvCust" runat="server" Text="Cliente:" CssClass="lblContainer"></asp:Label>
-                            <asp:TextBox ID="txtProvCust" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
+                            <asp:TextBox ID="txtCust" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
                             <asp:HiddenField ID="hfCustomerName" runat="server" />
                         </div>
 
@@ -84,57 +84,57 @@
 
                     <div id="montoExempt" class="txtInvoice">
                         <asp:Label ID="lblMontoExempt" runat="server" Text="Monto exento:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtMontoExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtMontoExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="porDescExempt" class="txtInvoice">
                         <asp:Label ID="lblPorDescExempt" runat="server" Text="Porcentaje descuento:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtPorDescExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtPorDescExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="desExempt" class="txtInvoice">
                         <asp:Label ID="lblDesExempt" runat="server" Text="Descuento exento:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtDesExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtDesExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="subExempt" class="txtInvoice">
                         <asp:Label ID="lblSubExempt" runat="server" Text="Subtotal exento:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtSubExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtSubExempt" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="montoTaxed" class="txtInvoice">
                         <asp:Label ID="lblMontoTaxed" runat="server" Text="Monto gravado:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtMontoTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtMontoTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="porDescTaxed" class="txtInvoice">
                         <asp:Label ID="lblPorDescTaxed" runat="server" Text="Porcentaje gravado:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtPorDescTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtPorDescTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="desTaxed" class="txtInvoice">
                         <asp:Label ID="lblDesTaxed" runat="server" Text="Descuento gravado:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtDesTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtDesTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="fieldIV" class="txtInvoice">
                         <asp:Label ID="lblIV" runat="server" Text="Impuesto de Venta:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtIV" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtIV" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="subTaxed" class="fieldContainer txtInvoice">
                         <asp:Label ID="lblSubTaxed" runat="server" Text="Subtotal gravado:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtSubTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtSubTaxed" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="fieldFlete" class="txtInvoice">
                         <asp:Label ID="lblFlete" runat="server" Text="Flete:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtFlete" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtFlete" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="fieldTotal" class="txtInvoice">
                         <asp:Label ID="lblTotal" runat="server" Text="Total:" CssClass="lblContainer"></asp:Label>
-                        <asp:TextBox ID="txtTotal" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" AutoPostBack="false"></asp:TextBox>
+                        <asp:TextBox ID="txtTotal" runat="server" CssClass="txtContainer" onkeydown="return jsDecimals(event, this);" onblur="blurFunction(this)" AutoPostBack="false"></asp:TextBox>
                     </div>
 
                     <div id="fieldCalcIVI" class="txtInvoice">
