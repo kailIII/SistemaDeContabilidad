@@ -83,7 +83,7 @@ public class CommonServices
         return año;
     }
 
-    public String montoToString(float number)
+    public String montoToString(Double number)
     {
         String resultado = "";
         String prueba = number.ToString();

@@ -29,7 +29,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
                 enableButtonsIME(true, false, false); //Check it
                 enableButtonsAC(false);
                 modoPaging = 1;
-                fillGrid(fvController.consultarTodasFacturasVentas(this.hfCedulaContribuyente.Value.ToString()));
+                //fillGrid(fvController.consultarTodasFacturasVentas(this.hfCedulaContribuyente.Value.ToString()));
+                fillEmptyGrid();
                 fillDrpType();
             }
         }
@@ -101,9 +102,9 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             enableButtonsAC(false);
             enableButtonsIME(true, true, true);
             modoPaging = 1;
-            fillGrid(fvController.consultarTodasFacturasVentas(this.hfCedulaContribuyente.Value.ToString()));
+            //fillGrid(fvController.consultarTodasFacturasVentas(this.hfCedulaContribuyente.Value.ToString()));
+            fillEmptyGrid();
         }
-        //utils.abrirPopUpPersonalizado("popUpMensaje", "Cliente seleccionado", "Cliente: " + this.txtProvCust.Text.ToString() + " con Id: " + this.hfCustomerName.Value.ToString());
     }
     protected void btnCancelar_Click(object sender, EventArgs e)
     {
@@ -276,7 +277,7 @@ public partial class FacturaciónVentas : System.Web.UI.Page
         this.GridViewFacturaVentas.PageIndex = e.NewPageIndex;
         if (modoPaging == 1)
         {
-            fillGrid(fvController.consultarTodasFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value.ToString())));
+            //fillGrid(fvController.consultarTodasFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value.ToString())));
         }
         else
         {
@@ -339,6 +340,20 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     }
 
+    protected void fillEmptyGrid() {
+        DataTable auxiliarHeaders = createHeaders();
+        this.GridViewFacturaVentas.Columns[0].Visible = false;
+        Object[] datos = new Object[3];
+        datos[0] = "-";
+        datos[1] = "-";
+        datos[2] = "-";
+        auxiliarHeaders.Rows.Add(datos);
+        this.GridViewFacturaVentas.DataSource = auxiliarHeaders;
+        this.GridViewFacturaVentas.DataBind();
+        this.GridViewFacturaVentas.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
+        this.GridViewFacturaVentas.HeaderRow.ForeColor = System.Drawing.Color.White;
+    }
+
     protected void fillGrid(List<FacturaVenta> fvDt)
     {
         DataTable auxiliarHeaders = createHeaders();
@@ -377,7 +392,8 @@ public partial class FacturaciónVentas : System.Web.UI.Page
             currentFV = new FacturaVenta(); //limpio
             clearFields();
             modoPaging = 1;
-            fillGrid(fvController.consultarTodasFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value.ToString())));
+            //fillGrid(fvController.consultarTodasFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value.ToString())));
+            fillEmptyGrid();
             utils.cerrarPopUp("popUpDeleteFacturaVenta");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Facturación Ventas", resultado);
         }
@@ -394,9 +410,14 @@ public partial class FacturaciónVentas : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        List<FacturaVenta> fvList = fvController.buscarFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value), utils.procesarStringDeUI(this.txtSearch.Text.ToString()));
-        modoPaging = 2;
-        fillGrid(fvList);
+        if(String.IsNullOrWhiteSpace(this.txtSearch.Text.ToString())){
+            fillEmptyGrid();
+        }
+        else{
+            List<FacturaVenta> fvList = fvController.buscarFacturasVentas(utils.procesarStringDeUI(this.hfCedulaContribuyente.Value), utils.procesarStringDeUI(this.txtSearch.Text.ToString()));
+            modoPaging = 2;
+            fillGrid(fvList);
+        }
     }
     protected void btnCalcIVI_Click(object sender, EventArgs e)
     {

@@ -45,6 +45,7 @@
                         <div id="fieldInvoiceNumber" class="singleFieldContainer">
                             <asp:Label ID="lblInvoiceNumber" runat="server" Text="Número de factura:" CssClass="lblContainer"></asp:Label>
                             <asp:TextBox ID="txtInvoiceNumber" runat="server" CssClass="txtContainer" onkeydown = "enterPreventDefault(event);"></asp:TextBox>
+                            <asp:RequiredFieldValidator ControlToValidate="txtInvoiceNumber" CssClass="error" ID="RequiredFieldValidatorNombre" runat="server" ErrorMessage="* Número de factura requerido"  ForeColor="#FF3300" Display="Dynamic" font-size="Small" Font-Bold="true" ></asp:RequiredFieldValidator>
                         </div>
 
                     </div>

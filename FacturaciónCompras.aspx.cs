@@ -29,7 +29,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
                 enableButtonsIME(true, false, false); //Check it
                 enableButtonsAC(false);
                 modoPaging = 1;
-                fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
+                fillEmptyGrid();
+                //fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
             }
         }
         else
@@ -103,7 +104,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             enableButtonsAC(false);
             enableButtonsIME(true, true, true);
             modoPaging = 1;
-            fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
+            fillEmptyGrid();
+            //fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
         }
         
     }
@@ -280,7 +282,7 @@ public partial class FacturaciónCompras : System.Web.UI.Page
         this.GridViewFacturaCompras.PageIndex = e.NewPageIndex;
         if (modoPaging == 1)
         {
-            fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
+            //fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
         }
         else
         {
@@ -345,6 +347,22 @@ public partial class FacturaciónCompras : System.Web.UI.Page
 
     }
 
+    protected void fillEmptyGrid()
+    {
+        DataTable auxiliarHeaders = createHeaders();
+        this.GridViewFacturaCompras.Columns[0].Visible = false;
+        Object[] datos = new Object[3];
+        datos[0] = "-";
+        datos[1] = "-";
+        datos[2] = "-";
+        auxiliarHeaders.Rows.Add(datos);
+        this.GridViewFacturaCompras.DataSource = auxiliarHeaders;
+        this.GridViewFacturaCompras.DataBind();
+        this.GridViewFacturaCompras.HeaderRow.BackColor = System.Drawing.Color.FromArgb(utils.headerColor);
+        this.GridViewFacturaCompras.HeaderRow.ForeColor = System.Drawing.Color.White;
+    }
+
+
     protected void fillGrid(List<FacturaCompra> fcDt)
     {
         DataTable auxiliarHeaders = createHeaders();
@@ -383,7 +401,8 @@ public partial class FacturaciónCompras : System.Web.UI.Page
             currentFC = new FacturaCompra(); //limpio
             clearFields();
             modoPaging = 1;
-            fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
+            //fillGrid(fcController.consultarTodasFacturasCompras(this.hfCedulaContribuyente.Value.ToString()));
+            fillEmptyGrid();
             utils.cerrarPopUp("popUpDeleteFacturaCompra");
             utils.abrirPopUpPersonalizado("popUpMensaje", "Facturación Compras", resultado);
         }
@@ -400,9 +419,15 @@ public partial class FacturaciónCompras : System.Web.UI.Page
 
     protected void btnSearch_Click(object sender, EventArgs e)
     {
-        List<FacturaCompra> fcList = fcController.buscarFacturasCompras(this.hfCedulaContribuyente.Value, this.txtSearch.Text.ToString());
-        modoPaging = 2;
-        fillGrid(fcList);
+        if (String.IsNullOrWhiteSpace(this.txtSearch.Text.ToString()))
+        {
+            fillEmptyGrid();
+        }
+        else {
+            List<FacturaCompra> fcList = fcController.buscarFacturasCompras(this.hfCedulaContribuyente.Value, this.txtSearch.Text.ToString());
+            modoPaging = 2;
+            fillGrid(fcList);
+        }
     }
 
 

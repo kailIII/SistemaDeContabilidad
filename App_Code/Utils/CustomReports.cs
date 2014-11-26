@@ -62,11 +62,11 @@ public class CustomReports
 
         PdfPTable currentCliente = new PdfPTable(10);
 
-        float[] arrayTotales = new float[8];
+        Double[] arrayTotales = new Double[8];
 
         foreach (var key in grouped)
         {
-            float [] arraySubtotales = new float[8];
+            Double [] arraySubtotales = new Double[8];
 
             PdfPCell cellAuxiliar = new PdfPCell(new Phrase(String.Format("{0} - {1}", key.Value.nombreCliente.ToString(), key.Value.cedulaCliente.ToString()),
                     new Font(Font.FontFamily.HELVETICA, 10F, Font.BOLD)));
@@ -89,16 +89,14 @@ public class CustomReports
 
             foreach (var columnValue in key.ColumnValues)
             {
-                CultureInfo culture = new CultureInfo("en-US");
-
-                float montoExento = float.Parse(replaceDotComa(columnValue["MontoExento"].ToString()), culture.NumberFormat);
-                float descuentoExento = float.Parse(replaceDotComa(columnValue["DescuentoExento"].ToString()), culture.NumberFormat);
-                float subtotalExento = float.Parse(replaceDotComa(columnValue["SubtotalExento"].ToString()), culture.NumberFormat);
-                float montoGravado = float.Parse(replaceDotComa(columnValue["MontoGravado"].ToString()), culture.NumberFormat);
-                float descuentoGravado = float.Parse(replaceDotComa(columnValue["DescuentoGravado"].ToString()), culture.NumberFormat);
-                float impuestoVenta = float.Parse(replaceDotComa(columnValue["ImpuestoVenta"].ToString()), culture.NumberFormat);
-                float subtotalGravado = float.Parse(replaceDotComa(columnValue["SubtotalGravado"].ToString()), culture.NumberFormat);
-                float totalFactura = float.Parse(replaceDotComa(columnValue["TotalFactura"].ToString()), culture.NumberFormat);
+                Double montoExento = Convert.ToDouble(replaceDotComa(columnValue["MontoExento"].ToString()), CultureInfo.InvariantCulture);
+                Double descuentoExento = Convert.ToDouble(replaceDotComa(columnValue["DescuentoExento"].ToString()), CultureInfo.InvariantCulture);
+                Double subtotalExento = Convert.ToDouble(replaceDotComa(columnValue["SubtotalExento"].ToString()), CultureInfo.InvariantCulture);
+                Double montoGravado = Convert.ToDouble(replaceDotComa(columnValue["MontoGravado"].ToString()), CultureInfo.InvariantCulture);
+                Double descuentoGravado = Convert.ToDouble(replaceDotComa(columnValue["DescuentoGravado"].ToString()), CultureInfo.InvariantCulture);
+                Double impuestoVenta = Convert.ToDouble(replaceDotComa(columnValue["ImpuestoVenta"].ToString()), CultureInfo.InvariantCulture);
+                Double subtotalGravado = Convert.ToDouble(replaceDotComa(columnValue["SubtotalGravado"].ToString()), CultureInfo.InvariantCulture);
+                Double totalFactura = Convert.ToDouble(replaceDotComa(columnValue["TotalFactura"].ToString()), CultureInfo.InvariantCulture);
 
                 arraySubtotales[0] += montoExento;
                 arraySubtotales[1] += descuentoExento;

@@ -58,81 +58,81 @@ public class FacturaVenta
         get { return _vencimiento; }
         set { _vencimiento = value; }
     }
-    private float _montoExento;
+    private Double _montoExento;
 
-    public float MontoExento
+    public Double MontoExento
     {
         get { return _montoExento; }
         set { _montoExento = value; }
     }
-    private float _porcentajeDescuentoExento;
+    private Double _porcentajeDescuentoExento;
 
-    public float PorcentajeDescuentoExento
+    public Double PorcentajeDescuentoExento
     {
         get { return _porcentajeDescuentoExento; }
         set { _porcentajeDescuentoExento = value; }
     }
-    private float _descuentoExento;
+    private Double _descuentoExento;
 
-    public float DescuentoExento
+    public Double DescuentoExento
     {
         get { return _descuentoExento; }
         set { _descuentoExento = value; }
     }
-    private float _subtotalExento;
+    private Double _subtotalExento;
 
-    public float SubtotalExento
+    public Double SubtotalExento
     {
         get { return _subtotalExento; }
         set { _subtotalExento = value; }
     }
-    private float _montoGravado;
+    private Double _montoGravado;
 
-    public float MontoGravado
+    public Double MontoGravado
     {
         get { return _montoGravado; }
         set { _montoGravado = value; }
     }
-    private float _porcentajeDescuentoGravado;
+    private Double _porcentajeDescuentoGravado;
 
-    public float PorcentajeDescuentoGravado
+    public Double PorcentajeDescuentoGravado
     {
         get { return _porcentajeDescuentoGravado; }
         set { _porcentajeDescuentoGravado = value; }
     }
-    private float _descuentoGravado;
+    private Double _descuentoGravado;
 
-    public float DescuentoGravado
+    public Double DescuentoGravado
     {
         get { return _descuentoGravado; }
         set { _descuentoGravado = value; }
     }
-    private float _subtotalGravado;
+    private Double _subtotalGravado;
 
-    public float SubtotalGravado
+    public Double SubtotalGravado
     {
         get { return _subtotalGravado; }
         set { _subtotalGravado = value; }
     }
 
-    private float _impuestoVenta;
+    private Double _impuestoVenta;
 
-    public float ImpuestoVenta
+    public Double ImpuestoVenta
     {
         get { return _impuestoVenta; }
         set { _impuestoVenta = value; }
     }
 
-    private float _flete;
+    private Double _flete;
 
-    public float Flete
+    public Double Flete
     {
         get { return _flete; }
         set { _flete = value; }
     }
-    private float _totalFactura;
+    private Double _totalFactura;
 
-    public float TotalFactura
+    public Double TotalFactura
     {
         get { return _totalFactura; }
         set { _totalFactura = value; }
@@ -144,7 +144,6 @@ public class FacturaVenta
 
 	public FacturaVenta(Object [] datos)
 	{
-        CultureInfo culture = new CultureInfo("en-US");
         string[] formatsDate = { "dd/MM/yyyy hh:mm:ss tt", "dd/MM/yyyy"};
         this._numeroFactura = datos[0].ToString();
         this._cedulaContribuyente = datos[1].ToString();
@@ -153,17 +152,17 @@ public class FacturaVenta
         this._tipoFactura = Convert.ToInt32(datos[4].ToString());
         this._plazo = Convert.ToInt32(datos[5].ToString());
         this._vencimiento = DateTime.ParseExact(replaceDate(datos[6].ToString()), formatsDate, CultureInfo.InvariantCulture, DateTimeStyles.None);
-        this._montoExento = float.Parse(replaceDotComa(datos[7].ToString()), culture.NumberFormat);
-        this._porcentajeDescuentoExento = float.Parse(replaceDotComa(datos[8].ToString()), culture.NumberFormat);
-        this._descuentoExento = float.Parse(replaceDotComa(datos[9].ToString()), culture.NumberFormat);
-        this._subtotalExento = float.Parse(replaceDotComa(datos[10].ToString()), culture.NumberFormat);
-        this._montoGravado = float.Parse(replaceDotComa(datos[11].ToString()), culture.NumberFormat);
-        this._porcentajeDescuentoGravado = float.Parse(replaceDotComa(datos[12].ToString()), culture.NumberFormat);
-        this._descuentoGravado = float.Parse(replaceDotComa(datos[13].ToString()), culture.NumberFormat);
-        this._subtotalGravado = float.Parse(replaceDotComa(datos[14].ToString()), culture.NumberFormat);
-        this._impuestoVenta = float.Parse(replaceDotComa(datos[15].ToString()), culture.NumberFormat);
-        this._flete = float.Parse(replaceDotComa(datos[16].ToString()), culture.NumberFormat);
-        this._totalFactura = float.Parse(replaceDotComa(datos[17].ToString()), culture.NumberFormat);
+        this._montoExento = Convert.ToDouble(replaceDotComa(datos[7].ToString()), CultureInfo.InvariantCulture);
+        this._porcentajeDescuentoExento = Convert.ToDouble(replaceDotComa(datos[8].ToString()), CultureInfo.InvariantCulture);
+        this._descuentoExento = Convert.ToDouble(replaceDotComa(datos[9].ToString()), CultureInfo.InvariantCulture);
+        this._subtotalExento = Convert.ToDouble(replaceDotComa(datos[10].ToString()), CultureInfo.InvariantCulture);
+        this._montoGravado = Convert.ToDouble(replaceDotComa(datos[11].ToString()), CultureInfo.InvariantCulture);
+        this._porcentajeDescuentoGravado = Convert.ToDouble(replaceDotComa(datos[12].ToString()), CultureInfo.InvariantCulture);
+        this._descuentoGravado = Convert.ToDouble(replaceDotComa(datos[13].ToString()), CultureInfo.InvariantCulture);
+        this._subtotalGravado = Convert.ToDouble(replaceDotComa(datos[14].ToString()), CultureInfo.InvariantCulture);
+        this._impuestoVenta = Convert.ToDouble(replaceDotComa(datos[15].ToString()), CultureInfo.InvariantCulture);
+        this._flete = Convert.ToDouble(replaceDotComa(datos[16].ToString()), CultureInfo.InvariantCulture);
+        this._totalFactura = Convert.ToDouble(replaceDotComa(datos[17].ToString()), CultureInfo.InvariantCulture);
 	}
 
     public String replaceDotComa(String monto)
